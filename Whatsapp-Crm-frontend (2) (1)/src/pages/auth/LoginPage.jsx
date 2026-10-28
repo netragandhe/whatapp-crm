@@ -194,7 +194,7 @@ const LoginPage = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
                     {/* Brand Logo */}
                     <Link to="/" className="flex items-center gap-3 group">
-                        <div className="w-16 h-11 flex items-center justify-center group-hover:scale-105 transition-transform">
+                        <div className="w-24 h-14 flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
                             <img src={ktLogo} alt="Logo" className="w-full h-full object-contain" />
                         </div>
                         <div className="flex flex-col">

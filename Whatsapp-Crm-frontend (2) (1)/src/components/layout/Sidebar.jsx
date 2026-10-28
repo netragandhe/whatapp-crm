@@ -169,21 +169,21 @@ const Sidebar = () => {
         )}>
           {(!sidebarCollapsed || mobileMenuOpen) && (
             <div className="flex items-center gap-3 min-w-0 w-full justify-start">
-              <div className="h-12 w-20 flex items-center justify-center shrink-0">
+              <div className="h-14 w-24 flex items-center justify-center shrink-0">
                 <img src={ktLogo} alt="Logo" className="h-full w-full object-contain" />
               </div>
               <div className="flex flex-col min-w-0">
-                <span className="font-black text-base text-white tracking-tight leading-none truncate">
+                <span className="font-black text-lg text-white tracking-tight leading-none truncate">
                   Whats<span className="text-[#10b981]">CRM</span>
                 </span>
-                <span className="text-[11px] font-semibold text-emerald-400 tracking-wider truncate mt-1">
+                <span className="text-xs font-semibold text-emerald-400 tracking-wider truncate mt-1">
                   Kiaan Tech
                 </span>
               </div>
             </div>
           )}
           {sidebarCollapsed && !mobileMenuOpen && (
-            <div className="h-10 w-14 flex items-center justify-center mx-auto hover:scale-105 transition-transform cursor-pointer">
+            <div className="h-12 w-16 flex items-center justify-center mx-auto hover:scale-105 transition-transform cursor-pointer">
               <img src={ktLogo} alt="Logo" className="h-full w-full object-contain" />
             </div>
           )}

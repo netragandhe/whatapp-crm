@@ -195,7 +195,7 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-16 h-11 flex items-center justify-center group-hover:scale-105 transition-transform">
+            <div className="w-24 h-14 flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
               <img src={ktLogo} alt="Logo" className="w-full h-full object-contain" />
             </div>
             <div className="flex flex-col text-left">
@@ -1185,7 +1185,7 @@ const LandingPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-12 border-b border-emerald-950/80 text-left">
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-14 h-10 flex items-center justify-center shrink-0">
+                <div className="w-20 h-12 flex items-center justify-center shrink-0">
                   <img src={ktLogo} alt="Logo" className="w-full h-full object-contain" />
                 </div>
                 <div className="flex flex-col">
