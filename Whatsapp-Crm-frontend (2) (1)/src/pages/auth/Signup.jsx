@@ -87,16 +87,16 @@ const Signup = () => {
             <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 transition-all">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
                     {/* Brand Logo */}
-                    <Link to="/" className="flex items-center gap-2.5 group">
-                        <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-emerald-400 flex items-center justify-center text-white shadow-lg shadow-emerald-500/25 group-hover:scale-105 transition-transform">
-                            <MessageSquare className="w-5 h-5 fill-white/20 stroke-white stroke-[2.2]" />
+                    <Link to="/" className="flex items-center gap-3 group">
+                        <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200/90 p-1 flex items-center justify-center shadow-md shadow-emerald-500/10 group-hover:scale-105 transition-transform overflow-hidden">
+                            <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
                         </div>
                         <div className="flex flex-col">
                             <span className="text-xl font-black tracking-tight text-slate-900 leading-none">
                                 Whats<span className="text-emerald-600">CRM</span>
                             </span>
-                            <span className="text-[10px] font-black tracking-widest text-emerald-600 uppercase mt-0.5">
-                                Enterprise AI
+                            <span className="text-[10px] font-black tracking-widest text-emerald-700 uppercase mt-0.5">
+                                Kiaan Tech • WhatsCRM
                             </span>
                         </div>
                     </Link>

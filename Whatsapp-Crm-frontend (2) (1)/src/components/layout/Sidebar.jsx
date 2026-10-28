@@ -163,17 +163,27 @@ const Sidebar = () => {
         )}
       >
         <div className={cn(
-          "flex items-center justify-between border-b border-[#1F2937] relative bg-[#0a3d62]/5 transition-all duration-500",
-          (!sidebarCollapsed || mobileMenuOpen) ? "h-24 px-6" : "h-16 px-6"
+          "flex items-center justify-between border-b border-[#1F2937] relative transition-all duration-500",
+          (!sidebarCollapsed || mobileMenuOpen) ? "h-20 px-4" : "h-16 px-3"
         )}>
           {(!sidebarCollapsed || mobileMenuOpen) && (
-            <div className="flex items-center min-w-0 w-full justify-start">
-              <img src="/image.png" alt="Logo" className="w-48 h-auto object-contain object-left -ml-10" />
+            <div className="flex items-center gap-3 min-w-0 w-full justify-start">
+              <div className="h-11 w-11 rounded-2xl bg-white p-1 border border-white/20 flex items-center justify-center shrink-0 shadow-md overflow-hidden">
+                <img src="/logo.png" alt="Logo" className="h-full w-full object-contain" />
+              </div>
+              <div className="flex flex-col min-w-0">
+                <span className="font-black text-sm text-white tracking-tight leading-none truncate">
+                  Whats<span className="text-[#10b981]">CRM</span>
+                </span>
+                <span className="text-[10px] font-semibold text-emerald-400 tracking-wider truncate mt-1">
+                  Kiaan Tech
+                </span>
+              </div>
             </div>
           )}
           {sidebarCollapsed && !mobileMenuOpen && (
-            <div className="h-10 w-10 rounded-lg flex items-center justify-center mx-auto hover:scale-110 transition-transform cursor-pointer">
-              <img src="/image.png" alt="Logo" className="w-12 h-auto object-contain" />
+            <div className="h-11 w-11 rounded-2xl bg-white p-1 flex items-center justify-center mx-auto hover:scale-105 transition-transform cursor-pointer shadow-md overflow-hidden">
+              <img src="/logo.png" alt="Logo" className="h-full w-full object-contain" />
             </div>
           )}
 

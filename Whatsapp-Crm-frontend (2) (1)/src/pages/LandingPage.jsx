@@ -194,15 +194,15 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-[#059669] to-[#10B981] flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 group-hover:scale-105 transition-transform">
-              <MessageSquare className="w-6 h-6 fill-white/20 stroke-white stroke-[2.2]" />
+            <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200/90 p-1 flex items-center justify-center shadow-md shadow-emerald-500/10 group-hover:scale-105 transition-transform overflow-hidden">
+              <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
             </div>
             <div className="flex flex-col text-left">
               <span className="text-xl font-black tracking-tight text-slate-900 leading-none">
                 Whats<span className="text-emerald-600">CRM</span>
               </span>
               <span className="text-[10px] font-black tracking-widest text-emerald-700 uppercase mt-1">
-                Study First Info Ltd.
+                Kiaan Tech • WhatsCRM
               </span>
             </div>
           </Link>
@@ -1183,16 +1183,16 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-12 border-b border-emerald-950/80 text-left">
             <div className="space-y-4">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-xl bg-emerald-500 flex items-center justify-center text-white">
-                  <MessageSquare size={16} />
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shrink-0 shadow-md overflow-hidden">
+                  <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-lg font-black tracking-tight text-white leading-none">
-                    Whats<span className="text-emerald-500">CRM</span>
+                    Whats<span className="text-emerald-400">CRM</span>
                   </span>
                   <span className="text-[9px] font-bold text-emerald-400 uppercase tracking-widest mt-0.5">
-                    Study First Info Ltd.
+                    Kiaan Tech • WhatsCRM
                   </span>
                 </div>
               </div>
