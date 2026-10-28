@@ -4,6 +4,7 @@ const { Server } = require('socket.io');
 const socketManager = require('./sockets/socketManager');
 
 const PORT = process.env.PORT || 5000;
+const HOST = process.env.HOST || '127.0.0.1';
 
 const server = http.createServer(app);
 
@@ -79,8 +80,8 @@ app.set('io', io);
 
 const { initSlaJob } = require('./jobs/slaJob');
 
-server.listen(PORT, () => {
-    console.log(`✅ CRM Server running on port ${PORT}`);
+server.listen(PORT, HOST, () => {
+    console.log(`✅ CRM Server running on http://${HOST}:${PORT}`);
     console.log(`🔗 Frontend: ${process.env.FRONTEND_URL}`);
     console.log(`📡 Socket.io: Active`);
     
