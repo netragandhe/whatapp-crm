@@ -162,14 +162,14 @@ const Sidebar = () => {
         )}>
           {(!sidebarCollapsed || mobileMenuOpen) && (
             <Link to="/" className="flex items-center gap-2.5 min-w-0 w-full justify-start">
-              <div className="h-10 w-14 flex items-center justify-center shrink-0">
-                <img src={ktLogo} alt="Logo" className="h-full w-full object-contain filter drop-shadow-sm" />
+              <div className="h-14 w-24 flex items-center justify-center shrink-0">
+                <img src={ktLogo} alt="Logo" className="h-full w-full object-contain" />
               </div>
               <div className="flex flex-col min-w-0">
-                <span className="font-black text-sm text-[#26382E] tracking-tight leading-none truncate">
+                <span className="font-black text-base text-[#26382E] tracking-tight leading-none truncate">
                   Whats<span className="text-[#2E8456]">CRM</span>
                 </span>
-                <span className="text-[10px] font-semibold text-[#64748B] tracking-wider truncate mt-0.5">
+                <span className="text-[11px] font-semibold text-[#64748B] tracking-wider truncate mt-0.5">
                   Kiaan Tech
                 </span>
               </div>
@@ -177,8 +177,8 @@ const Sidebar = () => {
           )}
 
           {sidebarCollapsed && !mobileMenuOpen && (
-            <Link to="/" className="h-9 w-12 flex items-center justify-center mx-auto hover:scale-105 transition-transform cursor-pointer">
-              <img src={ktLogo} alt="Logo" className="h-full w-full object-contain filter drop-shadow-sm" />
+            <Link to="/" className="h-12 w-16 flex items-center justify-center mx-auto hover:scale-105 transition-transform cursor-pointer">
+              <img src={ktLogo} alt="Logo" className="h-full w-full object-contain" />
             </Link>
           )}
 
