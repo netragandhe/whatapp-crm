@@ -168,7 +168,7 @@ const Sidebar = () => {
         )}>
           {(!sidebarCollapsed || mobileMenuOpen) && (
             <div className="flex items-center gap-3 min-w-0 w-full justify-start">
-              <div className="h-11 w-11 rounded-2xl bg-slate-900/60 p-1 border border-white/10 flex items-center justify-center shrink-0 shadow-lg shadow-black/40 overflow-hidden">
+              <div className="h-10 w-16 flex items-center justify-center shrink-0">
                 <img src="/logo.png" alt="Logo" className="h-full w-full object-contain filter drop-shadow" />
               </div>
               <div className="flex flex-col min-w-0">
@@ -182,7 +182,7 @@ const Sidebar = () => {
             </div>
           )}
           {sidebarCollapsed && !mobileMenuOpen && (
-            <div className="h-11 w-11 rounded-2xl bg-slate-900/60 p-1 border border-white/10 flex items-center justify-center mx-auto hover:scale-105 transition-transform cursor-pointer shadow-lg shadow-black/40 overflow-hidden">
+            <div className="h-8 w-12 flex items-center justify-center mx-auto hover:scale-105 transition-transform cursor-pointer">
               <img src="/logo.png" alt="Logo" className="h-full w-full object-contain filter drop-shadow" />
             </div>
           )}

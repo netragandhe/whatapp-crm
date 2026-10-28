@@ -193,7 +193,7 @@ const LoginPage = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
                     {/* Brand Logo */}
                     <Link to="/" className="flex items-center gap-3 group">
-                        <div className="w-12 h-12 flex items-center justify-center group-hover:scale-105 transition-transform">
+                        <div className="w-14 h-9 flex items-center justify-center group-hover:scale-105 transition-transform">
                             <img src="/logo.png" alt="Logo" className="w-full h-full object-contain filter drop-shadow-sm" />
                         </div>
                         <div className="flex flex-col">
