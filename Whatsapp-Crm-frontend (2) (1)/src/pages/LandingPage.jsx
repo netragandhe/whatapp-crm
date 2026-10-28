@@ -210,7 +210,7 @@ const LandingPage = () => {
 
           {/* Center Links */}
           <div className="hidden lg:flex items-center gap-8 text-xs font-black uppercase tracking-wider text-[#64748B]">
-            <a href="#roles" className="hover:text-[#26382E] transition-colors">6-Role Architecture</a>
+            <a href="#portals" className="hover:text-[#26382E] transition-colors">Portals</a>
             <a href="#features" className="hover:text-[#26382E] transition-colors">Core Modules</a>
             <a href="#routing" className="hover:text-[#26382E] transition-colors">Smart Routing</a>
             <a href="#pricing" className="hover:text-[#26382E] transition-colors">Pricing Plans</a>
@@ -306,11 +306,11 @@ const LandingPage = () => {
                 <ArrowRight size={16} />
               </button>
               <a
-                href="#roles"
+                href="#portals"
                 className="px-8 py-4 rounded-full font-black text-xs uppercase tracking-widest bg-white/90 text-[#26382E] border border-[#DDE8E0] hover:border-[#86D9A9] hover:bg-white transition-all shadow-sm flex items-center gap-2"
               >
                 <Layers size={15} className="text-[#26382E]" />
-                Explore 6 Role Workspaces
+                Explore 6 Role Portals
               </a>
             </motion.div>
 
@@ -555,7 +555,8 @@ const LandingPage = () => {
       {/* ─────────────────────────────────────────────────────────────
           4. THE 6 DEDICATED ROLE PORTALS (CORE PROJECT ARCHITECTURE)
       ───────────────────────────────────────────────────────────── */}
-      <section id="roles" className="py-24 bg-[#F4FBF6]">
+      <section id="portals" className="py-24 bg-[#F4FBF6] scroll-mt-20 relative">
+        <span id="roles" className="absolute -top-20" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
             <span className="px-4 py-1.5 rounded-full bg-white/80 border border-[#DDE8E0] text-[#26382E] text-xs font-black uppercase tracking-widest shadow-sm">

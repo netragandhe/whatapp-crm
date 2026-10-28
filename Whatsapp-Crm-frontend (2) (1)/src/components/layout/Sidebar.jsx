@@ -87,7 +87,7 @@ const IconMap = {
 
 const SidebarItem = ({ icon: Icon, label, path, collapsed, onClick }) => {
   const location = useLocation()
-  const isActive = location.pathname === path
+  const isActive = location.pathname === path || (path !== '/' && location.pathname.startsWith(path))
 
   return (
     <Link
@@ -96,14 +96,14 @@ const SidebarItem = ({ icon: Icon, label, path, collapsed, onClick }) => {
       className={cn(
         "flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all duration-200 group no-underline relative",
         isActive
-          ? "bg-[#DDF7E8] text-[#26382E] font-bold shadow-xs border border-[#A7E8C2]/60"
-          : "text-[#64748B] hover:bg-white/80 hover:text-[#26382E]"
+          ? "bg-[#163828] text-white font-bold shadow-md shadow-[#163828]/25"
+          : "text-[#4A5D52] hover:bg-white/80 hover:text-[#163828] active:bg-[#163828] active:text-white"
       )}
     >
       {isActive && (
         <span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-1 rounded-r-full bg-[#86D9A9]" />
       )}
-      <Icon className={cn("h-4 w-4 shrink-0 transition-transform duration-200 group-hover:scale-110", isActive ? "text-[#2E8456]" : "text-[#64748B] group-hover:text-[#26382E]")} />
+      <Icon className={cn("h-4 w-4 shrink-0 transition-transform duration-200 group-hover:scale-110", isActive ? "text-[#86D9A9]" : "text-[#64748B] group-hover:text-[#163828]")} />
       {!collapsed && <span className="text-xs truncate">{label}</span>}
     </Link>
   )
