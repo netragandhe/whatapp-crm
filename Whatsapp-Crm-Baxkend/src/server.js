@@ -8,14 +8,30 @@ const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
 
 // Socket.io Setup
+const allowedOrigins = [
+    process.env.FRONTEND_URL,
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://localhost:5173',
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:3001',
+    'http://127.0.0.1:5173',
+    'https://whatsapp-crm.kiaantechnology.com'
+].filter(Boolean);
+
 const io = new Server(server, {
     cors: {
-        origin: [
-            process.env.FRONTEND_URL,
-            'http://localhost:3000',
-            'https://whatsapp-crm.kiaantechnology.com'
-        ].filter(Boolean),
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        origin: function (origin, callback) {
+            if (!origin) return callback(null, true);
+            if (
+                allowedOrigins.includes(origin) ||
+                /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)
+            ) {
+                return callback(null, true);
+            }
+            return callback(new Error('Not allowed by CORS'));
+        },
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
         credentials: true
     },
     pingTimeout: 60000,
