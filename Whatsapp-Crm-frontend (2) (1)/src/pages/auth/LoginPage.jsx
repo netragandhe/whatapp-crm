@@ -5,6 +5,7 @@ import {
     Mail,
     Lock,
     ArrowRight,
+    UserCircle,
     Building2,
     Globe,
     Users,
@@ -12,16 +13,12 @@ import {
     Headphones,
     BrainCircuit,
     Zap,
-    Loader2,
-    MessageSquare,
-    Sparkles,
-    CheckCircle2,
-    Check
+    Loader2
 } from 'lucide-react'
 import { cn } from '../../lib/utils'
 import api from '../../services/api'
 import useAppStore, { ROLE_MAP } from '../../store/useStore'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const roleHomePages = {
     'Super Admin': '/super-admin',
@@ -32,39 +29,31 @@ const roleHomePages = {
     'Customer Support': '/support',
 }
 
-const RoleButton = ({ role, label, dashboardName, icon: Icon, active, onClick }) => (
+const RoleButton = ({ role, icon: Icon, active, onClick, color }) => (
     <button
-        type="button"
         onClick={onClick}
         className={cn(
-            "relative flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl border transition-all duration-300 group overflow-hidden text-center",
+            "relative flex flex-col items-center justify-center p-4 rounded-2xl border transition-all duration-300 group overflow-hidden",
             active
-                ? "bg-gradient-to-b from-emerald-600 to-emerald-700 border-emerald-400 text-white shadow-xl shadow-emerald-950/50 scale-[1.03]"
-                : "bg-[#07241C]/80 border-emerald-900/60 hover:bg-[#0B3327] hover:border-emerald-700/60 text-emerald-200/70 hover:text-white"
+                ? `${color} border-transparent shadow-xl scale-105`
+                : "bg-white/5 border-white/10 hover:bg-white/10 text-white/60 hover:text-white"
         )}
     >
-        {active && (
-            <div className="absolute top-2 right-2 w-4 h-4 rounded-full bg-white text-emerald-700 flex items-center justify-center shadow-sm">
-                <Check size={10} strokeWidth={4} />
-            </div>
-        )}
-
         <div className={cn(
-            "p-2.5 sm:p-3 rounded-xl mb-2 transition-all",
-            active ? "bg-white/20 text-white shadow-inner" : "bg-emerald-950/80 text-emerald-400 group-hover:bg-emerald-900/80 group-hover:text-emerald-300"
+            "p-3 rounded-xl mb-3 transition-colors",
+            active ? "bg-white/20" : "bg-white/5 group-hover:bg-white/10"
         )}>
             <Icon size={20} />
         </div>
-
-        <span className="text-[11px] font-black uppercase tracking-wider leading-tight text-white">
-            {label}
+        <span className="text-[10px] font-black uppercase tracking-widest text-center leading-tight">
+            {role}
         </span>
-        <span className={cn(
-            "text-[9px] font-semibold mt-1 transition-colors leading-tight",
-            active ? "text-emerald-100" : "text-emerald-400/60 group-hover:text-emerald-300/80"
-        )}>
-            {dashboardName}
-        </span>
+        {active && (
+            <motion.div
+                layoutId="role-glow"
+                className="absolute inset-0 bg-white/10 pointer-events-none"
+            />
+        )}
     </button>
 )
 
@@ -78,310 +67,210 @@ const LoginPage = () => {
     const [error, setError] = useState('')
 
     const roles = [
-        { 
-            id: 'Super Admin', 
-            label: 'Super Admin', 
-            dashboardName: 'System Governance',
-            icon: ShieldCheck, 
-            email: 'super.admin@crm.com' 
-        },
-        { 
-            id: 'Admin', 
-            label: 'Admin', 
-            dashboardName: 'Channel & Routing',
-            icon: Building2, 
-            email: 'admin@edu-corp.com' 
-        },
-        { 
-            id: 'Manager', 
-            label: 'Manager', 
-            dashboardName: 'Funnels & SLAs',
-            icon: Globe, 
-            email: 'manager@analytics.crm' 
-        },
-        { 
-            id: 'Team Leader', 
-            label: 'Team Leader', 
-            dashboardName: 'Team Inbox & Leads',
-            icon: BrainCircuit, 
-            email: 'leader@teams.crm' 
-        },
-        { 
-            id: 'Counselor', 
-            label: 'Counselor', 
-            dashboardName: 'Sales & Chats',
-            icon: Users, 
-            email: 'counselor@sales.crm' 
-        },
-        { 
-            id: 'Customer Support', 
-            label: 'Support', 
-            dashboardName: 'Queue & Intake',
-            icon: Headphones, 
-            email: 'support@help.crm' 
-        },
+        { id: 'Super Admin', icon: ShieldCheck, color: 'bg-emerald-600', email: 'super.admin@crm.com' },
+        { id: 'Admin', icon: Building2, color: 'bg-teal-600', email: 'admin@edu-corp.com' },
+        { id: 'Manager', icon: Globe, color: 'bg-emerald-700', email: 'manager@analytics.crm' },
+        { id: 'Team Leader', icon: BrainCircuit, color: 'bg-cyan-700', email: 'leader@teams.crm' },
+        { id: 'Counselor', icon: Users, color: 'bg-amber-600', email: 'counselor@sales.crm' },
+        { id: 'Customer Support', icon: Headphones, color: 'bg-emerald-800', email: 'support@help.crm' },
     ]
 
     const handleRoleSelect = (role) => {
         setSelectedRole(role.id)
         setEmail(role.email)
-        setPassword('password123')
-        setError('')
+        setPassword('password123') // Uniform demo password
     }
 
-    const handleSubmit = async (e, customEmail = null, customPassword = null) => {
-        if (e && e.preventDefault) e.preventDefault()
+    const handleSubmit = async (e) => {
+        e.preventDefault()
         setIsLoading(true)
         setError('')
         try {
-            const loginEmail = (customEmail || email || 'super.admin@crm.com').trim().toLowerCase()
-            const loginPassword = customPassword || password || 'password123'
-
             const response = await api.post('/auth/login', { 
-                email: loginEmail, 
-                password: loginPassword 
+                email: email.trim().toLowerCase(), 
+                password 
             })
-
-            if (response && response.success) {
-                const { token, refreshToken, user } = response.data || response;
+            if (response.success) {
+                const { token, refreshToken, user } = response.data
                 
                 // Save JWT tokens for future requests
                 localStorage.setItem('token', token)
-                if (refreshToken) localStorage.setItem('refreshToken', refreshToken)
+                localStorage.setItem('refreshToken', refreshToken)
                 
-                // Save FULL user object and role
+                // Save FULL user object and role as requested
                 localStorage.setItem('user', JSON.stringify(user))
                 
-                // Map backend role enum (e.g. 'SUPER_ADMIN') to frontend display role
+                // Map backend role enum (e.g., 'SUPER_ADMIN') to frontend display role (e.g., 'Super Admin')
                 const frontendRole = ROLE_MAP[user.role] || user.role
                 localStorage.setItem('role', frontendRole)
 
-                // Update Zustand store
+                // Update Zustand store immediately
                 login(frontendRole, user)
 
-                const homePath = roleHomePages[frontendRole] || '/super-admin'
-                navigate(homePath, { replace: true })
-            } else {
-                setError(response?.message || 'Login failed. Please verify credentials.')
+                const homePath = roleHomePages[frontendRole] || '/'
+                navigate(homePath)
             }
         } catch (err) {
-            console.error('[Login Error]', err)
-            const msg = err.response?.data?.message || err.message || 'Login failed. Please verify credentials.'
-            setError(msg)
+            setError(typeof err === 'string' ? err : 'Login failed. Please check your credentials.')
         } finally {
             setIsLoading(false)
         }
     }
 
-    return (
-        <div className="min-h-screen bg-[#051F18] bg-gradient-to-b from-[#031510] via-[#06281E] to-[#0A3327] text-white flex items-center justify-center p-4 sm:p-6 lg:p-8 relative overflow-hidden font-sans selection:bg-emerald-500 selection:text-white">
-            
-            {/* Background Mesh Grid and Glowing Blobs */}
-            <div className="absolute inset-0 bg-[radial-gradient(#10B981_1px,transparent_1px)] [background-size:28px_28px] opacity-10 pointer-events-none" />
-            <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-500/15 blur-[140px] rounded-full pointer-events-none" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-teal-400/15 blur-[140px] rounded-full pointer-events-none" />
 
-            {/* Top Navigation Bar: Back to Landing Page */}
-            <div className="absolute top-5 left-5 sm:top-8 sm:left-8 z-30">
+    return (
+        <div className="min-h-screen bg-[#020617] flex items-center justify-center p-6 relative overflow-hidden">
+            {/* Top Back to Home Button */}
+            <div className="absolute top-6 left-6 z-20">
                 <Link
                     to="/"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#083025]/80 hover:bg-[#0E4435] text-emerald-300 hover:text-white border border-emerald-700/50 text-xs font-black uppercase tracking-wider transition-all backdrop-blur-md shadow-lg shadow-black/20"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-emerald-400 hover:text-emerald-300 border border-white/10 text-xs font-bold transition-all backdrop-blur-md"
                 >
                     <ArrowRight className="rotate-180" size={14} />
                     Back to WhatsCRM Home
                 </Link>
             </div>
 
-            <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10 pt-16 sm:pt-14 lg:pt-0">
-                
-                {/* Left Side: Brand Overview & Dashboard Matrix */}
-                <div className="hidden lg:block lg:col-span-5 space-y-8 text-left">
-                    <div className="space-y-4">
-                        <Link to="/" className="inline-flex items-center gap-3 group">
-                            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-emerald-400 flex items-center justify-center text-white shadow-xl shadow-emerald-500/25 group-hover:scale-105 transition-transform">
-                                <MessageSquare className="w-6 h-6 fill-white/20 stroke-white stroke-[2.2]" />
-                            </div>
-                            <div className="flex flex-col">
-                                <span className="text-2xl font-black tracking-tight text-white leading-none">
-                                    Whats<span className="text-emerald-400">CRM</span>
-                                </span>
-                                <span className="text-[10px] font-black tracking-widest text-emerald-400 uppercase mt-1">
-                                    Study First Info Ltd.
-                                </span>
-                            </div>
-                        </Link>
+            {/* Background Animations */}
+            <div className="absolute inset-0 z-0">
+                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-emerald-600/10 blur-[120px] rounded-full animate-pulse" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-emerald-500/15 blur-[120px] rounded-full animate-pulse delay-1000" />
+            </div>
 
-                        <h1 className="text-4xl sm:text-5xl font-black text-white leading-tight tracking-tight mt-6">
-                            Unified <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-200">Role Access</span>
+            <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10 pt-8 sm:pt-0">
+                {/* Left Side: Branding & Info */}
+                <div className="hidden lg:block space-y-12">
+                    <div className="space-y-6">
+                        <div className="flex flex-col items-start gap-0">
+                            <img src="/image.png" alt="Logo" className="w-72 h-auto object-left -ml-16 -mb-[25px]" />
+                            <div className="flex flex-col">
+                                <span className="text-3xl font-black text-white uppercase tracking-tight leading-none">Study First Info</span>
+                                <span className="text-sm font-bold text-indigo-400 uppercase tracking-widest mt-2">Employee Monitoring</span>
+                            </div>
+                        </div>
+                        <h1 className="text-6xl font-black text-white leading-tight uppercase tracking-tight">
+                            Identity <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-emerald-400">Gateway</span>
                         </h1>
-                        <p className="text-emerald-100/70 text-sm font-medium leading-relaxed max-w-md">
-                            Seamlessly access all 6 dedicated dashboards. Each role is equipped with custom tools, permission scope, and live WhatsApp routing.
+                        <p className="text-gray-400 text-lg font-medium leading-relaxed max-w-md">
+                            Access the global multi-channel communication cluster. Integrated intelligence for modern lead orchestration.
                         </p>
                     </div>
 
-                    {/* Features List */}
-                    <div className="space-y-3 pt-2">
-                        <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#093529]/80 border border-emerald-800/50">
-                            <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-                                <Zap size={16} />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {[
+                            { label: 'Real-time Sync', sub: '99.9% Uptime', icon: Activity },
+                            { label: 'AI Qualified', sub: 'ML Protocol', icon: BrainCircuit },
+                        ].map((stat, i) => (
+                            <div key={i} className="bg-white/5 border border-white/10 p-6 rounded-3xl backdrop-blur-xl">
+                                <stat.icon className="text-indigo-400 mb-4" size={24} />
+                                <div className="text-sm font-black text-white uppercase tracking-widest">{stat.label}</div>
+                                <div className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-1">{stat.sub}</div>
                             </div>
-                            <div>
-                                <div className="text-xs font-black uppercase tracking-wider text-white">Live Socket Synchronization</div>
-                                <div className="text-[11px] text-emerald-300/70">Real-time incoming chat queue and lead stage alerts</div>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#093529]/80 border border-emerald-800/50">
-                            <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-                                <ShieldCheck size={16} />
-                            </div>
-                            <div>
-                                <div className="text-xs font-black uppercase tracking-wider text-white">Strict Role Guard (RBAC)</div>
-                                <div className="text-[11px] text-emerald-300/70">Isolated data scopes for Super Admin, Manager & Counselor</div>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#093529]/80 border border-emerald-800/50">
-                            <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-                                <Sparkles size={16} />
-                            </div>
-                            <div>
-                                <div className="text-xs font-black uppercase tracking-wider text-white">AI Automation Bot Active</div>
-                                <div className="text-[11px] text-emerald-300/70">24/7 lead qualification and auto-response dispatch</div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
 
-                {/* Right Side: Identity Selection & Login Form */}
+                {/* Right Side: Login Form */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.98 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="lg:col-span-7 bg-[#072B21]/95 backdrop-blur-2xl border border-emerald-700/40 p-6 sm:p-10 rounded-[2.5rem] shadow-2xl space-y-6"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="bg-white/5 backdrop-blur-3xl border border-white/10 p-6 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem] shadow-2xl space-y-8 md:space-y-10"
                 >
-                    <div className="space-y-1.5 text-center sm:text-left">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-900/60 border border-emerald-700/60 text-emerald-300 text-[10px] font-black uppercase tracking-widest mb-1">
-                            <Sparkles size={12} /> Multi-Dashboard Portal
+                    <div className="space-y-2 text-center md:text-left">
+                        {/* Mobile Logo & Brand (visible only on mobile/tablet) */}
+                        <div className="flex flex-col items-center gap-[10px] lg:hidden mb-6">
+                            <img src="/image.png" alt="Logo" className="w-48 h-auto object-contain" />
+                            <div className="text-center">
+                                <h1 className="text-xl font-black text-white uppercase tracking-tight leading-none">Study First Info</h1>
+                                <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-widest mt-1">Employee Monitoring</p>
+                            </div>
                         </div>
-                        <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">Establish Dashboard Session</h2>
-                        <p className="text-xs font-bold text-emerald-300/60 uppercase tracking-widest">
-                            Select an identity below to load pre-configured dashboard credentials
-                        </p>
+
+                        <h2 className="text-xl md:text-2xl font-black text-white uppercase tracking-tight">Establish Session</h2>
+                        <p className="text-[9px] md:text-[10px] font-black text-gray-500 uppercase tracking-widest">Select an identity to initialize access</p>
                     </div>
 
                     {error && (
                         <motion.div
-                            initial={{ opacity: 0, y: -8 }}
+                            initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="bg-red-500/15 border border-red-500/40 p-3.5 rounded-2xl text-red-300 text-xs font-bold text-center"
+                            className="bg-red-500/10 border border-red-500/50 p-4 rounded-2xl text-red-400 text-[10px] font-black uppercase tracking-widest text-center"
                         >
                             {error}
                         </motion.div>
                     )}
 
-                    {/* Role Selector Grid: All 6 Dashboards */}
-                    <div className="space-y-2">
-                        <label className="text-[10px] font-black text-emerald-400 uppercase tracking-widest px-1">
-                            Target Dashboard & Role Identity
-                        </label>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3">
-                            {roles.map(role => (
-                                <RoleButton
-                                    key={role.id}
-                                    role={role.id}
-                                    label={role.label}
-                                    dashboardName={role.dashboardName}
-                                    icon={role.icon}
-                                    active={selectedRole === role.id}
-                                    onClick={() => handleRoleSelect(role)}
-                                />
-                            ))}
-                        </div>
+                    {/* Role Selector Grid */}
+                    <div className="grid grid-cols-3 gap-3 md:gap-4">
+                        {roles.map(role => (
+                            <RoleButton
+                                key={role.id}
+                                role={role.id}
+                                icon={role.icon}
+                                color={role.color}
+                                active={selectedRole === role.id}
+                                onClick={() => handleRoleSelect(role)}
+                            />
+                        ))}
                     </div>
 
-                    {/* Active Target Banner */}
-                    <div className="p-3 bg-emerald-950/80 rounded-2xl border border-emerald-800/60 text-xs flex flex-wrap items-center justify-between gap-2">
-                        <div className="flex items-center gap-2 text-emerald-300">
-                            <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
-                            <span>Destination: <b>{roleHomePages[selectedRole]}</b></span>
-                        </div>
-                        <button
-                            type="button"
-                            onClick={() => handleSubmit(null, email, 'password123')}
-                            className="text-[10px] font-black text-slate-950 bg-emerald-400 hover:bg-emerald-300 px-3 py-1.5 rounded-lg uppercase tracking-wider transition-all shadow-sm flex items-center gap-1 hover:scale-105 active:scale-95"
-                        >
-                            ⚡ 1-Click Fast Login
-                        </button>
-                    </div>
-
-                    {/* Login Form */}
-                    <form onSubmit={handleSubmit} className="space-y-4 pt-1">
-                        <div className="space-y-3">
-                            <div className="space-y-1 text-left">
-                                <label className="text-[10px] font-black text-emerald-400 uppercase tracking-widest px-1">
-                                    Identity Email Address
-                                </label>
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="space-y-4">
+                            <div className="space-y-2">
+                                <label className="text-[9px] font-black text-gray-500 uppercase tracking-[0.2em] px-2">Access Credentials</label>
                                 <div className="relative group">
-                                    <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-emerald-500 group-focus-within:text-emerald-300 transition-colors" size={16} />
+                                    <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-indigo-400 transition-colors" size={18} />
                                     <input
                                         type="email"
-                                        name="email"
-                                        autoComplete="username"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full bg-[#041E17] border border-emerald-800/60 rounded-2xl py-3.5 pl-14 pr-5 text-xs font-bold text-white tracking-wider focus:ring-4 focus:ring-emerald-500/20 focus:border-emerald-400 outline-none transition-all placeholder:text-emerald-700/60"
-                                        placeholder="user@crm.com"
+                                        className="w-full bg-white/5 border border-white/10 rounded-2xl py-5 pl-16 pr-6 text-sm font-black text-white tracking-widest focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/50 outline-none transition-all placeholder:text-gray-700"
+                                        placeholder="IDENTITY ADDRESS"
                                         required
                                     />
                                 </div>
                             </div>
-
-                            <div className="space-y-1 text-left">
-                                <label className="text-[10px] font-black text-emerald-400 uppercase tracking-widest px-1">
-                                    Passcode
-                                </label>
-                                <div className="relative group">
-                                    <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-emerald-500 group-focus-within:text-emerald-300 transition-colors" size={16} />
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        autoComplete="current-password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        className="w-full bg-[#041E17] border border-emerald-800/60 rounded-2xl py-3.5 pl-14 pr-5 text-xs font-bold text-white tracking-widest focus:ring-4 focus:ring-emerald-500/20 focus:border-emerald-400 outline-none transition-all"
-                                        placeholder="••••••••"
-                                        required
-                                    />
-                                </div>
+                            <div className="relative group">
+                                <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-indigo-400 transition-colors" size={18} />
+                                <input
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className="w-full bg-white/5 border border-white/10 rounded-2xl py-5 pl-16 pr-6 text-sm font-black text-white tracking-[0.5em] focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500/50 outline-none transition-all"
+                                    placeholder="••••••••"
+                                    required
+                                />
                             </div>
                         </div>
 
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-3 shadow-xl shadow-emerald-500/25 group disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.01] active:scale-98"
+                            className="w-full bg-white text-black hover:bg-indigo-500 hover:text-white py-5 rounded-2xl font-black text-xs uppercase tracking-[0.3em] transition-all flex items-center justify-center gap-3 shadow-xl group disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {isLoading ? (
-                                <Loader2 className="animate-spin text-slate-950" size={18} />
+                                <Loader2 className="animate-spin" size={20} />
                             ) : (
                                 <>
-                                    <span>Launch {selectedRole} Dashboard</span>
-                                    <ArrowRight className="group-hover:translate-x-1 transition-transform" size={16} strokeWidth={3} />
+                                    <span>Initialize Access</span>
+                                    <ArrowRight className="group-hover:translate-x-2 transition-transform" size={18} strokeWidth={3} />
                                 </>
                             )}
                         </button>
                     </form>
 
-                    <div className="pt-2 border-t border-emerald-900/60 text-center">
-                        <p className="text-[10px] font-bold text-emerald-400/60 uppercase tracking-wider">
-                            Demo Mode: All accounts use shared password <code className="text-emerald-300 bg-emerald-950 px-1.5 py-0.5 rounded">password123</code>
+                    <div className="pt-6 border-t border-white/5 text-center">
+                        <p className="text-[9px] font-black text-gray-600 uppercase tracking-widest">
+                            Secure Multi-Channel Authentication Protocol v4.2
                         </p>
                     </div>
                 </motion.div>
-
             </div>
         </div>
     )
 }
 
 export default LoginPage
+
+
+

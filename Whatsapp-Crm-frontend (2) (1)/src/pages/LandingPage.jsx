@@ -22,16 +22,25 @@ import {
   Smartphone,
   Lock,
   Flame,
-  Award
+  Award,
+  GraduationCap,
+  Building2,
+  FileText,
+  UserCheck,
+  Activity,
+  Calendar,
+  AlertTriangle,
+  HelpCircle,
+  ExternalLink
 } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import useAppStore from '../store/useStore'
 
 const LandingPage = () => {
   const navigate = useNavigate()
   const { isAuthenticated, role } = useAppStore()
   const [annualBilling, setAnnualBilling] = useState(true)
-  const [activeTab, setActiveTab] = useState('inbox')
+  const [selectedRoleTab, setSelectedRoleTab] = useState('counselor')
 
   const roleHomePages = {
     'Super Admin': '/super-admin',
@@ -50,6 +59,108 @@ const LandingPage = () => {
     }
   }
 
+  // 6 Dedicated Roles in Study First Info WhatsCRM
+  const projectRoles = [
+    {
+      id: 'super-admin',
+      name: 'Super Admin',
+      subtitle: 'System Governance & Infrastructure',
+      badge: 'Tier-1 Control',
+      icon: Shield,
+      color: 'emerald',
+      features: [
+        'Global Channel Allocation & Quota Monitoring (e.g. 750/1000 WhatsApp nodes)',
+        'Client Entity Isolation (EduCorp Inc, HealthLine, Global Connect)',
+        'Administrative Account Provisioning & Granular Permissions Assignment',
+        'Global Lead Dispatch Queue (Route unassigned queue to counselors)',
+        'System-wide Immutable Audit Logs & CSV Export'
+      ],
+      previewStat: 'Full System Control • 100% Isolated Data'
+    },
+    {
+      id: 'admin',
+      name: 'Institutional Admin',
+      subtitle: 'Channel Connection & Routing Engine',
+      badge: 'Operations Hub',
+      icon: Building2,
+      color: 'teal',
+      features: [
+        'WhatsApp Channel QR Code Generation & Live Node Synchronization',
+        'Intelligent Routing Rules Engine (By Country, Source & Academic Program)',
+        'Counselor Shift Configuration & Weekly Working Hours Auto-Responder',
+        'AI Qualification Bot Scoring (Confidence threshold, prompts, intent classification)',
+        'Third-party CRM Integrations (Webhooks, Google Sheets, HubSpot Sync)'
+      ],
+      previewStat: 'Real-time Channel Status • Zero Dropped Leads'
+    },
+    {
+      id: 'manager',
+      name: 'Manager',
+      subtitle: 'Executive Funnels & SLA Oversight',
+      badge: 'Analytics Suite',
+      icon: BarChart3,
+      color: 'cyan',
+      features: [
+        'Full Student Conversion Funnel (New ➔ Contacted ➔ Qualified ➔ Enrolled)',
+        'Territory & Country Analytics (India, UK, UAE, Canada, Australia cohorts)',
+        'SLA Response Time Tracking & Resolution Rate Analytics',
+        'Counselor Call Reports with recording durations and call outcome metrics',
+        'Team Performance Overview with workload distribution heatmaps'
+      ],
+      previewStat: '34% Higher Conversion • Sub-15 Min SLA'
+    },
+    {
+      id: 'team-leader',
+      name: 'Team Leader',
+      subtitle: 'Team Inbox & Counselor Supervision',
+      badge: 'Floor Manager',
+      icon: Users,
+      color: 'emerald',
+      features: [
+        'Shared Team WhatsApp Inbox with active supervisor monitoring',
+        'Live Assigned Leads Pipeline across all team counselors',
+        '1-Click Bulk Lead Reassignment between busy or off-duty staff',
+        'Active SLA Breach Warning Alerts for neglected student inquiries',
+        'Daily Activity Logs tracking calls, notes, and messages sent'
+      ],
+      previewStat: 'Instant Rebalance • Zero Unanswered Chats'
+    },
+    {
+      id: 'counselor',
+      name: 'Sales Counselor',
+      subtitle: 'Personal Leads Pipeline & Live Chats',
+      badge: 'Frontline Closer',
+      icon: GraduationCap,
+      color: 'emerald',
+      features: [
+        'Isolated Personal Leads Kanban Board with easy Stage Updates',
+        'Real-time WhatsApp Chat Interface with instant template responses',
+        '1-Click Call Logging with outcomes (Interested, Callback, Token Received)',
+        'Counselor Notes & Scheduled Next Follow-up Date notifications',
+        'AI Conversation Summary generation for fast context handover'
+      ],
+      previewStat: '4x Faster Follow-up • Automated Stage Moves'
+    },
+    {
+      id: 'support',
+      name: 'Customer Support',
+      subtitle: 'First-Touch Intake & Queue Dispatch',
+      badge: 'Inflow Gateway',
+      icon: Headphones,
+      color: 'teal',
+      features: [
+        'Incoming First-Contact Leads Queue awaiting qualification',
+        'Fast Manual Lead Injection ("Provision Manual Node") with zero latency',
+        'One-Click Counselor Allocation with territory pre-tagging',
+        'AI Bot Qualification Status monitoring & manual escalation',
+        'Broadcast template status checks & inquiry resolution'
+      ],
+      previewStat: 'Immediate Intake • 24/7 Queue Processing'
+    }
+  ]
+
+  const activeRoleData = projectRoles.find(r => r.id === selectedRoleTab) || projectRoles[4]
+
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] font-sans antialiased selection:bg-emerald-500 selection:text-white">
       {/* ─────────────────────────────────────────────────────────────
@@ -67,18 +178,18 @@ const LandingPage = () => {
                 Whats<span className="text-emerald-600">CRM</span>
               </span>
               <span className="text-[10px] font-black tracking-widest text-emerald-600 uppercase mt-0.5">
-                Enterprise AI
+                Study First Info Ltd.
               </span>
             </div>
           </Link>
 
           {/* Center Links */}
           <div className="hidden md:flex items-center gap-8 text-sm font-bold text-slate-600">
-            <a href="#features" className="hover:text-emerald-600 transition-colors">Features</a>
-            <a href="#overview" className="hover:text-emerald-600 transition-colors">Overview</a>
-            <a href="#pricing" className="hover:text-emerald-600 transition-colors">Pricing</a>
-            <a href="#testimonials" className="hover:text-emerald-600 transition-colors">Reviews</a>
-            <a href="#security" className="hover:text-emerald-600 transition-colors">Security</a>
+            <a href="#roles" className="hover:text-emerald-600 transition-colors">6-Role Architecture</a>
+            <a href="#features" className="hover:text-emerald-600 transition-colors">Core Modules</a>
+            <a href="#routing" className="hover:text-emerald-600 transition-colors">Smart Routing</a>
+            <a href="#pricing" className="hover:text-emerald-600 transition-colors">Pricing Plans</a>
+            <a href="#faqs" className="hover:text-emerald-600 transition-colors">FAQs</a>
           </div>
 
           {/* Right CTAs */}
@@ -88,7 +199,7 @@ const LandingPage = () => {
                 onClick={handleCtaClick}
                 className="px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider bg-emerald-600 text-white hover:bg-emerald-700 transition-all shadow-md shadow-emerald-600/20 flex items-center gap-2"
               >
-                Go to Dashboard
+                Open Dashboard ({role})
                 <ArrowRight size={14} />
               </button>
             ) : (
@@ -103,7 +214,7 @@ const LandingPage = () => {
                   onClick={() => navigate('/login')}
                   className="px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider bg-emerald-600 text-white hover:bg-emerald-700 transition-all shadow-md shadow-emerald-600/20 flex items-center gap-2 hover:scale-[1.02]"
                 >
-                  Get Started Free
+                  Access All 6 Portals
                   <ArrowRight size={14} />
                 </button>
               </>
@@ -115,9 +226,8 @@ const LandingPage = () => {
       {/* ─────────────────────────────────────────────────────────────
           2. HERO SECTION
       ───────────────────────────────────────────────────────────── */}
-      <section className="relative pt-12 pb-20 overflow-hidden bg-gradient-to-b from-emerald-50/40 via-white to-slate-50">
-        {/* Subtle decorative background glow */}
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-tr from-emerald-400/15 via-teal-300/10 to-transparent blur-[120px] rounded-full pointer-events-none" />
+      <section className="relative pt-12 pb-20 overflow-hidden bg-gradient-to-b from-emerald-50/50 via-white to-slate-50">
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[850px] h-[420px] bg-gradient-to-tr from-emerald-400/20 via-teal-300/15 to-transparent blur-[130px] rounded-full pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto space-y-6">
@@ -125,10 +235,10 @@ const LandingPage = () => {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100/70 border border-emerald-300/60 text-emerald-800 text-[11px] font-black uppercase tracking-wider shadow-sm"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100/80 border border-emerald-300/60 text-emerald-800 text-[11px] font-black uppercase tracking-wider shadow-sm"
             >
-              <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-              #1 AI-Powered WhatsApp CRM Platform
+              <GraduationCap className="w-4 h-4 text-emerald-600" />
+              STUDY FIRST INFO LTD. • WHATSAPP CRM PLATFORM
             </motion.div>
 
             {/* Main Headline */}
@@ -136,11 +246,11 @@ const LandingPage = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.15]"
+              className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.12]"
             >
-              Turn Your WhatsApp Conversations Into{' '}
+              Turn Every WhatsApp Inquiry Into an{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500">
-                Real Customers
+                Enrolled Student & Client
               </span>
             </motion.h1>
 
@@ -151,8 +261,7 @@ const LandingPage = () => {
               transition={{ delay: 0.2 }}
               className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto font-medium"
             >
-              WhatsCRM empowers your sales and counseling teams to capture high-intent leads,
-              automate replies 24/7, route chats instantly, and grow your revenue effortlessly.
+              Built specifically for admissions counseling, student recruitment, and multi-team lead management. Unify all WhatsApp channels, automate qualification with AI, and dispatch leads via strict Round-Robin routing.
             </motion.p>
 
             {/* Action Buttons */}
@@ -166,16 +275,16 @@ const LandingPage = () => {
                 onClick={handleCtaClick}
                 className="px-8 py-4 rounded-full font-black text-xs uppercase tracking-widest bg-emerald-600 text-white hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-600/25 flex items-center gap-2 hover:scale-105 active:scale-95"
               >
-                Start Free Trial
+                Launch CRM Workspace
                 <ArrowRight size={16} />
               </button>
-              <button
-                onClick={() => navigate('/login')}
+              <a
+                href="#roles"
                 className="px-7 py-4 rounded-full font-bold text-xs uppercase tracking-widest bg-white text-slate-800 border border-slate-200 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-sm flex items-center gap-2 hover:bg-emerald-50/50"
               >
-                <Play size={14} className="fill-emerald-600 text-emerald-600" />
-                Schedule Demo
-              </button>
+                <Layers size={14} className="text-emerald-600" />
+                Explore 6 Role Portals
+              </a>
             </motion.div>
 
             {/* Trust checkmarks */}
@@ -186,19 +295,19 @@ const LandingPage = () => {
               className="flex flex-wrap items-center justify-center gap-6 pt-3 text-[11px] font-bold text-slate-500"
             >
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 size={14} className="text-emerald-600" /> No Credit Card Required
+                <CheckCircle2 size={14} className="text-emerald-600" /> 6 Isolated Role Portals
               </span>
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 size={14} className="text-emerald-600" /> 14-Day Free Access
+                <CheckCircle2 size={14} className="text-emerald-600" /> Automated Round-Robin Routing
               </span>
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 size={14} className="text-emerald-600" /> 5-Min WhatsApp Setup
+                <CheckCircle2 size={14} className="text-emerald-600" /> Live WebSocket Synchronization
               </span>
             </motion.div>
           </div>
 
           {/* ─────────────────────────────────────────────────────────────
-              HERO PREVIEW INTERFACE (Matching Mockup)
+              HERO LIVE MOCKUP: STUDY FIRST INFO WHATSAPP CRM PREVIEW
           ───────────────────────────────────────────────────────────── */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -209,13 +318,13 @@ const LandingPage = () => {
             {/* Top Floating Badge */}
             <div className="absolute -top-5 right-4 sm:right-10 z-20 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black text-[10px] uppercase tracking-wider px-4 py-2 rounded-full shadow-lg flex items-center gap-2 border border-amber-300">
               <Flame size={14} className="fill-slate-950 text-slate-950" />
-              10x Faster Conversion to Sales
+              10x Faster Inquiries to Admissions
             </div>
 
             {/* WhatsApp Glowing Badge */}
             <div className="absolute -top-6 left-4 sm:left-10 z-20 bg-[#25D366] text-white p-3 rounded-2xl shadow-xl shadow-[#25D366]/30 flex items-center gap-2 border-2 border-white">
               <MessageSquare size={18} className="fill-white text-white" />
-              <span className="text-xs font-black uppercase tracking-wider">Official WhatsApp Cloud API</span>
+              <span className="text-xs font-black uppercase tracking-wider">Official WhatsApp Cloud Node Active</span>
             </div>
 
             {/* Main Mockup Container */}
@@ -224,8 +333,8 @@ const LandingPage = () => {
                 
                 {/* Mini Left Sidebar */}
                 <div className="hidden sm:flex col-span-1 bg-[#06241D] border-r border-emerald-950/60 flex-col items-center py-6 gap-6">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-500 flex items-center justify-center text-white">
-                    <MessageSquare size={18} />
+                  <div className="w-9 h-9 rounded-xl bg-emerald-500 flex items-center justify-center text-white shadow-lg shadow-emerald-500/30">
+                    <GraduationCap size={18} />
                   </div>
                   <div className="flex flex-col gap-4 text-emerald-400/60">
                     <div className="p-2.5 rounded-xl bg-emerald-500/15 text-emerald-400">
@@ -243,50 +352,56 @@ const LandingPage = () => {
                   </div>
                 </div>
 
-                {/* Middle Chat List */}
+                {/* Middle Chat List (Real Study First Leads) */}
                 <div className="col-span-12 sm:col-span-4 bg-[#0A3026] border-r border-emerald-950/50 p-4 flex flex-col justify-between">
                   <div>
                     <div className="flex items-center justify-between pb-3 border-b border-emerald-900/60 mb-3">
-                      <span className="text-xs font-black uppercase tracking-wider text-emerald-300">Live Active Queue</span>
-                      <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">14 Active</span>
+                      <div className="flex flex-col text-left">
+                        <span className="text-xs font-black uppercase tracking-wider text-emerald-300">Live Intake Queue</span>
+                        <span className="text-[9px] text-emerald-400/70">Auto-Routing: Round-Robin</span>
+                      </div>
+                      <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">18 Active</span>
                     </div>
 
                     <div className="space-y-2">
-                      <div className="p-3 rounded-2xl bg-emerald-900/40 border border-emerald-700/40 text-left">
+                      <div className="p-3 rounded-2xl bg-emerald-900/50 border border-emerald-600/50 text-left">
                         <div className="flex justify-between items-start">
-                          <span className="text-xs font-bold text-white">Aditi Sharma</span>
-                          <span className="text-[9px] text-emerald-400">Just now</span>
+                          <span className="text-xs font-bold text-white">Aarav Sharma</span>
+                          <span className="text-[9px] text-emerald-400 font-bold">1m ago</span>
                         </div>
-                        <p className="text-[11px] text-emerald-200/80 truncate mt-1">"Can you share the admission prospectus & fees?"</p>
+                        <p className="text-[11px] text-emerald-200/90 truncate mt-1">"Please share the brochure for MBA in Data Analytics."</p>
                         <div className="mt-2 flex items-center gap-2">
-                          <span className="px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-black text-[8px] uppercase">Hot Lead</span>
-                          <span className="text-[9px] text-emerald-400 font-bold">India • MBA</span>
+                          <span className="px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-black text-[8px] uppercase">Score: 96 🔥</span>
+                          <span className="text-[9px] text-emerald-300 font-bold">India • Intake 2026</span>
                         </div>
                       </div>
 
-                      <div className="p-3 rounded-2xl bg-emerald-950/20 hover:bg-emerald-900/20 border border-emerald-900/30 text-left transition-colors">
+                      <div className="p-3 rounded-2xl bg-emerald-950/30 hover:bg-emerald-900/20 border border-emerald-900/30 text-left transition-colors">
                         <div className="flex justify-between items-start">
-                          <span className="text-xs font-bold text-slate-200">Kunal Sen</span>
-                          <span className="text-[9px] text-slate-400">5m ago</span>
+                          <span className="text-xs font-bold text-slate-200">Priya Nair</span>
+                          <span className="text-[9px] text-slate-400">4m ago</span>
                         </div>
-                        <p className="text-[11px] text-slate-400 truncate mt-1">"I have paid the application registration token."</p>
+                        <p className="text-[11px] text-slate-400 truncate mt-1">"Can we schedule a 1-on-1 counseling call for UK visa?"</p>
                         <div className="mt-2 flex items-center gap-2">
-                          <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold text-[8px] uppercase">Payment Verified</span>
+                          <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold text-[8px] uppercase">Callback Booked</span>
                         </div>
                       </div>
 
-                      <div className="p-3 rounded-2xl bg-emerald-950/20 hover:bg-emerald-900/20 border border-emerald-900/30 text-left transition-colors">
+                      <div className="p-3 rounded-2xl bg-emerald-950/30 hover:bg-emerald-900/20 border border-emerald-900/30 text-left transition-colors">
                         <div className="flex justify-between items-start">
-                          <span className="text-xs font-bold text-slate-200">Rohit Verma</span>
-                          <span className="text-[9px] text-slate-400">12m ago</span>
+                          <span className="text-xs font-bold text-slate-200">Rohan Mehta</span>
+                          <span className="text-[9px] text-slate-400">10m ago</span>
                         </div>
-                        <p className="text-[11px] text-slate-400 truncate mt-1">"Please arrange a callback with counselor."</p>
+                        <p className="text-[11px] text-slate-400 truncate mt-1">"I have submitted my application fee token receipt."</p>
+                        <div className="mt-2 flex items-center gap-2">
+                          <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-bold text-[8px] uppercase">Fee Paid</span>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="p-3 bg-emerald-950/50 rounded-2xl border border-emerald-900/40 text-[10px] text-emerald-300 flex items-center justify-between">
-                    <span>⚡ AI Auto-Responder: Active</span>
+                  <div className="p-3 bg-emerald-950/60 rounded-2xl border border-emerald-900/40 text-[10px] text-emerald-300 flex items-center justify-between">
+                    <span>⚡ AI Qualification Bot: Online</span>
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
                   </div>
                 </div>
@@ -296,31 +411,31 @@ const LandingPage = () => {
                   {/* Header */}
                   <div className="flex items-center justify-between pb-3 border-b border-emerald-800/40">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full bg-emerald-500 flex items-center justify-center font-bold text-white text-xs">
+                      <div className="w-9 h-9 rounded-full bg-emerald-500 flex items-center justify-center font-bold text-white text-xs shadow-md">
                         AS
                       </div>
                       <div className="text-left">
                         <div className="text-xs font-bold text-white flex items-center gap-1.5">
-                          Aditi Sharma
+                          Aarav Sharma
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                         </div>
-                        <span className="text-[10px] text-emerald-300/70">+91 98765 43210 • Counselor: Priya</span>
+                        <span className="text-[10px] text-emerald-300/70">+91 98765 43210 • Counselor: Senior Counselor Neha</span>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-[10px] font-bold">
-                        Lead Score: 94/100 🔥
+                        Stage: Qualified
                       </span>
                     </div>
                   </div>
 
                   {/* Message Bubbles */}
                   <div className="py-6 space-y-4 text-left">
-                    {/* Incoming */}
+                    {/* Student Message */}
                     <div className="flex items-start gap-2 max-w-[80%]">
                       <div className="bg-[#124C3D] p-3 rounded-2xl rounded-tl-none border border-emerald-700/40 text-white text-xs leading-relaxed">
-                        Hello! I saw your post regarding the Autumn 2026 Batch. Could you share the fee schedule and scholarship details?
-                        <div className="text-[8px] text-emerald-300/60 text-right mt-1">10:42 AM</div>
+                        Hello Study First Info team! I want to apply for the Autumn 2026 MBA Intake. What are the eligibility criteria and scholarship deadlines?
+                        <div className="text-[8px] text-emerald-300/60 text-right mt-1">11:15 AM</div>
                       </div>
                     </div>
 
@@ -330,16 +445,18 @@ const LandingPage = () => {
                         <div className="text-[9px] font-bold text-emerald-200 mb-1 flex items-center gap-1">
                           <Sparkles size={10} /> Auto-Smart Prospectus Dispatched
                         </div>
-                        Hi Aditi! 👋 I've attached our 2026 Prospectus. Up to 40% Merit Scholarships are available for early registrations. Would you like a 10-minute briefing call with Senior Counselor Priya?
-                        <div className="text-[8px] text-emerald-100 text-right mt-1">10:42 AM • Delivered ✓✓</div>
+                        Hi Aarav! 🎓 Thank you for reaching out to Study First Info. I have shared our 2026 MBA Prospectus and Scholarship Matrix. Early applicant scholarships up to 40% close on Nov 30th. 
+                        <br className="my-1"/>
+                        Senior Counselor <b>Neha</b> has been assigned to your profile. Would you like a 10-minute briefing call today at 3:00 PM?
+                        <div className="text-[8px] text-emerald-100 text-right mt-1">11:15 AM • Delivered ✓✓</div>
                       </div>
                     </div>
 
-                    {/* Quick Response */}
+                    {/* Student Reply */}
                     <div className="flex items-start gap-2 max-w-[80%]">
                       <div className="bg-[#124C3D] p-3 rounded-2xl rounded-tl-none border border-emerald-700/40 text-white text-xs leading-relaxed">
-                        Yes please! Tomorrow at 3:00 PM would be perfect.
-                        <div className="text-[8px] text-emerald-300/60 text-right mt-1">10:44 AM</div>
+                        Yes please, 3:00 PM works great! I have my graduation marksheets ready.
+                        <div className="text-[8px] text-emerald-300/60 text-right mt-1">11:17 AM</div>
                       </div>
                     </div>
                   </div>
@@ -348,7 +465,7 @@ const LandingPage = () => {
                   <div className="pt-3 border-t border-emerald-800/40 flex items-center gap-2">
                     <input
                       disabled
-                      placeholder="Type a message or trigger automated workflow..."
+                      placeholder="Type counselor reply or trigger WhatsApp template message..."
                       className="flex-1 bg-emerald-950/60 border border-emerald-800/40 rounded-xl px-4 py-2.5 text-xs text-white placeholder-emerald-400/40 outline-none"
                     />
                     <button className="p-2.5 rounded-xl bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-400 transition-colors">
@@ -372,216 +489,335 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="px-4 py-1 rounded-full bg-emerald-900/60 border border-emerald-700/60 text-emerald-400 text-[10px] font-black uppercase tracking-widest">
-              Impact That Matters
+              Study First Operations Scale
             </span>
             <h2 className="text-2xl sm:text-3xl font-black mt-3 tracking-tight">
-              Trusted by 5,000+ Fast-Growing Organizations Worldwide
+              Powering Higher Education Admissions & Client Growth
             </h2>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div className="p-6 rounded-3xl bg-[#093529] border border-emerald-800/40 shadow-lg">
               <div className="text-3xl sm:text-4xl font-black text-emerald-400 tracking-tight">12,500+</div>
-              <div className="text-xs font-bold text-emerald-200/80 uppercase tracking-wider mt-2">Active Agents</div>
-              <p className="text-[11px] text-emerald-300/60 mt-1">Driving customer conversations daily</p>
+              <div className="text-xs font-bold text-emerald-200/80 uppercase tracking-wider mt-2">Active Students Handled</div>
+              <p className="text-[11px] text-emerald-300/60 mt-1">From initial WhatsApp chat to final enrollment</p>
             </div>
 
             <div className="p-6 rounded-3xl bg-[#093529] border border-emerald-800/40 shadow-lg">
               <div className="text-3xl sm:text-4xl font-black text-emerald-400 tracking-tight">28M+</div>
-              <div className="text-xs font-bold text-emerald-200/80 uppercase tracking-wider mt-2">Messages Handled</div>
-              <p className="text-[11px] text-emerald-300/60 mt-1">With 99.98% delivery rate</p>
+              <div className="text-xs font-bold text-emerald-200/80 uppercase tracking-wider mt-2">WhatsApp Messages</div>
+              <p className="text-[11px] text-emerald-300/60 mt-1">99.98% delivery rate via official Cloud API</p>
             </div>
 
             <div className="p-6 rounded-3xl bg-[#093529] border border-emerald-800/40 shadow-lg">
               <div className="text-3xl sm:text-4xl font-black text-emerald-400 tracking-tight">98.4%</div>
-              <div className="text-xs font-bold text-emerald-200/80 uppercase tracking-wider mt-2">CSAT Satisfaction</div>
-              <p className="text-[11px] text-emerald-300/60 mt-1">Top-rated across user reviews</p>
+              <div className="text-xs font-bold text-emerald-200/80 uppercase tracking-wider mt-2">SLA Compliance</div>
+              <p className="text-[11px] text-emerald-300/60 mt-1">Sub-15 minute response time guarantee</p>
             </div>
 
             <div className="p-6 rounded-3xl bg-[#093529] border border-emerald-800/40 shadow-lg">
               <div className="text-3xl sm:text-4xl font-black text-emerald-400 tracking-tight">50+</div>
               <div className="text-xs font-bold text-emerald-200/80 uppercase tracking-wider mt-2">Countries Covered</div>
-              <p className="text-[11px] text-emerald-300/60 mt-1">Global multi-channel scale</p>
+              <p className="text-[11px] text-emerald-300/60 mt-1">India, UK, UAE, USA, Canada, Australia cohorts</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          4. 6 CORE FEATURES GRID
+          4. THE 6 DEDICATED ROLE PORTALS (CORE PROJECT ARCHITECTURE)
       ───────────────────────────────────────────────────────────── */}
-      <section id="features" className="py-24 bg-white">
+      <section id="roles" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
             <span className="px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-black uppercase tracking-widest border border-emerald-200/80">
-              Powerful Core Capabilities
+              Unified Role-Based Architecture
             </span>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              Everything Your Sales Team Needs to Win
+              6 Tailored Dashboards for Every Member of Your Team
             </h2>
             <p className="text-slate-600 text-sm font-medium">
-              Eliminate disconnected spreadsheets and missed inquiries with our complete WhatsApp-first CRM.
+              Every role in Study First Info gets an optimized workspace with strict Role-Based Access Control (RBAC) and zero data leakage.
             </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-emerald-500/50 hover:bg-emerald-50/20 transition-all group hover:-translate-y-1 shadow-sm">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                <MessageSquare className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-black text-slate-900 mb-2">Unified Shared Inbox</h3>
-              <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                Multiple agents can chat with customers from one single WhatsApp number without colliding or losing context.
-              </p>
-            </div>
-
-            {/* Feature 2 */}
-            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-emerald-500/50 hover:bg-emerald-50/20 transition-all group hover:-translate-y-1 shadow-sm">
-              <div className="w-12 h-12 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center mb-6 group-hover:bg-teal-600 group-hover:text-white transition-colors">
-                <Users className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-black text-slate-900 mb-2">Automated Lead Routing</h3>
-              <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                Assign incoming leads based on Round-Robin, territory, or counselor availability so no buyer waits.
-              </p>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-emerald-500/50 hover:bg-emerald-50/20 transition-all group hover:-translate-y-1 shadow-sm">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                <Sparkles className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-black text-slate-900 mb-2">24/7 AI Qualification</h3>
-              <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                Automated qualification bot gathers budget, course preference, and timeline before handing over to human reps.
-              </p>
-            </div>
-
-            {/* Feature 4 */}
-            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-emerald-500/50 hover:bg-emerald-50/20 transition-all group hover:-translate-y-1 shadow-sm">
-              <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition-colors">
-                <Send className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-black text-slate-900 mb-2">Broadcast Campaigns</h3>
-              <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                Dispatch verified WhatsApp template messages, brochure updates, and event invitations at massive scale.
-              </p>
-            </div>
-
-            {/* Feature 5 */}
-            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-emerald-500/50 hover:bg-emerald-50/20 transition-all group hover:-translate-y-1 shadow-sm">
-              <div className="w-12 h-12 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center mb-6 group-hover:bg-cyan-600 group-hover:text-white transition-colors">
-                <BarChart3 className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-black text-slate-900 mb-2">Conversion Analytics</h3>
-              <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                Real-time visibility into agent response speed, lead funnel progression, and closure success rates.
-              </p>
-            </div>
-
-            {/* Feature 6 */}
-            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-emerald-500/50 hover:bg-emerald-50/20 transition-all group hover:-translate-y-1 shadow-sm">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                <Lock className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-black text-slate-900 mb-2">Role-Based Security (RBAC)</h3>
-              <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                Granular permissions for Super Admin, Manager, Team Leader, Counselor, and Support with full audit trails.
-              </p>
+            {/* Role Switcher Tabs */}
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-6">
+              {projectRoles.map(r => (
+                <button
+                  key={r.id}
+                  onClick={() => setSelectedRoleTab(r.id)}
+                  className={`px-4 py-2.5 rounded-2xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 ${
+                    selectedRoleTab === r.id
+                      ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/25 scale-105'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80'
+                  }`}
+                >
+                  <r.icon size={14} />
+                  {r.name}
+                </button>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* ─────────────────────────────────────────────────────────────
-          5. DEEP DIVE SHOWCASE (Everything You Need in One Unified CRM)
-      ───────────────────────────────────────────────────────────── */}
-      <section id="overview" className="py-20 bg-slate-50 border-t border-slate-200/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            
-            {/* Left Content */}
-            <div className="space-y-6">
-              <span className="px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black uppercase tracking-widest">
-                Seamless Experience
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
-                Everything You Need in One Platform, Zero Friction
-              </h2>
-              <p className="text-slate-600 text-sm font-medium leading-relaxed">
-                WhatsCRM brings together messaging, lead profiles, notes, call tracking, and automated follow-ups into a clean interface designed for high-velocity teams.
-              </p>
+          {/* Active Role Feature Display Card */}
+          <div className="bg-slate-900 rounded-[2.5rem] p-8 sm:p-12 text-white border border-slate-800 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 blur-[100px] rounded-full pointer-events-none" />
 
-              <div className="space-y-4 pt-2">
-                <div className="flex items-start gap-4 p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
-                  <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                    <Check size={16} />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+              <div className="lg:col-span-7 space-y-6 text-left">
+                <div className="flex items-center gap-3">
+                  <div className="p-3 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    <activeRoleData.icon size={24} />
                   </div>
                   <div>
-                    <h4 className="text-xs font-black uppercase text-slate-900 tracking-wider">Multi-Agent WhatsApp Access</h4>
-                    <p className="text-xs text-slate-500 mt-0.5">Let your whole counseling staff answer from a single official number.</p>
+                    <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-black uppercase tracking-widest border border-emerald-500/30">
+                      {activeRoleData.badge}
+                    </span>
+                    <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mt-1">
+                      {activeRoleData.name} Workspace
+                    </h3>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
-                  <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                    <Check size={16} />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-black uppercase text-slate-900 tracking-wider">Drag-and-Drop Kanban Stages</h4>
-                    <p className="text-xs text-slate-500 mt-0.5">Move prospects smoothly from New ➔ Contacted ➔ Qualified ➔ Enrolled.</p>
-                  </div>
+                <p className="text-slate-300 text-sm font-medium leading-relaxed">
+                  {activeRoleData.subtitle}. Purpose-built to eliminate bottlenecks and provide full visibility into student interactions.
+                </p>
+
+                <div className="space-y-3 pt-2">
+                  {activeRoleData.features.map((feat, idx) => (
+                    <div key={idx} className="flex items-start gap-3">
+                      <div className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+                        <Check size={12} strokeWidth={3} />
+                      </div>
+                      <span className="text-xs text-slate-200 font-medium leading-relaxed">{feat}</span>
+                    </div>
+                  ))}
                 </div>
 
-                <div className="flex items-start gap-4 p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
-                  <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                    <Check size={16} />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-black uppercase text-slate-900 tracking-wider">Integrated Call & Note Logs</h4>
-                    <p className="text-xs text-slate-500 mt-0.5">Save call logs, next follow-up dates, and counselor notes directly.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Phone / Chat Display */}
-            <div className="relative flex justify-center">
-              <div className="w-full max-w-sm rounded-[3rem] bg-[#0A261F] p-4 shadow-2xl border-4 border-slate-800 text-white relative">
-                {/* Speaker Notch */}
-                <div className="w-28 h-4 bg-slate-900 rounded-full mx-auto mb-4" />
-
-                {/* Mobile Screen Header */}
-                <div className="bg-[#071F19] p-3 rounded-2xl flex items-center gap-3 border border-emerald-900/60 mb-4">
-                  <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center font-bold text-xs">
-                    SF
-                  </div>
-                  <div className="text-left flex-1">
-                    <div className="text-xs font-bold">Study First Admissions</div>
-                    <div className="text-[10px] text-emerald-400">Online • 24/7 Verified Node</div>
-                  </div>
-                </div>
-
-                {/* Mobile Chat Messages */}
-                <div className="space-y-3 py-2 text-xs text-left">
-                  <div className="bg-emerald-900/60 border border-emerald-700/50 p-3 rounded-2xl rounded-tl-none">
-                    Hello! I want to enroll in the Global Management Program.
-                  </div>
-                  <div className="bg-[#059669] p-3 rounded-2xl rounded-tr-none ml-auto max-w-[85%] text-right text-white shadow-md">
-                    Welcome! We have reserved your seat. Your counselor <b>Rajesh</b> will call you at 4:00 PM.
-                  </div>
-                  <div className="p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-800/60 text-[10px] text-center text-emerald-300">
-                    ✓ Lead automatically added to CRM Pipeline
-                  </div>
-                </div>
-
-                <div className="mt-8 pt-4 border-t border-emerald-900/60 text-center">
-                  <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">
-                    Powered by WhatsCRM Platform
+                <div className="pt-4 flex items-center gap-4">
+                  <button
+                    onClick={() => navigate('/login')}
+                    className="px-6 py-3.5 rounded-full text-xs font-black uppercase tracking-wider bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition-all shadow-lg flex items-center gap-2"
+                  >
+                    Open {activeRoleData.name} Portal
+                    <ArrowRight size={14} />
+                  </button>
+                  <span className="text-[11px] font-bold text-emerald-400">
+                    {activeRoleData.previewStat}
                   </span>
                 </div>
               </div>
+
+              {/* Right Mock Representation */}
+              <div className="lg:col-span-5 bg-[#06241D] rounded-3xl p-6 border border-emerald-800/50 shadow-xl space-y-4 text-left">
+                <div className="flex items-center justify-between pb-3 border-b border-emerald-900/60">
+                  <span className="text-xs font-black uppercase tracking-wider text-emerald-300">Live Dashboard Route</span>
+                  <span className="text-[10px] font-mono text-emerald-400">/api/{activeRoleData.id}</span>
+                </div>
+
+                <div className="space-y-2.5 text-xs text-slate-300 font-medium">
+                  <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-800/40 flex justify-between items-center">
+                    <span>Role Token Status</span>
+                    <span className="text-emerald-400 font-bold">Authenticated ✓</span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-800/40 flex justify-between items-center">
+                    <span>Data Scope (RBAC)</span>
+                    <span className="text-emerald-400 font-bold">Strict Isolation</span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-800/40 flex justify-between items-center">
+                    <span>Real-time WebSocket</span>
+                    <span className="text-emerald-400 font-bold">Connected (Port 5000)</span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-800/40 flex justify-between items-center">
+                    <span>Quota Usage</span>
+                    <span className="text-emerald-400 font-bold">750 / 1000 Leads</span>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-[10px] text-emerald-300 text-center font-bold">
+                  ⚡ 1-Click Fast Switch available on Login Gateway
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          5. CORE SYSTEM MODULES (Deep Dive)
+      ───────────────────────────────────────────────────────────── */}
+      <section id="features" className="py-24 bg-slate-50 border-t border-slate-200/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+            <span className="px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black uppercase tracking-widest">
+              Engineered For Admissions & Operations
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+              Complete Feature Architecture
+            </h2>
+            <p className="text-slate-600 text-sm font-medium">
+              Eliminate disconnected spreadsheets and chaotic personal WhatsApp accounts with centralized governance.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+            {/* Module 1 */}
+            <div className="p-8 rounded-3xl bg-white border border-slate-200/80 hover:border-emerald-500/50 hover:shadow-lg transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                <Users className="w-6 h-6" />
+              </div>
+              <h3 className="text-lg font-black text-slate-900 mb-2">Round-Robin Lead Routing</h3>
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                Automatic distribution of incoming inquiries among active counselors based on timestamp and workload to ensure instant lead pick-up.
+              </p>
+            </div>
+
+            {/* Module 2 */}
+            <div className="p-8 rounded-3xl bg-white border border-slate-200/80 hover:border-emerald-500/50 hover:shadow-lg transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center mb-6 group-hover:bg-teal-600 group-hover:text-white transition-colors">
+                <PhoneCall className="w-6 h-6" />
+              </div>
+              <h3 className="text-lg font-black text-slate-900 mb-2">1-Click Call & Notes Logging</h3>
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                Record student call duration, discussion outcomes (Interested, Callback, Dropped), and schedule next follow-up dates directly in lead profile.
+              </p>
+            </div>
+
+            {/* Module 3 */}
+            <div className="p-8 rounded-3xl bg-white border border-slate-200/80 hover:border-emerald-500/50 hover:shadow-lg transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                <Sparkles className="w-6 h-6" />
+              </div>
+              <h3 className="text-lg font-black text-slate-900 mb-2">AI Qualification Engine</h3>
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                24/7 AI bot automatically qualifies applicant budget, course interest, and academic intake year before assigning to counselors.
+              </p>
+            </div>
+
+            {/* Module 4 */}
+            <div className="p-8 rounded-3xl bg-white border border-slate-200/80 hover:border-emerald-500/50 hover:shadow-lg transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+                <Clock className="w-6 h-6" />
+              </div>
+              <h3 className="text-lg font-black text-slate-900 mb-2">15-Min SLA Warning Alerts</h3>
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                Strict response time tracking. If an incoming WhatsApp lead is not attended within target window, automated alerts notify Team Leaders.
+              </p>
+            </div>
+
+            {/* Module 5 */}
+            <div className="p-8 rounded-3xl bg-white border border-slate-200/80 hover:border-emerald-500/50 hover:shadow-lg transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center mb-6 group-hover:bg-cyan-600 group-hover:text-white transition-colors">
+                <Globe2 className="w-6 h-6" />
+              </div>
+              <h3 className="text-lg font-black text-slate-900 mb-2">Territory & Country Funnels</h3>
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                Segment student pipelines by territory (India, UAE, UK, Canada). Analyze stage progression and regional conversion rates in real time.
+              </p>
+            </div>
+
+            {/* Module 6 */}
+            <div className="p-8 rounded-3xl bg-white border border-slate-200/80 hover:border-emerald-500/50 hover:shadow-lg transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                <Shield className="w-6 h-6" />
+              </div>
+              <h3 className="text-lg font-black text-slate-900 mb-2">Security, RBAC & Audit Trails</h3>
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                Every action (lead created, status changed, permissions modified, message sent) is recorded in an immutable system audit trail with CSV export.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          6. SMART ROUTING ENGINE SECTION
+      ───────────────────────────────────────────────────────────── */}
+      <section id="routing" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left">
+            
+            <div className="space-y-6">
+              <span className="px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black uppercase tracking-widest">
+                Intelligent Allocation
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
+                Never Miss a Lead With Automated Round-Robin Routing
+              </h2>
+              <p className="text-slate-600 text-sm font-medium leading-relaxed">
+                When a student sends a WhatsApp message or registers via web forms, WhatsCRM instantly analyzes their territory, program of interest, and counselor availability.
+              </p>
+
+              <div className="space-y-3 pt-2">
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-4">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0">
+                    1
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-black uppercase text-slate-900 tracking-wider">Territory Rule Matching</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">Leads from India are routed to Domestic Counselors, international leads to Global Teams.</p>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-4">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0">
+                    2
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-black uppercase text-slate-900 tracking-wider">Round-Robin Equal Distribution</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">Leads are assigned to the counselor who hasn't received a new lead in the longest time.</p>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-4">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0">
+                    3
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-black uppercase text-slate-900 tracking-wider">Automated Notification & Assignment</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">Counselor gets immediate socket notification and the lead pops up on their active board.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Visual Workflow Diagram */}
+            <div className="bg-[#06281E] rounded-3xl p-6 sm:p-8 text-white border border-emerald-800/60 shadow-2xl space-y-4">
+              <div className="flex items-center justify-between pb-4 border-b border-emerald-800/60">
+                <span className="text-xs font-black uppercase tracking-wider text-emerald-300">Live Routing Protocol</span>
+                <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">Rule Engine v4.2</span>
+              </div>
+
+              <div className="space-y-3">
+                <div className="p-4 rounded-2xl bg-[#093529] border border-emerald-700/50 flex items-center justify-between">
+                  <div>
+                    <div className="text-[10px] text-emerald-400 uppercase font-black">Step 1: Incoming WhatsApp Event</div>
+                    <div className="text-xs font-bold text-white mt-0.5">+91 98765 43210 (Country: India, Program: MBA)</div>
+                  </div>
+                  <CheckCircle2 size={18} className="text-emerald-400" />
+                </div>
+
+                <div className="p-4 rounded-2xl bg-[#093529] border border-emerald-700/50 flex items-center justify-between">
+                  <div>
+                    <div className="text-[10px] text-emerald-400 uppercase font-black">Step 2: Rule Verification</div>
+                    <div className="text-xs font-bold text-white mt-0.5">Match: Rule "India MBA Admissions" ➔ Team "General"</div>
+                  </div>
+                  <CheckCircle2 size={18} className="text-emerald-400" />
+                </div>
+
+                <div className="p-4 rounded-2xl bg-[#093529] border border-emerald-700/50 flex items-center justify-between">
+                  <div>
+                    <div className="text-[10px] text-emerald-400 uppercase font-black">Step 3: Counselor Assignment</div>
+                    <div className="text-xs font-bold text-white mt-0.5">Assigned to: Neha (Active, Oldest Last Assigned)</div>
+                  </div>
+                  <CheckCircle2 size={18} className="text-emerald-400" />
+                </div>
+
+                <div className="p-4 rounded-2xl bg-emerald-500 text-slate-950 font-black text-xs text-center flex items-center justify-center gap-2 shadow-lg">
+                  <Zap size={14} className="fill-slate-950" />
+                  Total Routing Latency: 42ms • WebSocket Push Completed
+                </div>
+              </div>
             </div>
 
           </div>
@@ -589,12 +825,12 @@ const LandingPage = () => {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          6. PRICING SECTION
+          7. PRICING SECTION
       ───────────────────────────────────────────────────────────── */}
-      <section id="pricing" className="py-24 bg-white">
+      <section id="pricing" className="py-24 bg-slate-50 border-t border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-            <span className="px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-black uppercase tracking-widest border border-emerald-200">
+            <span className="px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black uppercase tracking-widest border border-emerald-200">
               Transparent Investment
             </span>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
@@ -621,19 +857,19 @@ const LandingPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Starter Plan */}
-            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-200 flex flex-col justify-between hover:border-emerald-500/50 transition-all shadow-sm">
+            <div className="p-8 rounded-3xl bg-white border border-slate-200 flex flex-col justify-between hover:border-emerald-500/50 transition-all shadow-sm">
               <div>
-                <span className="text-xs font-black text-slate-400 uppercase tracking-widest">Starter</span>
+                <span className="text-xs font-black text-slate-400 uppercase tracking-widest">Campus Starter</span>
                 <div className="mt-4 flex items-baseline gap-1">
                   <span className="text-4xl font-black text-slate-900">${annualBilling ? '19' : '24'}</span>
                   <span className="text-xs font-bold text-slate-400">/ month</span>
                 </div>
-                <p className="text-xs text-slate-500 mt-2">Ideal for individual counselors and solo practitioners.</p>
+                <p className="text-xs text-slate-500 mt-2">Ideal for individual education counselors and single branch teams.</p>
 
                 <div className="mt-6 pt-6 border-t border-slate-200/80 space-y-3 text-xs font-bold text-slate-700">
-                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> 1 WhatsApp Number</div>
-                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> 1 Agent Seat</div>
-                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> 1,000 Active Leads</div>
+                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> 1 WhatsApp Number Node</div>
+                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> 1 Counselor Seat</div>
+                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> 1,000 Active Student Leads</div>
                   <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> Basic Lead Stage Kanban</div>
                 </div>
               </div>
@@ -653,19 +889,19 @@ const LandingPage = () => {
               </div>
 
               <div>
-                <span className="text-xs font-black text-emerald-400 uppercase tracking-widest">Business</span>
+                <span className="text-xs font-black text-emerald-400 uppercase tracking-widest">Admissions Growth</span>
                 <div className="mt-4 flex items-baseline gap-1">
                   <span className="text-4xl font-black text-white">${annualBilling ? '49' : '59'}</span>
                   <span className="text-xs font-bold text-emerald-300">/ month</span>
                 </div>
-                <p className="text-xs text-emerald-200/80 mt-2">For growing teams requiring fast response and automations.</p>
+                <p className="text-xs text-emerald-200/80 mt-2">For growing institutions requiring multi-agent assignment & AI bots.</p>
 
                 <div className="mt-6 pt-6 border-t border-emerald-800/80 space-y-3 text-xs font-bold text-emerald-100">
-                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-400" /> 3 WhatsApp Channels</div>
-                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-400" /> 5 Team Member Seats</div>
+                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-400" /> 3 WhatsApp Channel Nodes</div>
+                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-400" /> 5 Staff Member Seats</div>
                   <div className="flex items-center gap-2"><Check size={14} className="text-emerald-400" /> Round-Robin Auto Routing</div>
                   <div className="flex items-center gap-2"><Check size={14} className="text-emerald-400" /> 24/7 AI Qualification Bot</div>
-                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-400" /> Full Lead Call & Notes Logs</div>
+                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-400" /> Call Logs & Follow-up Scheduler</div>
                 </div>
               </div>
 
@@ -678,20 +914,20 @@ const LandingPage = () => {
             </div>
 
             {/* Professional Plan */}
-            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-200 flex flex-col justify-between hover:border-emerald-500/50 transition-all shadow-sm">
+            <div className="p-8 rounded-3xl bg-white border border-slate-200 flex flex-col justify-between hover:border-emerald-500/50 transition-all shadow-sm">
               <div>
-                <span className="text-xs font-black text-slate-400 uppercase tracking-widest">Professional</span>
+                <span className="text-xs font-black text-slate-400 uppercase tracking-widest">Institutional Pro</span>
                 <div className="mt-4 flex items-baseline gap-1">
                   <span className="text-4xl font-black text-slate-900">${annualBilling ? '99' : '119'}</span>
                   <span className="text-xs font-bold text-slate-400">/ month</span>
                 </div>
-                <p className="text-xs text-slate-500 mt-2">High volume operations with manager analytics & SLA control.</p>
+                <p className="text-xs text-slate-500 mt-2">Multi-campus operations with manager analytics & SLA control.</p>
 
                 <div className="mt-6 pt-6 border-t border-slate-200/80 space-y-3 text-xs font-bold text-slate-700">
                   <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> Unlimited WhatsApp Channels</div>
                   <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> 15 Agent Seats</div>
-                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> SLA Alerts & Manager Funnels</div>
-                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> Bulk Broadcast Messaging</div>
+                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> SLA Breach Alerts & Manager Funnels</div>
+                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> Bulk Broadcast Template Messaging</div>
                 </div>
               </div>
 
@@ -704,19 +940,19 @@ const LandingPage = () => {
             </div>
 
             {/* Enterprise Plan */}
-            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-200 flex flex-col justify-between hover:border-emerald-500/50 transition-all shadow-sm">
+            <div className="p-8 rounded-3xl bg-white border border-slate-200 flex flex-col justify-between hover:border-emerald-500/50 transition-all shadow-sm">
               <div>
-                <span className="text-xs font-black text-slate-400 uppercase tracking-widest">Enterprise</span>
+                <span className="text-xs font-black text-slate-400 uppercase tracking-widest">Enterprise Global</span>
                 <div className="mt-4 flex items-baseline gap-1">
                   <span className="text-4xl font-black text-slate-900">Custom</span>
                 </div>
-                <p className="text-xs text-slate-500 mt-2">Tailored deployments, custom ERP integrations & dedicated SLAs.</p>
+                <p className="text-xs text-slate-500 mt-2">Tailored deployments, custom ERP integrations & dedicated cloud node.</p>
 
                 <div className="mt-6 pt-6 border-t border-slate-200/80 space-y-3 text-xs font-bold text-slate-700">
-                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> Unlimited Team Seats</div>
-                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> Custom API Webhooks</div>
+                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> Unlimited Staff Seats</div>
+                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> Custom API Webhooks & ERP Sync</div>
                   <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> Dedicated Account Manager</div>
-                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> 99.99% Uptime Guarantee</div>
+                  <div className="flex items-center gap-2"><Check size={14} className="text-emerald-600" /> 99.99% Uptime SLA Guarantee</div>
                 </div>
               </div>
 
@@ -732,21 +968,21 @@ const LandingPage = () => {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          7. TESTIMONIALS SECTION
+          8. TESTIMONIALS SECTION
       ───────────────────────────────────────────────────────────── */}
-      <section id="testimonials" className="py-20 bg-slate-50 border-t border-slate-200/60">
+      <section id="testimonials" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
             <span className="px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black uppercase tracking-widest">
               Success Stories
             </span>
             <h2 className="text-3xl font-black text-slate-900 tracking-tight">
-              What Our Customers Say
+              Trusted by Education & Corporate Admissions Leaders
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col justify-between">
               <div>
                 <div className="flex gap-1 text-amber-400 mb-4">
                   {[...Array(5)].map((_, i) => (
@@ -754,21 +990,21 @@ const LandingPage = () => {
                   ))}
                 </div>
                 <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                  "Our admission conversion rate jumped by 34% within 3 weeks of rolling out WhatsCRM. Round-robin assignment ensured no student inquiry went cold."
+                  "Our admission conversion rate jumped by 34% within 3 weeks of rolling out WhatsCRM at Study First Info. Round-robin assignment ensured no student inquiry was left waiting."
                 </p>
               </div>
-              <div className="mt-6 pt-6 border-t border-slate-100 flex items-center gap-3">
+              <div className="mt-6 pt-6 border-t border-slate-200 flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-xs">
                   VS
                 </div>
                 <div className="text-left">
                   <div className="text-xs font-bold text-slate-900">Vikas Sharma</div>
-                  <div className="text-[10px] text-slate-400">Dean of Admissions, EduCorp</div>
+                  <div className="text-[10px] text-slate-500">Dean of Admissions, EduCorp Inc.</div>
                 </div>
               </div>
             </div>
 
-            <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col justify-between">
               <div>
                 <div className="flex gap-1 text-amber-400 mb-4">
                   {[...Array(5)].map((_, i) => (
@@ -776,21 +1012,21 @@ const LandingPage = () => {
                   ))}
                 </div>
                 <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                  "The shared inbox solved our biggest bottleneck: multiple staff members trying to use Web WhatsApp on phones. Absolute game-changer for customer satisfaction."
+                  "The shared inbox solved our biggest bottleneck: multiple staff members trying to use Web WhatsApp on phones. Full call logging and notes made handover effortless."
                 </p>
               </div>
-              <div className="mt-6 pt-6 border-t border-slate-100 flex items-center gap-3">
+              <div className="mt-6 pt-6 border-t border-slate-200 flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-xs">
                   NM
                 </div>
                 <div className="text-left">
                   <div className="text-xs font-bold text-slate-900">Neha Mehta</div>
-                  <div className="text-[10px] text-slate-400">Head of Operations, GlobalConnect</div>
+                  <div className="text-[10px] text-slate-500">Head of Operations, GlobalConnect</div>
                 </div>
               </div>
             </div>
 
-            <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col justify-between">
               <div>
                 <div className="flex gap-1 text-amber-400 mb-4">
                   {[...Array(5)].map((_, i) => (
@@ -798,16 +1034,16 @@ const LandingPage = () => {
                   ))}
                 </div>
                 <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                  "Super Admin controls and SLA alerts keep our team accountable. The AI qualification bot answers FAQs at midnight and saves hundreds of staff hours."
+                  "Super Admin controls and SLA breach alerts keep our counseling team accountable. The AI qualification bot answers FAQs at midnight and saves hundreds of staff hours."
                 </p>
               </div>
-              <div className="mt-6 pt-6 border-t border-slate-100 flex items-center gap-3">
+              <div className="mt-6 pt-6 border-t border-slate-200 flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-xs">
                   AP
                 </div>
                 <div className="text-left">
                   <div className="text-xs font-bold text-slate-900">Ankit Patel</div>
-                  <div className="text-[10px] text-slate-400">Director, Study First Info</div>
+                  <div className="text-[10px] text-slate-500">Director, Study First Info Ltd.</div>
                 </div>
               </div>
             </div>
@@ -816,18 +1052,76 @@ const LandingPage = () => {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          8. PRE-FOOTER CALL TO ACTION
+          9. FREQUENTLY ASKED QUESTIONS (FAQS TAILORED TO PROJECT)
+      ───────────────────────────────────────────────────────────── */}
+      <section id="faqs" className="py-20 bg-slate-50 border-t border-slate-200/60">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16 space-y-2">
+            <span className="px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black uppercase tracking-widest">
+              Common Inquiries
+            </span>
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+              Frequently Asked Questions
+            </h2>
+          </div>
+
+          <div className="space-y-4 text-left">
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
+              <h4 className="text-sm font-black text-slate-900 flex items-center gap-2">
+                <HelpCircle size={16} className="text-emerald-600" />
+                How does Round-Robin lead routing work in this CRM?
+              </h4>
+              <p className="text-xs text-slate-600 mt-2 leading-relaxed font-medium">
+                When a new inquiry arrives via WhatsApp or is manually created by support, the backend checks active counselors in the matched team and assigns the lead to the counselor who has the oldest <code className="bg-slate-100 px-1 py-0.5 rounded text-emerald-700">lastAssignedAt</code> timestamp. This prevents lead hoarding and ensures perfectly balanced workloads.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
+              <h4 className="text-sm font-black text-slate-900 flex items-center gap-2">
+                <HelpCircle size={16} className="text-emerald-600" />
+                Can counselors see other counselors' leads?
+              </h4>
+              <p className="text-xs text-slate-600 mt-2 leading-relaxed font-medium">
+                No. The CRM uses strict Data Scoping (RBAC middleware). Sales Counselors only have visibility over leads assigned directly to them (<code className="bg-slate-100 px-1 py-0.5 rounded text-emerald-700">assignedTo: counselor.id</code>). Team Leaders can see their whole team, while Managers and Super Admins have global visibility.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
+              <h4 className="text-sm font-black text-slate-900 flex items-center gap-2">
+                <HelpCircle size={16} className="text-emerald-600" />
+                What happens when an inquiry is not responded to within 15 minutes?
+              </h4>
+              <p className="text-xs text-slate-600 mt-2 leading-relaxed font-medium">
+                The SLA Tracking engine flags the lead with an active SLA Warning badge. Both the Team Leader and Manager receive alerts on their SLA Alert dashboard, and Team Leaders can reassign the lead to an available counselor with a single click.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
+              <h4 className="text-sm font-black text-slate-900 flex items-center gap-2">
+                <HelpCircle size={16} className="text-emerald-600" />
+                How are WhatsApp channels connected?
+              </h4>
+              <p className="text-xs text-slate-600 mt-2 leading-relaxed font-medium">
+                Institutional Admins can connect official WhatsApp channels directly via QR Code scan or through the Meta Cloud API integration inside the Channel Setup portal.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          10. PRE-FOOTER CALL TO ACTION
       ───────────────────────────────────────────────────────────── */}
       <section className="py-20 bg-gradient-to-tr from-[#06281E] via-[#0A382B] to-[#041F17] text-white text-center relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
           <span className="px-4 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-black uppercase tracking-widest border border-emerald-400/30">
-            Instant Deployment
+            Enterprise Deployment
           </span>
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-            Ready to Turn Your WhatsApp Conversations Into Revenue?
+            Ready to Streamline Admissions & Lead Operations?
           </h2>
           <p className="text-emerald-100/80 text-sm sm:text-base font-medium max-w-xl mx-auto">
-            Join thousands of modern businesses scaling their sales with automated WhatsApp pipelines.
+            Experience the power of 6 unified role dashboards, round-robin routing, and automated WhatsApp CRM.
           </p>
 
           <div className="pt-4 flex flex-wrap justify-center gap-4">
@@ -835,76 +1129,83 @@ const LandingPage = () => {
               onClick={handleCtaClick}
               className="px-8 py-4 rounded-full font-black text-xs uppercase tracking-widest bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-500/25 flex items-center gap-2 hover:scale-105 active:scale-95"
             >
-              Start Free 14-Day Trial
+              Access Unified Portal Gateway
               <ArrowRight size={16} />
             </button>
             <button
               onClick={() => navigate('/login')}
               className="px-8 py-4 rounded-full font-bold text-xs uppercase tracking-widest bg-white/10 hover:bg-white/20 border border-white/20 text-white transition-all"
             >
-              Sign In to Your Workspace
+              Sign In With Role Credentials
             </button>
           </div>
         </div>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          9. FOOTER (Dark Forest Theme)
+          11. FOOTER (Dark Forest Theme)
       ───────────────────────────────────────────────────────────── */}
       <footer id="security" className="bg-[#03150F] border-t border-[#093226] text-slate-400 py-16 text-xs font-medium">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-12 border-b border-emerald-950/80">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-12 border-b border-emerald-950/80 text-left">
             <div className="space-y-4">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-xl bg-emerald-500 flex items-center justify-center text-white">
                   <MessageSquare size={16} />
                 </div>
-                <span className="text-lg font-black tracking-tight text-white">
-                  Whats<span className="text-emerald-500">CRM</span>
-                </span>
+                <div className="flex flex-col">
+                  <span className="text-lg font-black tracking-tight text-white leading-none">
+                    Whats<span className="text-emerald-500">CRM</span>
+                  </span>
+                  <span className="text-[9px] font-bold text-emerald-400 uppercase tracking-widest mt-0.5">
+                    Study First Info Ltd.
+                  </span>
+                </div>
               </div>
               <p className="text-slate-400 text-xs leading-relaxed">
-                Enterprise AI-driven WhatsApp CRM platform empowering sales, admissions, and support teams worldwide.
+                Enterprise WhatsApp CRM platform engineered for education, course counseling, and student admissions operations worldwide.
               </p>
             </div>
 
             <div>
-              <h4 className="text-white font-black text-xs uppercase tracking-wider mb-4">Product</h4>
+              <h4 className="text-white font-black text-xs uppercase tracking-wider mb-4">Core Modules</h4>
               <ul className="space-y-2">
-                <li><a href="#features" className="hover:text-emerald-400 transition-colors">Shared Inbox</a></li>
-                <li><a href="#features" className="hover:text-emerald-400 transition-colors">AI Qualification</a></li>
-                <li><a href="#features" className="hover:text-emerald-400 transition-colors">Lead Kanban Pipelines</a></li>
-                <li><a href="#pricing" className="hover:text-emerald-400 transition-colors">Pricing Plans</a></li>
+                <li><a href="#features" className="hover:text-emerald-400 transition-colors">Round-Robin Routing</a></li>
+                <li><a href="#features" className="hover:text-emerald-400 transition-colors">Call & Notes Logging</a></li>
+                <li><a href="#features" className="hover:text-emerald-400 transition-colors">24/7 AI Qualification</a></li>
+                <li><a href="#features" className="hover:text-emerald-400 transition-colors">15-Min SLA Alerts</a></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-white font-black text-xs uppercase tracking-wider mb-4">Roles & Solutions</h4>
+              <h4 className="text-white font-black text-xs uppercase tracking-wider mb-4">6-Role Hierarchy</h4>
               <ul className="space-y-2">
-                <li><Link to="/login" className="hover:text-emerald-400 transition-colors">Super Admin Governance</Link></li>
-                <li><Link to="/login" className="hover:text-emerald-400 transition-colors">Sales Counselor Panel</Link></li>
-                <li><Link to="/login" className="hover:text-emerald-400 transition-colors">Team Leader Oversight</Link></li>
-                <li><Link to="/login" className="hover:text-emerald-400 transition-colors">Manager Funnels</Link></li>
+                <li><Link to="/login" className="hover:text-emerald-400 transition-colors">1. Super Admin (Governance)</Link></li>
+                <li><Link to="/login" className="hover:text-emerald-400 transition-colors">2. Institutional Admin (Routing)</Link></li>
+                <li><Link to="/login" className="hover:text-emerald-400 transition-colors">3. Manager (Funnels & SLAs)</Link></li>
+                <li><Link to="/login" className="hover:text-emerald-400 transition-colors">4. Team Leader (Supervision)</Link></li>
+                <li><Link to="/login" className="hover:text-emerald-400 transition-colors">5. Sales Counselor (Pipeline)</Link></li>
+                <li><Link to="/login" className="hover:text-emerald-400 transition-colors">6. Customer Support (Intake)</Link></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-white font-black text-xs uppercase tracking-wider mb-4">Security & Trust</h4>
+              <h4 className="text-white font-black text-xs uppercase tracking-wider mb-4">Security & Architecture</h4>
               <ul className="space-y-2">
-                <li className="flex items-center gap-1.5"><Shield size={12} className="text-emerald-500" /> End-to-End Encryption</li>
-                <li className="flex items-center gap-1.5"><Lock size={12} className="text-emerald-500" /> Role-Based Access Control</li>
-                <li className="flex items-center gap-1.5"><CheckCircle2 size={12} className="text-emerald-500" /> Meta Cloud API Compliant</li>
-                <li className="flex items-center gap-1.5"><Award size={12} className="text-emerald-500" /> ISO 27001 Certified</li>
+                <li className="flex items-center gap-1.5"><Shield size={12} className="text-emerald-500" /> Data Isolation (RBAC)</li>
+                <li className="flex items-center gap-1.5"><Lock size={12} className="text-emerald-500" /> Immutable Audit Trail</li>
+                <li className="flex items-center gap-1.5"><CheckCircle2 size={12} className="text-emerald-500" /> Meta WhatsApp Cloud API</li>
+                <li className="flex items-center gap-1.5"><Award size={12} className="text-emerald-500" /> ISO 27001 Standard</li>
               </ul>
             </div>
           </div>
 
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
-            <div>© {new Date().getFullYear()} WhatsCRM Platform. All rights reserved.</div>
+            <div>© {new Date().getFullYear()} Study First Info Ltd. • WhatsCRM Platform. All rights reserved.</div>
             <div className="flex gap-6">
               <a href="#" className="hover:text-emerald-400 transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-emerald-400 transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-emerald-400 transition-colors">Security Overview</a>
+              <a href="#" className="hover:text-emerald-400 transition-colors">Terms of Operations</a>
+              <a href="#" className="hover:text-emerald-400 transition-colors">Security Architecture</a>
             </div>
           </div>
         </div>
