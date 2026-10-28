@@ -168,8 +168,8 @@ const Sidebar = () => {
         )}>
           {(!sidebarCollapsed || mobileMenuOpen) && (
             <div className="flex items-center gap-3 min-w-0 w-full justify-start">
-              <div className="h-11 w-11 rounded-2xl bg-white p-1 border border-white/20 flex items-center justify-center shrink-0 shadow-md overflow-hidden">
-                <img src="/logo.png" alt="Logo" className="h-full w-full object-contain" />
+              <div className="h-11 w-11 rounded-2xl bg-slate-900/60 p-1 border border-white/10 flex items-center justify-center shrink-0 shadow-lg shadow-black/40 overflow-hidden">
+                <img src="/logo.png" alt="Logo" className="h-full w-full object-contain filter drop-shadow" />
               </div>
               <div className="flex flex-col min-w-0">
                 <span className="font-black text-sm text-white tracking-tight leading-none truncate">
@@ -182,8 +182,8 @@ const Sidebar = () => {
             </div>
           )}
           {sidebarCollapsed && !mobileMenuOpen && (
-            <div className="h-11 w-11 rounded-2xl bg-white p-1 flex items-center justify-center mx-auto hover:scale-105 transition-transform cursor-pointer shadow-md overflow-hidden">
-              <img src="/logo.png" alt="Logo" className="h-full w-full object-contain" />
+            <div className="h-11 w-11 rounded-2xl bg-slate-900/60 p-1 border border-white/10 flex items-center justify-center mx-auto hover:scale-105 transition-transform cursor-pointer shadow-lg shadow-black/40 overflow-hidden">
+              <img src="/logo.png" alt="Logo" className="h-full w-full object-contain filter drop-shadow" />
             </div>
           )}
 

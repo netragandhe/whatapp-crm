@@ -88,8 +88,8 @@ const Signup = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
                     {/* Brand Logo */}
                     <Link to="/" className="flex items-center gap-3 group">
-                        <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200/90 p-1 flex items-center justify-center shadow-md shadow-emerald-500/10 group-hover:scale-105 transition-transform overflow-hidden">
-                            <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
+                        <div className="w-12 h-12 flex items-center justify-center group-hover:scale-105 transition-transform">
+                            <img src="/logo.png" alt="Logo" className="w-full h-full object-contain filter drop-shadow-sm" />
                         </div>
                         <div className="flex flex-col">
                             <span className="text-xl font-black tracking-tight text-slate-900 leading-none">
