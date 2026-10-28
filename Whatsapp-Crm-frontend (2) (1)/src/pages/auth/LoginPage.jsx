@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import ktLogo from '../../assets/logo.png'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
     ShieldCheck,
@@ -194,7 +195,7 @@ const LoginPage = () => {
                     {/* Brand Logo */}
                     <Link to="/" className="flex items-center gap-3 group">
                         <div className="w-16 h-11 flex items-center justify-center group-hover:scale-105 transition-transform">
-                            <img src="/logo.png?v=5" alt="Logo" className="w-full h-full object-contain filter drop-shadow-sm" />
+                            <img src={ktLogo} alt="Logo" className="w-full h-full object-contain" />
                         </div>
                         <div className="flex flex-col">
                             <span className="text-xl font-black tracking-tight text-slate-900 leading-none">

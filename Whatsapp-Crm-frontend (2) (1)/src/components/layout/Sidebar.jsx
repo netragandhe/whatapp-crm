@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import ktLogo from '../../assets/logo.png'
 import {
   LayoutDashboard,
   Inbox,
@@ -169,7 +170,7 @@ const Sidebar = () => {
           {(!sidebarCollapsed || mobileMenuOpen) && (
             <div className="flex items-center gap-3 min-w-0 w-full justify-start">
               <div className="h-12 w-20 flex items-center justify-center shrink-0">
-                <img src="/logo.png?v=5" alt="Logo" className="h-full w-full object-contain filter drop-shadow-md" />
+                <img src={ktLogo} alt="Logo" className="h-full w-full object-contain" />
               </div>
               <div className="flex flex-col min-w-0">
                 <span className="font-black text-base text-white tracking-tight leading-none truncate">
@@ -183,7 +184,7 @@ const Sidebar = () => {
           )}
           {sidebarCollapsed && !mobileMenuOpen && (
             <div className="h-10 w-14 flex items-center justify-center mx-auto hover:scale-105 transition-transform cursor-pointer">
-              <img src="/logo.png?v=5" alt="Logo" className="h-full w-full object-contain filter drop-shadow-md" />
+              <img src={ktLogo} alt="Logo" className="h-full w-full object-contain" />
             </div>
           )}
 

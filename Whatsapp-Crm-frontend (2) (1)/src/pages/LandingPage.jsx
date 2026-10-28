@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import ktLogo from '../assets/logo.png'
 import {
   MessageSquare,
   Shield,
@@ -195,7 +196,7 @@ const LandingPage = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <div className="w-16 h-11 flex items-center justify-center group-hover:scale-105 transition-transform">
-              <img src="/logo.png?v=5" alt="Logo" className="w-full h-full object-contain filter drop-shadow-sm" />
+              <img src={ktLogo} alt="Logo" className="w-full h-full object-contain" />
             </div>
             <div className="flex flex-col text-left">
               <span className="text-xl font-black tracking-tight text-slate-900 leading-none">
@@ -1185,7 +1186,7 @@ const LandingPage = () => {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="w-14 h-10 flex items-center justify-center shrink-0">
-                  <img src="/logo.png?v=5" alt="Logo" className="w-full h-full object-contain filter drop-shadow" />
+                  <img src={ktLogo} alt="Logo" className="w-full h-full object-contain" />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-lg font-black tracking-tight text-white leading-none">
