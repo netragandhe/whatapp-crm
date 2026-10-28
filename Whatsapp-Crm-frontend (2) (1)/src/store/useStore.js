@@ -26,7 +26,7 @@ const useAppStore = create((set) => {
         isAuthenticated: !!savedToken,
         user: parsedUser,
         authToken: savedToken,
-        country: parsedUser?.country || 'Global',
+        country: (parsedUser?.role === 'SUPER_ADMIN' || parsedUser?.role === 'Super Admin') ? 'Global' : (parsedUser?.country || 'Global'),
         statusFilter: 'All Stages',
         dateRange: { label: 'Last 30 Days', from: null, to: null },
         userId: parsedUser?.id || 'U-001',
@@ -56,7 +56,7 @@ const useAppStore = create((set) => {
                 user: userData,
                 authToken: localStorage.getItem('token'),
                 userId: userData.id,
-                country: userData.country || 'Global'
+                country: (userData.role === 'SUPER_ADMIN' || displayRole === 'Super Admin') ? 'Global' : (userData.country || 'Global')
             });
         },
 

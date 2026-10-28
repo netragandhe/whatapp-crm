@@ -70,7 +70,7 @@ const Navbar = () => {
         <div className="relative" ref={notificationRef}>
           <button 
             onClick={() => setShowNotifications(!showNotifications)}
-            className="h-10 w-10 flex items-center justify-center text-slate-500 hover:text-[#0a3d62] hover:bg-[#0a3d62]/5 rounded-xl transition-all relative"
+            className="h-10 w-10 flex items-center justify-center text-slate-500 hover:text-emerald-700 hover:bg-emerald-50 rounded-xl transition-all relative"
           >
             <Bell className="h-5 w-5" />
             {unreadCount > 0 && (
@@ -99,7 +99,7 @@ const Navbar = () => {
                   {unreadCount > 0 && (
                     <button 
                       onClick={markAllAsRead}
-                      className="text-xs text-[#0a3d62] hover:underline font-semibold flex items-center gap-1"
+                      className="text-xs text-emerald-700 hover:underline font-semibold flex items-center gap-1"
                     >
                       <Check size={12} /> Mark read
                     </button>
@@ -113,14 +113,14 @@ const Navbar = () => {
                         key={notif.id} 
                         className={cn(
                           "p-4 hover:bg-slate-50/50 transition-colors flex gap-3 relative cursor-pointer",
-                          notif.unread ? "bg-indigo-50/20" : ""
+                          notif.unread ? "bg-emerald-50/30" : ""
                         )}
                         onClick={() => {
                           setNotifications(notifications.map(n => n.id === notif.id ? { ...n, unread: false } : n))
                         }}
                       >
                         {notif.unread && (
-                          <span className="absolute left-2.5 top-5 h-2 w-2 bg-indigo-500 rounded-full"></span>
+                          <span className="absolute left-2.5 top-5 h-2 w-2 bg-emerald-500 rounded-full"></span>
                         )}
                         <div className="flex-1 min-w-0">
                           <p className="font-bold text-xs text-slate-800 truncate">{notif.title}</p>
@@ -184,7 +184,7 @@ const Navbar = () => {
               >
                 {/* User Info Header */}
                 <div className="p-4 flex items-center gap-3 bg-slate-50/50">
-                  <div className="h-10 w-10 bg-[#0a3d62] rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-md">
+                  <div className="h-10 w-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-md shadow-emerald-600/20">
                     {user?.name?.[0]?.toUpperCase() || role?.[0]?.toUpperCase() || 'U'}
                   </div>
                   <div className="min-w-0">
@@ -194,7 +194,7 @@ const Navbar = () => {
                     <p className="text-[10px] text-slate-400 truncate mt-0.5">
                       {user?.email || 'admin@studyfirstinfo.com'}
                     </p>
-                    <span className="inline-block text-[8px] font-black uppercase tracking-wider text-[#0a3d62] bg-[#0a3d62]/10 px-1.5 py-0.5 rounded-md mt-1">
+                    <span className="inline-block text-[8px] font-black uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md mt-1 border border-emerald-200/60">
                       {typeof role === 'object' ? role?.name : role}
                     </span>
                   </div>
@@ -208,7 +208,7 @@ const Navbar = () => {
                       const targetPath = role === 'Super Admin' ? '/super-admin/security' : '/settings'
                       navigate(targetPath)
                     }}
-                    className="w-full flex items-center gap-3 px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-[#0a3d62] rounded-xl transition-all"
+                    className="w-full flex items-center gap-3 px-3 py-2 text-xs font-bold text-slate-700 hover:bg-emerald-50/60 hover:text-emerald-800 rounded-xl transition-all"
                   >
                     <Settings size={16} className="text-slate-400" />
                     <span>Security & Profile</span>
