@@ -194,8 +194,8 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-14 h-9 flex items-center justify-center group-hover:scale-105 transition-transform">
-              <img src="/logo.png" alt="Logo" className="w-full h-full object-contain filter drop-shadow-sm" />
+            <div className="w-16 h-11 flex items-center justify-center group-hover:scale-105 transition-transform">
+              <img src="/logo.png?v=5" alt="Logo" className="w-full h-full object-contain filter drop-shadow-sm" />
             </div>
             <div className="flex flex-col text-left">
               <span className="text-xl font-black tracking-tight text-slate-900 leading-none">
@@ -1184,8 +1184,8 @@ const LandingPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-12 border-b border-emerald-950/80 text-left">
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 flex items-center justify-center shrink-0">
-                  <img src="/logo.png" alt="Logo" className="w-full h-full object-contain filter drop-shadow" />
+                <div className="w-14 h-10 flex items-center justify-center shrink-0">
+                  <img src="/logo.png?v=5" alt="Logo" className="w-full h-full object-contain filter drop-shadow" />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-lg font-black tracking-tight text-white leading-none">
