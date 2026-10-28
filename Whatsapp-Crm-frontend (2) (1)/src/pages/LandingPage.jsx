@@ -31,7 +31,13 @@ import {
   Calendar,
   AlertTriangle,
   HelpCircle,
-  ExternalLink
+  ExternalLink,
+  Bot,
+  Filter,
+  Sliders,
+  Database,
+  ArrowUpRight,
+  CheckCircle
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import useAppStore from '../store/useStore'
@@ -40,7 +46,7 @@ const LandingPage = () => {
   const navigate = useNavigate()
   const { isAuthenticated, role } = useAppStore()
   const [annualBilling, setAnnualBilling] = useState(true)
-  const [selectedRoleTab, setSelectedRoleTab] = useState('counselor')
+  const [activeRoleIndex, setActiveRoleIndex] = useState(4) // Default to Counselor
 
   const roleHomePages = {
     'Super Admin': '/super-admin',
@@ -59,132 +65,150 @@ const LandingPage = () => {
     }
   }
 
-  // 6 Dedicated Roles in Study First Info WhatsCRM
+  // The 6 Exact Dedicated Roles in this WhatsApp CRM
   const projectRoles = [
     {
       id: 'super-admin',
-      name: 'Super Admin',
-      subtitle: 'System Governance & Infrastructure',
-      badge: 'Tier-1 Control',
+      roleKey: 'Super Admin',
+      title: 'Super Admin Portal',
+      tagline: 'System Governance & Global Infrastructure',
+      badge: 'System Governance',
       icon: Shield,
-      color: 'emerald',
+      path: '/super-admin',
+      description: 'Centralized oversight for managing institutions, multi-client quotas, global channel health, and full immutable audit logging.',
+      metrics: { primary: '750/1000', label: 'Global Channels Used', secondary: '99.98% Uptime' },
       features: [
-        'Global Channel Allocation & Quota Monitoring (e.g. 750/1000 WhatsApp nodes)',
-        'Client Entity Isolation (EduCorp Inc, HealthLine, Global Connect)',
-        'Administrative Account Provisioning & Granular Permissions Assignment',
-        'Global Lead Dispatch Queue (Route unassigned queue to counselors)',
-        'System-wide Immutable Audit Logs & CSV Export'
+        'Multi-Client Entity Partitioning (EduCorp Inc, Global Connect, HealthLine)',
+        'Global WhatsApp Channel Allocation & Rate Limit Controls',
+        'Administrative User Provisioning & Granular Permissions Matrix',
+        'Global Unassigned Lead Dispatch Queue directly to counselors',
+        'System Audit Logs with immutable action history & CSV export'
       ],
-      previewStat: 'Full System Control • 100% Isolated Data'
+      sampleActivity: 'Provisioned new regional admin for EduCorp Inc with Users & Analytics permissions'
     },
     {
       id: 'admin',
-      name: 'Institutional Admin',
-      subtitle: 'Channel Connection & Routing Engine',
+      roleKey: 'Admin',
+      title: 'Institutional Admin Hub',
+      tagline: 'Channel Connectivity & Automated Routing Rules',
       badge: 'Operations Hub',
       icon: Building2,
-      color: 'teal',
+      path: '/admin',
+      description: 'Connect official WhatsApp numbers via QR scan, configure territory rules, setup counselor shifts, and tune the AI qualification bot.',
+      metrics: { primary: '42ms', label: 'Average Routing Latency', secondary: 'Zero Dropped Leads' },
       features: [
-        'WhatsApp Channel QR Code Generation & Live Node Synchronization',
-        'Intelligent Routing Rules Engine (By Country, Source & Academic Program)',
-        'Counselor Shift Configuration & Weekly Working Hours Auto-Responder',
-        'AI Qualification Bot Scoring (Confidence threshold, prompts, intent classification)',
-        'Third-party CRM Integrations (Webhooks, Google Sheets, HubSpot Sync)'
+        'Live WhatsApp Business QR Code generator & node synchronization',
+        'Conditional Routing Engine by Country (India, UK, UAE, USA) & Program (MBA, Tech)',
+        'Weekly Working Hours Scheduler with automated off-hours auto-responder',
+        'AI Qualification Bot tuning: prompts, confidence thresholds & qualification scoring',
+        'Integrations Manager: Real-time Webhooks, Google Sheets & HubSpot export'
       ],
-      previewStat: 'Real-time Channel Status • Zero Dropped Leads'
+      sampleActivity: 'Active rule: India MBA inquiries auto-route to Alpha Squad counselor pool'
     },
     {
       id: 'manager',
-      name: 'Manager',
-      subtitle: 'Executive Funnels & SLA Oversight',
+      roleKey: 'Manager',
+      title: 'Executive Manager Suite',
+      tagline: 'Conversion Funnels & SLA Performance',
       badge: 'Analytics Suite',
       icon: BarChart3,
-      color: 'cyan',
+      path: '/manager',
+      description: 'Comprehensive visibility into end-to-end conversion funnels, territory performance cohorts, counselor call recordings, and team SLA benchmarks.',
+      metrics: { primary: '34.2%', label: 'Conversion Rate', secondary: 'Sub-15m Response' },
       features: [
-        'Full Student Conversion Funnel (New ➔ Contacted ➔ Qualified ➔ Enrolled)',
-        'Territory & Country Analytics (India, UK, UAE, Canada, Australia cohorts)',
-        'SLA Response Time Tracking & Resolution Rate Analytics',
-        'Counselor Call Reports with recording durations and call outcome metrics',
+        'Lead Funnel Progression (New ➔ Contacted ➔ Qualified ➔ Enrolled ➔ Won)',
+        'Territory & Country Heatmaps (Inquiry volume & conversion rates by region)',
+        'SLA Response Time Compliance & Average Resolution Tracking',
+        'Counselor Call Reports with duration logs, recordings & call outcome breakdown',
         'Team Performance Overview with workload distribution heatmaps'
       ],
-      previewStat: '34% Higher Conversion • Sub-15 Min SLA'
+      sampleActivity: 'Monthly cohort report generated: Autumn 2026 MBA conversion up 34%'
     },
     {
       id: 'team-leader',
-      name: 'Team Leader',
-      subtitle: 'Team Inbox & Counselor Supervision',
-      badge: 'Floor Manager',
+      roleKey: 'Team Leader',
+      title: 'Team Leader Dashboard',
+      tagline: 'Team Inbox & Live Counselor Supervision',
+      badge: 'Team Supervision',
       icon: Users,
-      color: 'emerald',
+      path: '/team-leader',
+      description: 'Supervise daily counselor operations, monitor shared team WhatsApp messages, reassign leads with 1 click, and catch SLA breaches instantly.',
+      metrics: { primary: '14 Active', label: 'Counselors Monitored', secondary: '0 Missed Chats' },
       features: [
-        'Shared Team WhatsApp Inbox with active supervisor monitoring',
-        'Live Assigned Leads Pipeline across all team counselors',
-        '1-Click Bulk Lead Reassignment between busy or off-duty staff',
-        'Active SLA Breach Warning Alerts for neglected student inquiries',
-        'Daily Activity Logs tracking calls, notes, and messages sent'
+        'Shared Team WhatsApp Inbox with live counselor interaction monitoring',
+        'Real-time Assigned Leads Pipeline across all squad counselors',
+        '1-Click Bulk Lead Reassignment for rebalancing workloads',
+        'Active SLA Breach Warning Alerts for neglected inquiries (15-min trigger)',
+        'Daily Activity Timeline tracking calls made, notes taken, and WhatsApps sent'
       ],
-      previewStat: 'Instant Rebalance • Zero Unanswered Chats'
+      sampleActivity: 'Bulk reassigned 5 unhandled leads from off-duty staff to active counselors'
     },
     {
       id: 'counselor',
-      name: 'Sales Counselor',
-      subtitle: 'Personal Leads Pipeline & Live Chats',
+      roleKey: 'Counselor',
+      title: 'Sales Counselor Workspace',
+      tagline: 'Personal Leads Pipeline & Live Chats',
       badge: 'Frontline Closer',
       icon: GraduationCap,
-      color: 'emerald',
+      path: '/counselor',
+      description: 'The primary workspace for counselors: an isolated personal leads Kanban board, live WhatsApp chat, instant call logging, and follow-up alerts.',
+      metrics: { primary: '4x Faster', label: 'Follow-up Velocity', secondary: '96/100 Lead Score' },
       features: [
-        'Isolated Personal Leads Kanban Board with easy Stage Updates',
-        'Real-time WhatsApp Chat Interface with instant template responses',
-        '1-Click Call Logging with outcomes (Interested, Callback, Token Received)',
-        'Counselor Notes & Scheduled Next Follow-up Date notifications',
-        'AI Conversation Summary generation for fast context handover'
+        'Personal Scoped Leads Kanban Board with 1-click stage updates',
+        'Live WhatsApp Chat with verified message templates & media attachments',
+        '1-Click Call Logging with outcomes: Interested, Callback, Token Paid, Dropped',
+        'Private Counselor Notes & Scheduled Next Follow-up Date notifications',
+        'AI Conversation Summary generator for fast student context retrieval'
       ],
-      previewStat: '4x Faster Follow-up • Automated Stage Moves'
+      sampleActivity: 'Logged call with Aarav Sharma: MBA scholarship approved, fee token received'
     },
     {
       id: 'support',
-      name: 'Customer Support',
-      subtitle: 'First-Touch Intake & Queue Dispatch',
+      roleKey: 'Customer Support',
+      title: 'Customer Support Desk',
+      tagline: 'First-Touch Intake & Queue Dispatch',
       badge: 'Inflow Gateway',
       icon: Headphones,
-      color: 'teal',
+      path: '/support',
+      description: 'First line of contact for unassigned student inquiries. Inject manual leads via "Provision Manual Node" and dispatch instantly to available counselors.',
+      metrics: { primary: '100%', label: 'Inquiries Dispatched', secondary: 'Zero Queue Delay' },
       features: [
-        'Incoming First-Contact Leads Queue awaiting qualification',
-        'Fast Manual Lead Injection ("Provision Manual Node") with zero latency',
-        'One-Click Counselor Allocation with territory pre-tagging',
-        'AI Bot Qualification Status monitoring & manual escalation',
-        'Broadcast template status checks & inquiry resolution'
+        'Incoming First-Contact Leads Queue awaiting qualification and routing',
+        'Manual Lead Injection ("Provision Manual Node") with instant territory tagging',
+        'One-Click Counselor Allocation & Team Transfer',
+        'AI Bot Qualification Status inspection with manual human escalation',
+        'Template broadcast status verification & quick inquiry resolution'
       ],
-      previewStat: 'Immediate Intake • 24/7 Queue Processing'
+      sampleActivity: 'Direct manual injection of walk-in candidate dispatched to Senior Counselor'
     }
   ]
 
-  const activeRoleData = projectRoles.find(r => r.id === selectedRoleTab) || projectRoles[4]
+  const activeRole = projectRoles[activeRoleIndex]
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] font-sans antialiased selection:bg-emerald-500 selection:text-white">
       {/* ─────────────────────────────────────────────────────────────
           1. NAVIGATION BAR
       ───────────────────────────────────────────────────────────── */}
-      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 transition-all">
+      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 transition-all shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-emerald-400 flex items-center justify-center text-white shadow-lg shadow-emerald-500/25 group-hover:scale-105 transition-transform">
-              <MessageSquare className="w-5 h-5 fill-white/20 stroke-white stroke-[2.2]" />
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-[#059669] to-[#10B981] flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 group-hover:scale-105 transition-transform">
+              <MessageSquare className="w-6 h-6 fill-white/20 stroke-white stroke-[2.2]" />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col text-left">
               <span className="text-xl font-black tracking-tight text-slate-900 leading-none">
                 Whats<span className="text-emerald-600">CRM</span>
               </span>
-              <span className="text-[10px] font-black tracking-widest text-emerald-600 uppercase mt-0.5">
+              <span className="text-[10px] font-black tracking-widest text-emerald-700 uppercase mt-1">
                 Study First Info Ltd.
               </span>
             </div>
           </Link>
 
           {/* Center Links */}
-          <div className="hidden md:flex items-center gap-8 text-sm font-bold text-slate-600">
+          <div className="hidden lg:flex items-center gap-8 text-xs font-black uppercase tracking-wider text-slate-600">
             <a href="#roles" className="hover:text-emerald-600 transition-colors">6-Role Architecture</a>
             <a href="#features" className="hover:text-emerald-600 transition-colors">Core Modules</a>
             <a href="#routing" className="hover:text-emerald-600 transition-colors">Smart Routing</a>
@@ -206,15 +230,15 @@ const LandingPage = () => {
               <>
                 <Link
                   to="/login"
-                  className="px-4 py-2 text-xs font-bold text-slate-700 hover:text-emerald-600 transition-colors"
+                  className="px-4 py-2.5 text-xs font-black uppercase tracking-wider text-slate-700 hover:text-emerald-600 transition-colors"
                 >
                   Sign In
                 </Link>
                 <button
                   onClick={() => navigate('/login')}
-                  className="px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider bg-emerald-600 text-white hover:bg-emerald-700 transition-all shadow-md shadow-emerald-600/20 flex items-center gap-2 hover:scale-[1.02]"
+                  className="px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider bg-emerald-600 text-white hover:bg-emerald-700 transition-all shadow-md shadow-emerald-600/25 flex items-center gap-2 hover:scale-[1.02] active:scale-95"
                 >
-                  Access All 6 Portals
+                  Access 6 Dashboards
                   <ArrowRight size={14} />
                 </button>
               </>
@@ -226,19 +250,19 @@ const LandingPage = () => {
       {/* ─────────────────────────────────────────────────────────────
           2. HERO SECTION
       ───────────────────────────────────────────────────────────── */}
-      <section className="relative pt-12 pb-20 overflow-hidden bg-gradient-to-b from-emerald-50/50 via-white to-slate-50">
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[850px] h-[420px] bg-gradient-to-tr from-emerald-400/20 via-teal-300/15 to-transparent blur-[130px] rounded-full pointer-events-none" />
+      <section className="relative pt-12 pb-24 overflow-hidden bg-gradient-to-b from-emerald-50/60 via-white to-slate-50">
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-gradient-to-tr from-emerald-400/20 via-teal-300/15 to-transparent blur-[140px] rounded-full pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto space-y-6">
+          <div className="text-center max-w-4xl mx-auto space-y-6">
             {/* Pill Badge */}
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100/80 border border-emerald-300/60 text-emerald-800 text-[11px] font-black uppercase tracking-wider shadow-sm"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100/80 border border-emerald-300 text-emerald-800 text-[11px] font-black uppercase tracking-wider shadow-sm"
             >
-              <GraduationCap className="w-4 h-4 text-emerald-600" />
-              STUDY FIRST INFO LTD. • WHATSAPP CRM PLATFORM
+              <GraduationCap className="w-4 h-4 text-emerald-700" />
+              STUDY FIRST INFO LTD. • ENTERPRISE WHATSAPP CRM
             </motion.div>
 
             {/* Main Headline */}
@@ -248,9 +272,9 @@ const LandingPage = () => {
               transition={{ delay: 0.1 }}
               className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.12]"
             >
-              Turn Every WhatsApp Inquiry Into an{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500">
-                Enrolled Student & Client
+              Turn Every WhatsApp Inquiry Into a{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600">
+                Qualified Enrolled Client
               </span>
             </motion.h1>
 
@@ -259,9 +283,11 @@ const LandingPage = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto font-medium"
+              className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto font-medium"
             >
-              Built specifically for admissions counseling, student recruitment, and multi-team lead management. Unify all WhatsApp channels, automate qualification with AI, and dispatch leads via strict Round-Robin routing.
+              Engineered specifically for admissions counseling, student recruitment, and multi-team customer sales. 
+              Unify all WhatsApp Business numbers into a single collaborative workspace equipped with 
+              intelligent Round-Robin auto-assignment, 24/7 AI qualification bots, call logs, and SLA breach monitors.
             </motion.p>
 
             {/* Action Buttons */}
@@ -275,15 +301,15 @@ const LandingPage = () => {
                 onClick={handleCtaClick}
                 className="px-8 py-4 rounded-full font-black text-xs uppercase tracking-widest bg-emerald-600 text-white hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-600/25 flex items-center gap-2 hover:scale-105 active:scale-95"
               >
-                Launch CRM Workspace
+                Access All 6 Portals
                 <ArrowRight size={16} />
               </button>
               <a
                 href="#roles"
-                className="px-7 py-4 rounded-full font-bold text-xs uppercase tracking-widest bg-white text-slate-800 border border-slate-200 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-sm flex items-center gap-2 hover:bg-emerald-50/50"
+                className="px-8 py-4 rounded-full font-black text-xs uppercase tracking-widest bg-white text-slate-800 border border-slate-300 hover:border-emerald-500 hover:text-emerald-700 transition-all shadow-sm flex items-center gap-2 hover:bg-emerald-50/50"
               >
-                <Layers size={14} className="text-emerald-600" />
-                Explore 6 Role Portals
+                <Layers size={15} className="text-emerald-600" />
+                Explore 6 Role Workspaces
               </a>
             </motion.div>
 
@@ -295,13 +321,16 @@ const LandingPage = () => {
               className="flex flex-wrap items-center justify-center gap-6 pt-3 text-[11px] font-bold text-slate-500"
             >
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 size={14} className="text-emerald-600" /> 6 Isolated Role Portals
+                <CheckCircle2 size={15} className="text-emerald-600" /> 6 Isolated RBAC Dashboards
               </span>
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 size={14} className="text-emerald-600" /> Automated Round-Robin Routing
+                <CheckCircle2 size={15} className="text-emerald-600" /> Round-Robin Auto Lead Routing
               </span>
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 size={14} className="text-emerald-600" /> Live WebSocket Synchronization
+                <CheckCircle2 size={15} className="text-emerald-600" /> Live WebSocket Real-Time Chat
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 size={15} className="text-emerald-600" /> 1-Click Call & Notes Logging
               </span>
             </motion.div>
           </div>
@@ -328,7 +357,7 @@ const LandingPage = () => {
             </div>
 
             {/* Main Mockup Container */}
-            <div className="bg-white rounded-[2.5rem] p-3 sm:p-5 shadow-2xl border border-slate-200/80 overflow-hidden">
+            <div className="bg-white rounded-[2.5rem] p-3 sm:p-5 shadow-2xl border border-slate-200/90 overflow-hidden">
               <div className="bg-slate-900 rounded-[2rem] overflow-hidden border border-slate-800 grid grid-cols-12 min-h-[500px]">
                 
                 {/* Mini Left Sidebar */}
@@ -337,7 +366,7 @@ const LandingPage = () => {
                     <GraduationCap size={18} />
                   </div>
                   <div className="flex flex-col gap-4 text-emerald-400/60">
-                    <div className="p-2.5 rounded-xl bg-emerald-500/15 text-emerald-400">
+                    <div className="p-2.5 rounded-xl bg-emerald-500/20 text-emerald-400">
                       <MessageSquare size={16} />
                     </div>
                     <div className="p-2.5 hover:text-emerald-300 transition-colors">
@@ -489,10 +518,10 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="px-4 py-1 rounded-full bg-emerald-900/60 border border-emerald-700/60 text-emerald-400 text-[10px] font-black uppercase tracking-widest">
-              Study First Operations Scale
+              Study First Info Global Impact
             </span>
             <h2 className="text-2xl sm:text-3xl font-black mt-3 tracking-tight">
-              Powering Higher Education Admissions & Client Growth
+              Enterprise Performance Proven in Daily Admissions
             </h2>
           </div>
 
@@ -530,30 +559,31 @@ const LandingPage = () => {
       <section id="roles" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <span className="px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-black uppercase tracking-widest border border-emerald-200/80">
-              Unified Role-Based Architecture
+            <span className="px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black uppercase tracking-widest border border-emerald-200/80">
+              Role-Based Access Architecture
             </span>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              6 Tailored Dashboards for Every Member of Your Team
+              6 Tailored Dashboards for Every Member of Your Organization
             </h2>
             <p className="text-slate-600 text-sm font-medium">
-              Every role in Study First Info gets an optimized workspace with strict Role-Based Access Control (RBAC) and zero data leakage.
+              Every staff member in Study First Info gets an optimized workspace with strict Role-Based Access Control (RBAC), 
+              ensuring counselors only access their assigned leads while managers enjoy global pipeline analytics.
             </p>
 
             {/* Role Switcher Tabs */}
             <div className="flex flex-wrap items-center justify-center gap-2 pt-6">
-              {projectRoles.map(r => (
+              {projectRoles.map((r, idx) => (
                 <button
                   key={r.id}
-                  onClick={() => setSelectedRoleTab(r.id)}
+                  onClick={() => setActiveRoleIndex(idx)}
                   className={`px-4 py-2.5 rounded-2xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 ${
-                    selectedRoleTab === r.id
+                    activeRoleIndex === idx
                       ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/25 scale-105'
                       : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80'
                   }`}
                 >
-                  <r.icon size={14} />
-                  {r.name}
+                  <r.icon size={15} />
+                  {r.roleKey}
                 </button>
               ))}
             </div>
@@ -563,28 +593,28 @@ const LandingPage = () => {
           <div className="bg-slate-900 rounded-[2.5rem] p-8 sm:p-12 text-white border border-slate-800 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 blur-[100px] rounded-full pointer-events-none" />
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-              <div className="lg:col-span-7 space-y-6 text-left">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10 text-left">
+              <div className="lg:col-span-7 space-y-6">
                 <div className="flex items-center gap-3">
-                  <div className="p-3 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                    <activeRoleData.icon size={24} />
+                  <div className="p-3.5 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    <activeRole.icon size={26} />
                   </div>
                   <div>
                     <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-black uppercase tracking-widest border border-emerald-500/30">
-                      {activeRoleData.badge}
+                      {activeRole.badge}
                     </span>
                     <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mt-1">
-                      {activeRoleData.name} Workspace
+                      {activeRole.title}
                     </h3>
                   </div>
                 </div>
 
                 <p className="text-slate-300 text-sm font-medium leading-relaxed">
-                  {activeRoleData.subtitle}. Purpose-built to eliminate bottlenecks and provide full visibility into student interactions.
+                  {activeRole.description}
                 </p>
 
                 <div className="space-y-3 pt-2">
-                  {activeRoleData.features.map((feat, idx) => (
+                  {activeRole.features.map((feat, idx) => (
                     <div key={idx} className="flex items-start gap-3">
                       <div className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
                         <Check size={12} strokeWidth={3} />
@@ -594,48 +624,52 @@ const LandingPage = () => {
                   ))}
                 </div>
 
-                <div className="pt-4 flex items-center gap-4">
+                <div className="pt-4 flex flex-wrap items-center gap-4">
                   <button
                     onClick={() => navigate('/login')}
-                    className="px-6 py-3.5 rounded-full text-xs font-black uppercase tracking-wider bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition-all shadow-lg flex items-center gap-2"
+                    className="px-6 py-3.5 rounded-full text-xs font-black uppercase tracking-wider bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition-all shadow-lg flex items-center gap-2 hover:scale-105 active:scale-95"
                   >
-                    Open {activeRoleData.name} Portal
+                    Open {activeRole.roleKey} Portal
                     <ArrowRight size={14} />
                   </button>
-                  <span className="text-[11px] font-bold text-emerald-400">
-                    {activeRoleData.previewStat}
+                  <span className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                    <Zap size={14} />
+                    {activeRole.metrics.secondary}
                   </span>
                 </div>
               </div>
 
               {/* Right Mock Representation */}
-              <div className="lg:col-span-5 bg-[#06241D] rounded-3xl p-6 border border-emerald-800/50 shadow-xl space-y-4 text-left">
+              <div className="lg:col-span-5 bg-[#06241D] rounded-3xl p-6 border border-emerald-800/50 shadow-xl space-y-4">
                 <div className="flex items-center justify-between pb-3 border-b border-emerald-900/60">
-                  <span className="text-xs font-black uppercase tracking-wider text-emerald-300">Live Dashboard Route</span>
-                  <span className="text-[10px] font-mono text-emerald-400">/api/{activeRoleData.id}</span>
+                  <span className="text-xs font-black uppercase tracking-wider text-emerald-300">Live Workspace Status</span>
+                  <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800/40">
+                    {activeRole.path}
+                  </span>
                 </div>
 
                 <div className="space-y-2.5 text-xs text-slate-300 font-medium">
-                  <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-800/40 flex justify-between items-center">
-                    <span>Role Token Status</span>
-                    <span className="text-emerald-400 font-bold">Authenticated ✓</span>
+                  <div className="p-3.5 rounded-xl bg-emerald-950/60 border border-emerald-800/40 flex justify-between items-center">
+                    <span className="text-slate-400">Primary Benchmark</span>
+                    <span className="text-emerald-400 font-black text-sm">{activeRole.metrics.primary}</span>
                   </div>
-                  <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-800/40 flex justify-between items-center">
-                    <span>Data Scope (RBAC)</span>
-                    <span className="text-emerald-400 font-bold">Strict Isolation</span>
+                  <div className="p-3.5 rounded-xl bg-emerald-950/60 border border-emerald-800/40 flex justify-between items-center">
+                    <span className="text-slate-400">Security & RBAC Scope</span>
+                    <span className="text-emerald-400 font-bold">Strict User Isolation</span>
                   </div>
-                  <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-800/40 flex justify-between items-center">
-                    <span>Real-time WebSocket</span>
-                    <span className="text-emerald-400 font-bold">Connected (Port 5000)</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-800/40 flex justify-between items-center">
-                    <span>Quota Usage</span>
-                    <span className="text-emerald-400 font-bold">750 / 1000 Leads</span>
+                  <div className="p-3.5 rounded-xl bg-emerald-950/60 border border-emerald-800/40 flex justify-between items-center">
+                    <span className="text-slate-400">Real-time Sockets</span>
+                    <span className="text-emerald-400 font-bold">Port 5000 Active ✓</span>
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-[10px] text-emerald-300 text-center font-bold">
-                  ⚡ 1-Click Fast Switch available on Login Gateway
+                <div className="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-800/40 text-[11px] text-emerald-300 text-left font-medium">
+                  <div className="text-[9px] uppercase font-black text-emerald-400 mb-1">Recent Audit Action:</div>
+                  "{activeRole.sampleActivity}"
+                </div>
+
+                <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-[10px] text-emerald-300 text-center font-bold">
+                  ⚡ 1-Click Fast Role Switch Available on Login Screen
                 </div>
               </div>
             </div>
@@ -650,80 +684,80 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
             <span className="px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black uppercase tracking-widest">
-              Engineered For Admissions & Operations
+              Built For Admissions & Sales
             </span>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              Complete Feature Architecture
+              Enterprise Features Built Right In
             </h2>
             <p className="text-slate-600 text-sm font-medium">
-              Eliminate disconnected spreadsheets and chaotic personal WhatsApp accounts with centralized governance.
+              Every tool your counselors and supervisors need to manage high inquiry volumes with zero friction.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
             {/* Module 1 */}
-            <div className="p-8 rounded-3xl bg-white border border-slate-200/80 hover:border-emerald-500/50 hover:shadow-lg transition-all group">
+            <div className="p-8 rounded-3xl bg-white border border-slate-200 hover:border-emerald-500/60 hover:shadow-xl transition-all group">
               <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
                 <Users className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-black text-slate-900 mb-2">Round-Robin Lead Routing</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                Automatic distribution of incoming inquiries among active counselors based on timestamp and workload to ensure instant lead pick-up.
+                Automatic equal distribution of incoming inquiries among active counselors based on <code className="bg-slate-100 px-1 py-0.5 rounded text-emerald-700">lastAssignedAt</code> timestamps. Eliminates lead hoarding and ensures immediate engagement.
               </p>
             </div>
 
             {/* Module 2 */}
-            <div className="p-8 rounded-3xl bg-white border border-slate-200/80 hover:border-emerald-500/50 hover:shadow-lg transition-all group">
+            <div className="p-8 rounded-3xl bg-white border border-slate-200 hover:border-emerald-500/60 hover:shadow-xl transition-all group">
               <div className="w-12 h-12 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center mb-6 group-hover:bg-teal-600 group-hover:text-white transition-colors">
                 <PhoneCall className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-black text-slate-900 mb-2">1-Click Call & Notes Logging</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                Record student call duration, discussion outcomes (Interested, Callback, Dropped), and schedule next follow-up dates directly in lead profile.
+                Counselors log call durations, select call outcomes (Interested, Callback Scheduled, Token Paid, Dropped), and set next follow-up dates directly in student profiles.
               </p>
             </div>
 
             {/* Module 3 */}
-            <div className="p-8 rounded-3xl bg-white border border-slate-200/80 hover:border-emerald-500/50 hover:shadow-lg transition-all group">
+            <div className="p-8 rounded-3xl bg-white border border-slate-200 hover:border-emerald-500/60 hover:shadow-xl transition-all group">
               <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
                 <Sparkles className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-black text-slate-900 mb-2">AI Qualification Engine</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                24/7 AI bot automatically qualifies applicant budget, course interest, and academic intake year before assigning to counselors.
+                24/7 AI bot automatically asks qualifying questions (budget, desired intake year, program) and assigns an automated Lead Score (0–100) before human rep assignment.
               </p>
             </div>
 
             {/* Module 4 */}
-            <div className="p-8 rounded-3xl bg-white border border-slate-200/80 hover:border-emerald-500/50 hover:shadow-lg transition-all group">
+            <div className="p-8 rounded-3xl bg-white border border-slate-200 hover:border-emerald-500/60 hover:shadow-xl transition-all group">
               <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition-colors">
                 <Clock className="w-6 h-6" />
               </div>
-              <h3 className="text-lg font-black text-slate-900 mb-2">15-Min SLA Warning Alerts</h3>
+              <h3 className="text-lg font-black text-slate-900 mb-2">15-Min SLA Breach Alerts</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                Strict response time tracking. If an incoming WhatsApp lead is not attended within target window, automated alerts notify Team Leaders.
+                Strict response time monitoring. If an incoming WhatsApp lead is not answered within target window, automated SLA Warning flags notify Team Leaders for 1-click reassignment.
               </p>
             </div>
 
             {/* Module 5 */}
-            <div className="p-8 rounded-3xl bg-white border border-slate-200/80 hover:border-emerald-500/50 hover:shadow-lg transition-all group">
+            <div className="p-8 rounded-3xl bg-white border border-slate-200 hover:border-emerald-500/60 hover:shadow-xl transition-all group">
               <div className="w-12 h-12 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center mb-6 group-hover:bg-cyan-600 group-hover:text-white transition-colors">
                 <Globe2 className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-black text-slate-900 mb-2">Territory & Country Funnels</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                Segment student pipelines by territory (India, UAE, UK, Canada). Analyze stage progression and regional conversion rates in real time.
+                Segment student pipelines by territory (India, UAE, UK, Canada, Australia). Track conversion velocity from initial inquiry to tuition token payment by geographic cohort.
               </p>
             </div>
 
             {/* Module 6 */}
-            <div className="p-8 rounded-3xl bg-white border border-slate-200/80 hover:border-emerald-500/50 hover:shadow-lg transition-all group">
+            <div className="p-8 rounded-3xl bg-white border border-slate-200 hover:border-emerald-500/60 hover:shadow-xl transition-all group">
               <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
                 <Shield className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-black text-slate-900 mb-2">Security, RBAC & Audit Trails</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                Every action (lead created, status changed, permissions modified, message sent) is recorded in an immutable system audit trail with CSV export.
+                Every action (lead created, status changed, permissions modified, message sent) is recorded in an immutable database audit trail with CSV export and role token guards.
               </p>
             </div>
           </div>
@@ -749,28 +783,28 @@ const LandingPage = () => {
               </p>
 
               <div className="space-y-3 pt-2">
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-4">
-                  <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0">
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-4">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-md">
                     1
                   </div>
                   <div>
                     <h4 className="text-xs font-black uppercase text-slate-900 tracking-wider">Territory Rule Matching</h4>
-                    <p className="text-xs text-slate-500 mt-0.5">Leads from India are routed to Domestic Counselors, international leads to Global Teams.</p>
+                    <p className="text-xs text-slate-500 mt-0.5">Leads from India are routed to Domestic Counselors, international inquiries to Global Teams.</p>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-4">
-                  <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0">
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-4">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-md">
                     2
                   </div>
                   <div>
                     <h4 className="text-xs font-black uppercase text-slate-900 tracking-wider">Round-Robin Equal Distribution</h4>
-                    <p className="text-xs text-slate-500 mt-0.5">Leads are assigned to the counselor who hasn't received a new lead in the longest time.</p>
+                    <p className="text-xs text-slate-500 mt-0.5">Leads are assigned to the counselor who hasn't received an inquiry in the longest time.</p>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-4">
-                  <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0">
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-4">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-md">
                     3
                   </div>
                   <div>
@@ -837,7 +871,7 @@ const LandingPage = () => {
               Simple & Scalable Pricing Plans
             </h2>
             <p className="text-slate-600 text-sm font-medium">
-              Start free for 14 days. Scale as your team and inquiry volume grow.
+              Start free for 14 days. Scale as your counseling team and inquiry volume grow.
             </p>
 
             {/* Monthly / Annual Toggle */}
@@ -855,7 +889,7 @@ const LandingPage = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
             {/* Starter Plan */}
             <div className="p-8 rounded-3xl bg-white border border-slate-200 flex flex-col justify-between hover:border-emerald-500/50 transition-all shadow-sm">
               <div>
@@ -977,7 +1011,7 @@ const LandingPage = () => {
               Success Stories
             </span>
             <h2 className="text-3xl font-black text-slate-900 tracking-tight">
-              Trusted by Education & Corporate Admissions Leaders
+              Trusted by Higher Education Admissions Leaders
             </h2>
           </div>
 
