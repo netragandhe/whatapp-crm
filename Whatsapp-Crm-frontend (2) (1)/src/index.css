@@ -4,47 +4,68 @@
 
 @layer base {
   :root {
-    --primary: #059669;
-    --primary-foreground: #ffffff;
-    --secondary: #f1f5f9;
-    --secondary-foreground: #059669;
-    --accent: #10b981;
-    --accent-foreground: #ffffff;
-    --background: #f8fafc;
-    --foreground: #0f172a;
-    --card: #ffffff;
-    --card-foreground: #0f172a;
-    --border: #e2e8f0;
-    --input: #e2e8f0;
-    --ring: #059669;
-    --radius: 0.75rem;
+    --primary: #86D9A9;
+    --primary-foreground: #26382E;
+    --fresh-green: #A7E8C2;
+    --light-mint: #DDF7E8;
+    --main-bg: #F4FBF6;
+    --secondary-bg: #EDF8F0;
+    --main-text: #26382E;
+    --secondary-text: #64748B;
+    --border: #DDE8E0;
+    --card: #FFFFFF;
+    --card-foreground: #26382E;
+    --glass-surface: rgba(255, 255, 255, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.85);
+    --radius: 1.25rem;
   }
 
-  /* Global Shadow Enforcer - Enterprise depth */
-  .shadow-sm,
-  .shadow,
-  .shadow-md,
-  .shadow-lg,
-  .shadow-xl,
-  .shadow-2xl,
-  .crm-card,
-  .crm-table-container,
-  [class*="shadow-"] {
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px !important;
+  body {
+    background-color: #F4FBF6;
+    color: #26382E;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden !important;
+    width: 100%;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border-color: #DDE8E0;
   }
 }
 
 @layer components {
+  /* Soft Mint Glass Card */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 8px 28px rgba(38, 56, 46, 0.05);
+    border-radius: 1.5rem;
+  }
 
-  /* Global Card Style */
+  /* Frosted Glass Panel */
+  .glass-panel {
+    background: rgba(237, 248, 240, 0.75);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid #DDE8E0;
+  }
+
+  /* Global Operational Card Style */
   .crm-card {
-    @apply rounded-xl bg-white p-5 transition-all duration-300 border border-slate-100/50 break-words overflow-hidden;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    @apply rounded-2xl bg-white p-5 transition-all duration-300 border border-[#DDE8E0] break-words overflow-hidden;
+    box-shadow: 0 8px 24px rgba(38, 56, 46, 0.04);
   }
 
   .crm-card:hover {
     @apply -translate-y-[2px] cursor-pointer;
-    border: 1px solid #059669;
+    border-color: #86D9A9;
+    box-shadow: 0 12px 30px rgba(38, 56, 46, 0.07);
   }
 
   /* Standardized Container */
@@ -61,20 +82,19 @@
     @apply grid gap-6;
   }
 
-  /* Enhanced Button Base */
+  /* Enhanced Mint Button Base */
   .btn-primary {
-    @apply h-9 px-6 rounded-xl flex items-center justify-center transition-all duration-200 font-bold text-sm tracking-tight text-white bg-[#059669] hover:bg-[#047857] active:scale-95;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    @apply h-10 px-6 rounded-xl flex items-center justify-center transition-all duration-200 font-bold text-xs uppercase tracking-wider text-[#26382E] bg-[#86D9A9] hover:bg-[#A7E8C2] active:scale-95 shadow-sm;
   }
 
   .btn-secondary {
-    @apply h-9 px-6 rounded-xl flex items-center justify-center transition-all duration-200 font-bold text-sm tracking-tight border border-slate-200 bg-white text-[#059669] hover:bg-emerald-50 hover:border-[#059669] active:scale-95;
+    @apply h-10 px-6 rounded-xl flex items-center justify-center transition-all duration-200 font-bold text-xs uppercase tracking-wider border border-[#DDE8E0] bg-white text-[#26382E] hover:bg-[#DDF7E8] hover:border-[#86D9A9] active:scale-95 shadow-sm;
   }
 
   /* Enhanced Table */
   .crm-table-container {
-    @apply overflow-x-auto w-full rounded-xl bg-white border border-slate-200/60;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    @apply overflow-x-auto w-full rounded-2xl bg-white/90 backdrop-blur-md border border-[#DDE8E0];
+    box-shadow: 0 8px 24px rgba(38, 56, 46, 0.04);
   }
 
   .crm-table {
@@ -82,31 +102,35 @@
   }
 
   .crm-table thead {
-    @apply sticky top-0 bg-slate-50/80 backdrop-blur-md z-10;
-    border-bottom: 1px solid #e2e8f0;
+    @apply sticky top-0 bg-[#EDF8F0]/80 backdrop-blur-md z-10;
+    border-bottom: 1px solid #DDE8E0;
   }
 
   .crm-table th {
-    @apply px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest;
+    @apply px-6 py-4 text-[10px] font-black text-[#64748B] uppercase tracking-widest;
   }
 
   .crm-table tr {
-    @apply transition-all duration-250;
-    border-bottom: 1px solid #f1f5f9;
+    @apply transition-all duration-200;
+    border-bottom: 1px solid #EDF8F0;
   }
 
   .crm-table tr:hover {
-    @apply bg-gray-50;
-    border-left: 3px solid #059669;
+    background-color: rgba(221, 247, 232, 0.4);
+    border-left: 3px solid #86D9A9;
   }
 
   .crm-table td {
-    @apply px-6 py-4 text-xs font-medium text-slate-600;
+    @apply px-6 py-4 text-xs font-medium text-[#26382E];
   }
 
   /* Status Badges */
   .badge {
-    @apply px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border;
+    @apply px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border border-[#DDE8E0] bg-[#EDF8F0] text-[#26382E];
+  }
+
+  .badge-mint {
+    @apply px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-[#DDF7E8] text-[#26382E] border border-[#A7E8C2];
   }
 
   /* Global Hover Border Enforcer */
@@ -116,43 +140,8 @@
 
   .crm-hover-effect:hover {
     @apply -translate-y-[2px];
-    border: 1px solid #0a3d62 !important;
+    border-color: #86D9A9 !important;
   }
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  @apply bg-[#F8FAFC] text-[#1e293b];
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden !important;
-  width: 100%;
-}
-
-/* User Requested: Force all text sizes to be standard 14px */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-span,
-a,
-button,
-input,
-select,
-textarea,
-th,
-td,
-label {
-  font-size: 14px;
-  line-height: 1.5 !important;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -160,5 +149,5 @@ label {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-gray-300 rounded-full hover:bg-gray-400;
+  @apply bg-[#DDE8E0] rounded-full hover:bg-[#A7E8C2];
 }

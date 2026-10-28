@@ -1,15 +1,17 @@
 // Team Member Dashboard
+import React from 'react'
 import { FaCalendarDay, FaTasks, FaUmbrellaBeach, FaComments, FaClock, FaCheckCircle } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
+import { cn } from '../../lib/utils'
 
 const TeamMemberDashboard = () => {
     const navigate = useNavigate()
 
     const stats = [
-        { label: 'Today\'s Visits', value: '5', icon: FaCalendarDay, color: 'from-blue-500 to-cyan-600', bgColor: 'bg-blue-50' },
-        { label: 'Pending Tasks', value: '8', icon: FaTasks, color: 'from-orange-500 to-yellow-600', bgColor: 'bg-orange-50' },
-        { label: 'Completed Today', value: '3', icon: FaCheckCircle, color: 'from-green-500 to-teal-600', bgColor: 'bg-green-50' },
-        { label: 'Leave Balance', value: '12 days', icon: FaUmbrellaBeach, color: 'from-purple-500 to-pink-600', bgColor: 'bg-purple-50' },
+        { label: 'Today\'s Visits', value: '5', icon: FaCalendarDay, color: 'bg-[#DDF7E8] text-[#26382E] border-[#A7E8C2]/60' },
+        { label: 'Pending Tasks', value: '8', icon: FaTasks, color: 'bg-amber-50 text-amber-700 border-amber-200' },
+        { label: 'Completed Today', value: '3', icon: FaCheckCircle, color: 'bg-[#DDF7E8] text-[#2E8456] border-[#A7E8C2]/60' },
+        { label: 'Leave Balance', value: '12 days', icon: FaUmbrellaBeach, color: 'bg-[#EDF8F0] text-[#26382E] border-[#DDE8E0]' },
     ]
 
     const todayVisits = [
@@ -26,62 +28,68 @@ const TeamMemberDashboard = () => {
 
     const getActivityColor = (type) => {
         switch (type) {
-            case 'success': return 'text-green-600 bg-green-50'
-            case 'info': return 'text-blue-600 bg-blue-50'
-            case 'warning': return 'text-yellow-600 bg-yellow-50'
-            default: return 'text-gray-600 bg-gray-50'
+            case 'success': return 'text-[#2E8456] bg-[#DDF7E8] border border-[#A7E8C2]/60'
+            case 'info': return 'text-[#26382E] bg-[#EDF8F0] border border-[#DDE8E0]'
+            case 'warning': return 'text-amber-700 bg-amber-50 border border-amber-200'
+            default: return 'text-[#64748B] bg-gray-50 border border-gray-200'
         }
     }
 
     return (
-        <div className="p-6">
-            <div className="mb-6">
-                <h1 className="text-3xl font-bold text-gray-800 mb-2">Welcome Back!</h1>
-                <p className="text-gray-600">Here's your schedule for today</p>
+        <div className="space-y-8 pb-16">
+            <div>
+                <h1 className="text-2xl sm:text-3xl font-black text-[#26382E] tracking-tight">Team Member Dashboard</h1>
+                <p className="text-xs sm:text-sm font-medium text-[#64748B] mt-1">Here is your schedule and daily rota operations overview.</p>
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 {stats.map((stat, index) => (
-                    <div key={index} className="crm-card">
-                        <div className="flex items-center justify-between mb-4">
-                            <div className={`p-3 rounded-xl bg-gradient-to-br ${stat.color}`}>
-                                <stat.icon className="text-2xl text-white" />
+                    <div key={index} className="glass-card bg-white/85 backdrop-blur-xl rounded-3xl border border-[#DDE8E0] p-5 shadow-sm space-y-3">
+                        <div className="flex items-center justify-between">
+                            <div className={cn("p-2.5 rounded-xl border", stat.color)}>
+                                <stat.icon className="text-lg" />
                             </div>
                         </div>
-                        <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
-                        <p className="text-3xl font-bold text-gray-800">{stat.value}</p>
+                        <div>
+                            <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">{stat.label}</p>
+                            <p className="text-2xl sm:text-3xl font-black text-[#26382E] tracking-tight mt-0.5">{stat.value}</p>
+                        </div>
                     </div>
                 ))}
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Today's Visits */}
-                <div className="crm-card">
+                <div className="glass-card bg-white/85 backdrop-blur-xl rounded-3xl border border-[#DDE8E0] p-6 shadow-sm">
                     <div className="flex justify-between items-center mb-4">
-                        <h2 className="text-xl font-bold text-gray-800">Today's Visits</h2>
+                        <h2 className="text-base font-black text-[#26382E] tracking-tight">Today's Visits</h2>
                         <button
                             onClick={() => navigate('/team-member/daily-rota')}
-                            className="text-sm text-teal-600 hover:text-teal-700 font-medium"
+                            className="text-xs text-[#2E8456] hover:underline font-bold"
                         >
                             View All →
                         </button>
                     </div>
-                    <div className="space-y-3">
+                    <div className="space-y-2.5">
                         {todayVisits.map((visit, index) => (
-                            <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                            <div key={index} className="flex items-center justify-between p-3.5 bg-white/80 border border-[#DDE8E0] rounded-2xl hover:bg-[#F4FBF6] transition-colors">
                                 <div className="flex items-center gap-3">
-                                    <div className="p-2 bg-teal-100 rounded-lg">
-                                        <FaClock className="text-teal-600" />
+                                    <div className="p-2 bg-[#DDF7E8] text-[#26382E] rounded-xl border border-[#A7E8C2]/60">
+                                        <FaClock className="text-xs" />
                                     </div>
                                     <div>
-                                        <p className="font-semibold text-gray-800">{visit.client}</p>
-                                        <p className="text-sm text-gray-600">{visit.time}</p>
-                                        <p className="text-xs text-gray-500">{visit.address}</p>
+                                        <p className="font-bold text-xs text-[#26382E]">{visit.client}</p>
+                                        <p className="text-[11px] font-medium text-[#64748B]">{visit.time}</p>
+                                        <p className="text-[10px] text-[#94A3B8]">{visit.address}</p>
                                     </div>
                                 </div>
-                                <span className={`px-3 py-1 rounded-full text-xs font-medium ${visit.status === 'In Progress' ? 'bg-blue-100 text-blue-700' : 'bg-yellow-100 text-yellow-700'
-                                    }`}>
+                                <span className={cn(
+                                    "px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border",
+                                    visit.status === 'In Progress' 
+                                        ? 'bg-[#DDF7E8] text-[#26382E] border-[#A7E8C2]' 
+                                        : 'bg-amber-50 text-amber-700 border-amber-200'
+                                )}>
                                     {visit.status}
                                 </span>
                             </div>
@@ -90,18 +98,18 @@ const TeamMemberDashboard = () => {
                 </div>
 
                 {/* Recent Activities */}
-                <div className="crm-card">
-                    <h2 className="text-xl font-bold text-gray-800 mb-4">Recent Activities</h2>
-                    <div className="space-y-3">
+                <div className="glass-card bg-white/85 backdrop-blur-xl rounded-3xl border border-[#DDE8E0] p-6 shadow-sm">
+                    <h2 className="text-base font-black text-[#26382E] tracking-tight mb-4">Recent Activities</h2>
+                    <div className="space-y-2.5">
                         {recentActivities.map((activity, index) => (
-                            <div key={index} className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                                <div className={`p-2 rounded-lg ${getActivityColor(activity.type)}`}>
-                                    <FaComments className="text-sm" />
+                            <div key={index} className="flex items-start gap-3 p-3 bg-white/80 border border-[#DDE8E0] rounded-2xl hover:bg-[#F4FBF6] transition-colors">
+                                <div className={cn("p-2 rounded-xl text-xs", getActivityColor(activity.type))}>
+                                    <FaComments />
                                 </div>
-                                <div className="flex-1">
-                                    <p className="text-sm font-medium text-gray-800">{activity.action}</p>
-                                    <p className="text-sm text-gray-600">{activity.client}</p>
-                                    <p className="text-xs text-gray-500 mt-1">{activity.time}</p>
+                                <div className="flex-1 min-w-0">
+                                    <p className="text-xs font-bold text-[#26382E]">{activity.action}</p>
+                                    <p className="text-[11px] font-medium text-[#64748B]">{activity.client}</p>
+                                    <p className="text-[10px] text-[#94A3B8] mt-0.5">{activity.time}</p>
                                 </div>
                             </div>
                         ))}
@@ -110,36 +118,36 @@ const TeamMemberDashboard = () => {
             </div>
 
             {/* Quick Actions */}
-            <div className="mt-6 crm-card">
-                <h2 className="text-xl font-bold text-gray-800 mb-4">Quick Actions</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="glass-card bg-white/85 backdrop-blur-xl rounded-3xl border border-[#DDE8E0] p-6 shadow-sm">
+                <h2 className="text-base font-black text-[#26382E] tracking-tight mb-4">Quick Navigation</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
                     <button
                         onClick={() => navigate('/team-member/daily-rota')}
-                        className="p-4 bg-gradient-to-br from-teal-500 to-cyan-600 text-white rounded-xl hover:shadow-lg transition-all"
+                        className="p-4 bg-[#DDF7E8] text-[#26382E] border border-[#A7E8C2]/60 rounded-2xl hover:bg-[#86D9A9] transition-all text-left shadow-2xs"
                     >
-                        <FaCalendarDay className="text-2xl mb-2" />
-                        <p className="font-medium">Daily Rota</p>
+                        <FaCalendarDay className="text-lg mb-2 text-[#2E8456]" />
+                        <p className="font-bold text-xs">Daily Rota</p>
                     </button>
                     <button
                         onClick={() => navigate('/team-member/task-list')}
-                        className="p-4 bg-gradient-to-br from-orange-500 to-yellow-600 text-white rounded-xl hover:shadow-lg transition-all"
+                        className="p-4 bg-[#EDF8F0] text-[#26382E] border border-[#DDE8E0] rounded-2xl hover:bg-[#DDF7E8] transition-all text-left shadow-2xs"
                     >
-                        <FaTasks className="text-2xl mb-2" />
-                        <p className="font-medium">My Tasks</p>
+                        <FaTasks className="text-lg mb-2 text-[#26382E]" />
+                        <p className="font-bold text-xs">My Tasks</p>
                     </button>
                     <button
                         onClick={() => navigate('/team-member/absences-holiday')}
-                        className="p-4 bg-gradient-to-br from-purple-500 to-pink-600 text-white rounded-xl hover:shadow-lg transition-all"
+                        className="p-4 bg-[#DDF7E8] text-[#26382E] border border-[#A7E8C2]/60 rounded-2xl hover:bg-[#86D9A9] transition-all text-left shadow-2xs"
                     >
-                        <FaUmbrellaBeach className="text-2xl mb-2" />
-                        <p className="font-medium">Request Leave</p>
+                        <FaUmbrellaBeach className="text-lg mb-2 text-[#2E8456]" />
+                        <p className="font-bold text-xs">Request Leave</p>
                     </button>
                     <button
                         onClick={() => navigate('/team-member/communication')}
-                        className="p-4 bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-xl hover:shadow-lg transition-all"
+                        className="p-4 bg-[#EDF8F0] text-[#26382E] border border-[#DDE8E0] rounded-2xl hover:bg-[#DDF7E8] transition-all text-left shadow-2xs"
                     >
-                        <FaComments className="text-2xl mb-2" />
-                        <p className="font-medium">Communication</p>
+                        <FaComments className="text-lg mb-2 text-[#26382E]" />
+                        <p className="font-bold text-xs">Messages</p>
                     </button>
                 </div>
             </div>
@@ -148,5 +156,3 @@ const TeamMemberDashboard = () => {
 }
 
 export default TeamMemberDashboard
-
-

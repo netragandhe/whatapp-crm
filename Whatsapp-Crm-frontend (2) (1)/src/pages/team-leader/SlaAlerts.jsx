@@ -29,7 +29,7 @@ const SlaAlerts = () => {
 
     if (isLoading) return (
         <div className="h-96 flex items-center justify-center">
-            <RefreshCcw className="animate-spin text-indigo-600" size={32} />
+            <RefreshCcw className="animate-spin text-[#86D9A9]" size={32} />
         </div>
     )
 
@@ -57,142 +57,138 @@ const SlaAlerts = () => {
     }
 
     return (
-        <div className="space-y-8 pb-12">
+        <div className="space-y-8 pb-16">
             {/* Header Area */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                <div className="space-y-1">
-                    <h1 className="text-3xl font-black text-[#111827] uppercase tracking-tighter">SLA <span className="text-rose-600">Alerts</span></h1>
-                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Service Level Agreement breach monitoring</p>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h1 className="text-2xl sm:text-3xl font-black text-[#26382E] tracking-tight">SLA Breach Alerts</h1>
+                    <p className="text-xs sm:text-sm font-medium text-[#64748B] mt-1">Real-time Service Level Agreement breach monitoring and intervention queue.</p>
                 </div>
 
                 <div className="flex items-center gap-3">
-                    <div className="bg-white border border-[#E5E7EB] rounded-xl px-4 py-2.5 flex items-center gap-3 shadow-sm hidden sm:flex">
-                        <Filter size={14} className="text-gray-400" />
-                        <span className="text-[10px] font-black text-[#111827] uppercase tracking-widest">Status Filter: Active Breaches</span>
-                    </div>
                     <button
                         onClick={() => refreshData.mutate('slaAlerts')}
-                        className="p-2.5 border border-[#E5E7EB] rounded-xl text-gray-500 bg-gray-50 hover:bg-gray-100 hover:text-[#111827] transition-all shadow-sm active:scale-95 flex items-center gap-2"
+                        className="p-2.5 bg-white border border-[#DDE8E0] rounded-xl text-[#64748B] hover:text-[#26382E] hover:bg-[#DDF7E8] transition-all shadow-xs active:scale-95 flex items-center gap-2"
+                        title="Refresh alerts"
                     >
-                        <RefreshCcw size={16} className={refreshData.isPending ? "animate-spin" : ""} />
+                        <RefreshCcw size={15} className={refreshData.isPending ? "animate-spin" : ""} />
                     </button>
                 </div>
             </div>
 
             {/* Main Content Area */}
-            <section className="space-y-6">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div className="relative group max-w-sm w-full">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-500 transition-colors" size={14} />
+            <section className="space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div className="relative max-w-sm w-full">
+                        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#64748B]" size={14} />
                         <input
                             type="text"
-                            placeholder="SEARCH INCIDENTS..."
+                            placeholder="Search incidents by lead or counselor..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="bg-white border border-[#E5E7EB] rounded-xl py-3 pl-11 pr-4 text-[10px] font-black uppercase tracking-widest w-full focus:ring-2 focus:ring-indigo-500/20 outline-none shadow-sm transition-all"
+                            className="bg-white border border-[#DDE8E0] rounded-xl py-2 pl-9 pr-4 text-xs font-semibold text-[#26382E] w-full focus:outline-none focus:ring-2 focus:ring-[#86D9A9] shadow-xs transition-all"
                         />
                     </div>
-                    <div className="flex items-center gap-2 bg-rose-50 border border-rose-100 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest text-rose-600 shadow-sm whitespace-nowrap">
+                    <div className="flex items-center gap-2 bg-rose-50 border border-rose-200 px-3.5 py-1.5 rounded-xl text-xs font-bold text-rose-600 shadow-2xs whitespace-nowrap">
                         <AlertTriangle size={14} />
                         {slaAlerts.filter(a => a.status === 'Breached').length} Active Breaches
                     </div>
                 </div>
 
-                <div className="bg-white rounded-[2.5rem] border border-[#E5E7EB] shadow-sm overflow-hidden overflow-x-auto no-scrollbar">
-                    <table className="w-full text-left border-collapse min-w-[900px]">
-                        <thead>
-                            <tr className="bg-[#F9FAFB]/50">
-                                <th className="px-8 py-5 font-black text-gray-400 uppercase tracking-widest text-[9px]">SLA Status</th>
-                                <th className="px-8 py-5 font-black text-gray-400 uppercase tracking-widest text-[9px]">Lead Profile</th>
-                                <th className="px-8 py-5 font-black text-gray-400 uppercase tracking-widest text-[9px]">Responsible</th>
-                                <th className="px-8 py-5 font-black text-gray-400 uppercase tracking-widest text-[9px]">Response Delay</th>
-                                <th className="px-8 py-5 font-black text-gray-400 uppercase tracking-widest text-[9px]">SLA Threshold</th>
-                                <th className="px-4 py-5 font-black text-gray-400 uppercase tracking-widest text-[9px] text-right">Intervention</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-[#E5E7EB]/50">
-                            {filteredAlerts.map((alert, i) => (
-                                <tr key={alert.id} className={cn(
-                                    "transition-all group border-l-4",
-                                    alert.status === 'Breached' ? "border-l-rose-500 bg-rose-50/10 hover:bg-rose-50/30" : "border-l-amber-400 hover:bg-gray-50/50"
-                                )}>
-                                    <td className="px-8 py-6">
-                                        <div className="flex items-center gap-2">
-                                            {alert.status === 'Breached' ? (
-                                                <div className="flex items-center gap-1.5 text-rose-600 animate-pulse">
-                                                    <AlertTriangle size={14} />
-                                                    <span className="text-[10px] font-black uppercase tracking-widest">Breached</span>
-                                                </div>
-                                            ) : (
-                                                <div className="flex items-center gap-1.5 text-amber-600">
-                                                    <Clock size={14} />
-                                                    <span className="text-[10px] font-black uppercase tracking-widest">Warning</span>
-                                                </div>
-                                            )}
-                                        </div>
-                                    </td>
-                                    <td className="px-8 py-6">
-                                        <span className={cn(
-                                            "text-xs font-black uppercase tracking-tight",
-                                            alert.status === 'Breached' ? "text-rose-900" : "text-[#111827]"
-                                        )}>{getDisplayLead(alert)}</span>
-                                        <div className="text-[9px] font-bold text-gray-400 uppercase mt-1">
-                                            Breach Time: {alert.breachTime}
-                                        </div>
-                                    </td>
-                                    <td className="px-8 py-6">
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-6 h-6 rounded-md bg-gray-100 flex items-center justify-center text-[8px] font-black text-gray-500">
-                                                {getDisplayCounselor(alert).charAt(0)}
-                                            </div>
-                                            <span className="text-[10px] font-black text-[#111827] uppercase">{getDisplayCounselor(alert)}</span>
-                                        </div>
-                                    </td>
-                                    <td className="px-8 py-6">
-                                        <span className={cn(
-                                            "text-xs font-black",
-                                            alert.status === 'Breached' ? "text-rose-600" : "text-amber-600"
-                                        )}>{alert.delay} mins</span>
-                                    </td>
-                                    <td className="px-8 py-6">
-                                        <span className="text-[10px] font-black text-gray-500">{alert.limit} mins limit</span>
-                                    </td>
-                                    <td className="px-4 py-6 text-right">
-                                        <div className="flex items-center justify-end gap-2">
-                                            <button
-                                                onClick={() => sendReminder.mutate(getDisplayCounselor(alert))}
-                                                className={cn(
-                                                    "p-2 rounded-lg transition-colors border shadow-sm flex items-center gap-2 ",
-                                                    alert.status === 'Breached' ? "bg-rose-50 text-rose-600 hover:bg-rose-100 border-rose-100" : "bg-amber-50 text-amber-600 hover:bg-amber-100 border-amber-100"
-                                                )}
-                                                title="Send Urgent Reminder"
-                                            >
-                                                <BellRing size={14} className={alert.status === 'Breached' ? "animate-bounce" : ""} />
-                                                <span className="text-[8px] font-black uppercase tracking-widest">Ping</span>
-                                            </button>
-                                            <button
-                                                onClick={() => navigate('/team-leader/inbox')}
-                                                className="w-8 h-8 flex items-center justify-center border border-gray-100 rounded-xl text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 hover:border-indigo-100 transition-all shadow-sm bg-white shrink-0"
-                                                title="View Conversation"
-                                            >
-                                                <MessageSquare size={14} />
-                                            </button>
-                                            <button
-                                                onClick={() => {
-                                                    setSelectedAlert(alert)
-                                                    setReassignModalOpen(true)
-                                                }}
-                                                className="w-8 h-8 shrink-0 rounded-full bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 shadow-sm transition-all hover:bg-indigo-100 hover:scale-110"
-                                                title="Reassign to another counselor"
-                                            >
-                                                <ChevronRight size={14} />
-                                            </button>
-                                        </div>
-                                    </td>
+                <div className="glass-card bg-white/85 backdrop-blur-xl border border-[#DDE8E0] rounded-3xl overflow-hidden shadow-glass">
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left border-collapse min-w-[750px]">
+                            <thead>
+                                <tr className="bg-[#EDF8F0]/70 border-b border-[#DDE8E0]">
+                                    <th className="px-6 py-4 font-black text-[#26382E] uppercase tracking-wider text-[10px]">SLA Status</th>
+                                    <th className="px-6 py-4 font-black text-[#26382E] uppercase tracking-wider text-[10px]">Lead Profile</th>
+                                    <th className="px-6 py-4 font-black text-[#26382E] uppercase tracking-wider text-[10px]">Responsible Counselor</th>
+                                    <th className="px-6 py-4 font-black text-[#26382E] uppercase tracking-wider text-[10px]">Response Delay</th>
+                                    <th className="px-6 py-4 font-black text-[#26382E] uppercase tracking-wider text-[10px]">Threshold Limit</th>
+                                    <th className="px-6 py-4 font-black text-[#26382E] uppercase tracking-wider text-[10px] text-right">Intervention</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="divide-y divide-[#DDE8E0]/60">
+                                {filteredAlerts.map((alert) => (
+                                    <tr key={alert.id} className={cn(
+                                        "transition-colors group",
+                                        alert.status === 'Breached' ? "bg-rose-50/20 hover:bg-rose-50/40" : "hover:bg-[#F4FBF6]"
+                                    )}>
+                                        <td className="px-6 py-4">
+                                            <div className="flex items-center gap-2">
+                                                {alert.status === 'Breached' ? (
+                                                    <span className="inline-flex items-center gap-1.5 text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-200 text-[10px] font-bold uppercase tracking-wider">
+                                                        <AlertTriangle size={12} className="animate-pulse" />
+                                                        Breached
+                                                    </span>
+                                                ) : (
+                                                    <span className="inline-flex items-center gap-1.5 text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200 text-[10px] font-bold uppercase tracking-wider">
+                                                        <Clock size={12} />
+                                                        Warning
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <div className="font-bold text-xs text-[#26382E]">{getDisplayLead(alert)}</div>
+                                            <div className="text-[10px] text-[#64748B] mt-0.5">
+                                                Breach Time: {alert.breachTime}
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <div className="flex items-center gap-2">
+                                                <div className="w-6 h-6 rounded-lg bg-[#DDF7E8] text-[#26382E] border border-[#A7E8C2]/60 flex items-center justify-center text-[10px] font-bold">
+                                                    {getDisplayCounselor(alert).charAt(0)}
+                                                </div>
+                                                <span className="text-xs font-semibold text-[#26382E]">{getDisplayCounselor(alert)}</span>
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <span className={cn(
+                                                "text-xs font-bold",
+                                                alert.status === 'Breached' ? "text-rose-600" : "text-amber-600"
+                                            )}>{alert.delay} mins</span>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <span className="text-xs font-medium text-[#64748B]">{alert.limit} mins limit</span>
+                                        </td>
+                                        <td className="px-6 py-4 text-right">
+                                            <div className="flex items-center justify-end gap-1.5">
+                                                <button
+                                                    onClick={() => sendReminder.mutate(getDisplayCounselor(alert))}
+                                                    className={cn(
+                                                        "px-2.5 py-1.5 rounded-xl transition-colors border shadow-2xs flex items-center gap-1.5 text-xs font-bold",
+                                                        alert.status === 'Breached' ? "bg-rose-50 text-rose-600 hover:bg-rose-100 border-rose-200" : "bg-amber-50 text-amber-700 hover:bg-amber-100 border-amber-200"
+                                                    )}
+                                                    title="Send Urgent Reminder"
+                                                >
+                                                    <BellRing size={13} className={alert.status === 'Breached' ? "animate-bounce" : ""} />
+                                                    Ping
+                                                </button>
+                                                <button
+                                                    onClick={() => navigate('/team-leader/inbox')}
+                                                    className="p-1.5 border border-[#DDE8E0] rounded-xl text-[#64748B] hover:text-[#26382E] hover:bg-[#DDF7E8] transition-all shadow-2xs bg-white"
+                                                    title="View Conversation"
+                                                >
+                                                    <MessageSquare size={14} />
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        setSelectedAlert(alert)
+                                                        setReassignModalOpen(true)
+                                                    }}
+                                                    className="w-7 h-7 rounded-xl bg-[#DDF7E8] border border-[#A7E8C2]/60 flex items-center justify-center text-[#26382E] shadow-2xs transition-all hover:bg-[#86D9A9]"
+                                                    title="Reassign to another counselor"
+                                                >
+                                                    <ChevronRight size={13} />
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
@@ -209,31 +205,31 @@ const SlaAlerts = () => {
                                 setSelectedAlert(null)
                                 setNewCounselor('')
                             }}
-                            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+                            className="absolute inset-0 bg-[#26382E]/40 backdrop-blur-sm"
                         />
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95, y: 10 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                            className="bg-white rounded-[2rem] w-full max-w-sm relative z-10 shadow-2xl p-8 space-y-6 text-center mx-2 sm:mx-auto max-h-[85vh] overflow-y-auto no-scrollbar"
+                            className="glass-card bg-white/95 backdrop-blur-2xl border border-[#DDE8E0] rounded-3xl w-full max-w-sm relative z-10 shadow-glass-lg p-6 space-y-4 text-center mx-2 sm:mx-auto max-h-[85vh] overflow-y-auto"
                         >
-                            <div className="mx-auto w-16 h-16 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center mb-4">
-                                <AlertTriangle size={24} />
+                            <div className="mx-auto w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 border border-rose-200 flex items-center justify-center">
+                                <AlertTriangle size={20} />
                             </div>
 
                             <div className="space-y-1">
-                                <h3 className="text-lg font-black text-[#111827] uppercase tracking-tighter">Emergency Reassign</h3>
-                                <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest leading-relaxed">
-                                    SLA breached for <span className="text-indigo-600">{getDisplayLead(selectedAlert)}</span>.<br /> Currently with {getDisplayCounselor(selectedAlert)}.
+                                <h3 className="text-base font-black text-[#26382E] tracking-tight">Emergency Reassign</h3>
+                                <p className="text-xs font-medium text-[#64748B] leading-relaxed">
+                                    SLA breached for <span className="font-bold text-[#26382E]">{getDisplayLead(selectedAlert)}</span>.<br /> Currently with {getDisplayCounselor(selectedAlert)}.
                                 </p>
                             </div>
 
-                            <div className="pt-4 border-t border-gray-100 text-left space-y-2">
-                                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest pl-1">New Assignment</label>
+                            <div className="pt-3 border-t border-[#DDE8E0] text-left space-y-1.5">
+                                <label className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">New Counselor Assignment</label>
                                 <select
                                     value={newCounselor}
                                     onChange={(e) => setNewCounselor(e.target.value)}
-                                    className="w-full bg-[#F9FAFB] border border-[#E5E7EB] text-[#111827] rounded-xl px-4 py-3 text-xs font-bold uppercase tracking-widest outline-none focus:ring-2 focus:ring-indigo-500/20 appearance-none"
+                                    className="w-full bg-white border border-[#DDE8E0] text-[#26382E] rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-[#86D9A9] cursor-pointer"
                                 >
                                     <option value="" disabled>Select available counselor...</option>
                                     {activeCounselors
@@ -245,26 +241,26 @@ const SlaAlerts = () => {
                                 </select>
                             </div>
 
-                            <div className="flex gap-3 pt-4">
+                            <div className="flex gap-2.5 pt-3">
                                 <button
                                     onClick={() => {
                                         setReassignModalOpen(false)
                                         setSelectedAlert(null)
                                         setNewCounselor('')
                                     }}
-                                    className="flex-1 py-3 text-[10px] font-black text-gray-400 uppercase tracking-widest hover:text-gray-600 transition-colors"
+                                    className="flex-1 py-2 text-xs font-bold text-[#64748B] hover:text-[#26382E] border border-[#DDE8E0] rounded-xl transition-colors"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     onClick={handleReassign}
                                     disabled={!newCounselor || reassignLead.isPending}
-                                    className="flex-[2] bg-rose-600 text-white py-3 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-rose-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-rose-200 disabled:opacity-50"
+                                    className="flex-[2] bg-[#86D9A9] text-[#26382E] hover:bg-[#A7E8C2] py-2 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-1.5 shadow-xs disabled:opacity-50"
                                 >
                                     {reassignLead.isPending ? (
                                         <RefreshCcw size={14} className="animate-spin" />
                                     ) : (
-                                        <>Transfer & Trigger Alert</>
+                                        <>Transfer & Alert</>
                                     )}
                                 </button>
                             </div>
@@ -277,5 +273,3 @@ const SlaAlerts = () => {
 }
 
 export default SlaAlerts
-
-

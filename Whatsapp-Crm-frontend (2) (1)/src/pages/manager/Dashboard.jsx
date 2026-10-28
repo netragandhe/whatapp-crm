@@ -21,29 +21,30 @@ import useAppStore from '../../store/useStore'
 const KpiCard = ({ title, value, subText, icon: Icon, color, onRefresh }) => (
     <motion.div
         whileHover={{ y: -4 }}
-        className="bg-white p-6 rounded-2xl border border-[#E5E7EB] shadow-sm space-y-4 group"
+        className="glass-card bg-white/85 backdrop-blur-xl p-5 rounded-3xl border border-[#DDE8E0] shadow-sm space-y-3 group"
     >
         <div className="flex items-center justify-between">
-            <div className={cn("p-2.5 rounded-xl", color)}>
-                <Icon size={20} className="text-current" />
+            <div className={cn("p-2.5 rounded-xl border", color)}>
+                <Icon size={18} className="text-current" />
             </div>
             <button
                 onClick={onRefresh}
-                className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-gray-100 bg-gray-50 border border-gray-100/50 rounded-lg transition-all"
+                className="p-1.5 text-[#64748B] hover:text-[#26382E] hover:bg-[#DDF7E8] bg-[#EDF8F0] border border-[#DDE8E0] rounded-lg transition-all"
+                title="Refresh metric"
             >
-                <RefreshCcw size={14} />
+                <RefreshCcw size={13} />
             </button>
         </div>
         <div>
-            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">{title}</p>
-            <div className="flex items-end gap-2 mt-1">
-                <h3 className="text-3xl font-black text-[#111827]">{value}</h3>
+            <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">{title}</p>
+            <div className="flex items-end gap-2 mt-0.5">
+                <h3 className="text-2xl sm:text-3xl font-black text-[#26382E] tracking-tight">{value}</h3>
                 <div className={cn(
-                    "flex items-center gap-0.5 text-[10px] font-black pb-1.5",
-                    subText.startsWith('+') ? "text-emerald-600" : "text-rose-600"
+                    "flex items-center gap-0.5 text-xs font-bold pb-1",
+                    subText?.startsWith('+') ? "text-[#2E8456]" : "text-rose-600"
                 )}>
-                    {subText.startsWith('+') ? <ArrowUpRight size={10} /> : <ArrowDownRight size={10} />}
-                    {subText.replace('+', '').replace('-', '')}
+                    {subText?.startsWith('+') ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
+                    {subText?.replace('+', '').replace('-', '')}
                 </div>
             </div>
         </div>
@@ -58,7 +59,7 @@ const ManagerDashboard = () => {
 
     if (isLoading) return (
         <div className="h-96 flex items-center justify-center">
-            <RefreshCcw className="animate-spin text-indigo-600" size={32} />
+            <RefreshCcw className="animate-spin text-[#86D9A9]" size={32} />
         </div>
     )
 
@@ -69,26 +70,26 @@ const ManagerDashboard = () => {
     )
 
     return (
-        <div className="space-y-8 pb-12">
+        <div className="space-y-8 pb-16">
             {/* Header Area */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                <div className="space-y-1">
-                    <h1 className="text-3xl font-black text-[#111827] uppercase tracking-tighter">Performance <span className="text-indigo-600">Dashboard</span></h1>
-                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Operational intelligence for global lead orchestration</p>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h1 className="text-2xl sm:text-3xl font-black text-[#26382E] tracking-tight">Manager Dashboard</h1>
+                    <p className="text-xs sm:text-sm font-medium text-[#64748B] mt-1">Operational performance and conversion telemetry.</p>
                 </div>
 
-                <div className="flex items-center gap-3">
-                    <div className="bg-white border border-[#E5E7EB] rounded-xl px-4 py-2.5 flex items-center gap-3 shadow-sm">
-                        <Filter size={14} className="text-gray-400" />
-                        <span className="text-[10px] font-black text-[#111827] uppercase tracking-widest">Global Filters Active</span>
-                        <div className="h-4 w-[1px] bg-gray-100" />
-                        <span className="text-[9px] font-bold text-indigo-600 uppercase">Q1 2024</span>
+                <div className="flex items-center gap-2">
+                    <div className="glass-card bg-white/90 border border-[#DDE8E0] rounded-xl px-3.5 py-2 flex items-center gap-2.5 shadow-xs">
+                        <Filter size={13} className="text-[#86D9A9]" />
+                        <span className="text-xs font-bold text-[#26382E]">Active Pipeline</span>
+                        <div className="h-3.5 w-[1px] bg-[#DDE8E0]" />
+                        <span className="text-[10px] font-bold text-[#2E8456] uppercase">Real-Time</span>
                     </div>
                 </div>
             </div>
 
             {/* KPI Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 {kpis?.map((kpi, i) => (
                     <KpiCard
                         key={i}
@@ -100,10 +101,10 @@ const ManagerDashboard = () => {
                                         CheckCircle
                         }
                         color={
-                            kpi.type === 'leads_today' ? 'bg-indigo-50 text-indigo-600' :
-                                kpi.type === 'qualified_today' ? 'bg-emerald-50 text-emerald-600' :
-                                    kpi.type === 'converted_today' ? 'bg-blue-50 text-blue-600' :
-                                        'bg-rose-50 text-rose-600'
+                            kpi.type === 'leads_today' ? 'bg-[#DDF7E8] text-[#26382E] border-[#A7E8C2]/60' :
+                                kpi.type === 'qualified_today' ? 'bg-[#DDF7E8] text-[#2E8456] border-[#A7E8C2]/60' :
+                                    kpi.type === 'converted_today' ? 'bg-[#EDF8F0] text-[#26382E] border-[#DDE8E0]' :
+                                        'bg-rose-50 text-rose-600 border-rose-200'
                         }
                         onRefresh={() => refreshData.mutate('dashboard')}
                     />
@@ -112,56 +113,56 @@ const ManagerDashboard = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 {/* Lead Funnel Summary */}
-                <section className="lg:col-span-5 space-y-6">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <h2 className="text-sm font-black text-[#111827] uppercase tracking-widest flex items-center gap-2">
-                                <Target className="text-indigo-600" size={18} />
-                                Funnel Summary
-                            </h2>
-                            <p className="text-[10px] font-bold text-gray-400 uppercase mt-1">Aggregate conversion highlights</p>
-                        </div>
+                <section className="lg:col-span-5 space-y-4">
+                    <div>
+                        <h2 className="text-sm font-black text-[#26382E] uppercase tracking-wider flex items-center gap-2">
+                            <Target className="text-[#2E8456]" size={16} />
+                            Funnel Summary
+                        </h2>
+                        <p className="text-[11px] font-medium text-[#64748B] mt-0.5">Aggregate stage conversion highlights</p>
                     </div>
 
-                    <div className="bg-white rounded-[2rem] border border-[#E5E7EB] shadow-sm overflow-hidden overflow-x-auto no-scrollbar">
-                        <table className="w-full text-left border-collapse min-w-[400px]">
-                            <thead>
-                                <tr className="bg-[#F9FAFB]/50">
-                                    <th className="px-8 py-5 font-black text-gray-400 uppercase tracking-widest text-[9px]">Stage</th>
-                                    <th className="px-8 py-5 font-black text-gray-400 uppercase tracking-widest text-[9px]">Count</th>
-                                    <th className="px-8 py-5 font-black text-gray-400 uppercase tracking-widest text-[9px] text-right">Conv. Rate</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-[#E5E7EB]/50">
-                                {funnelSummary?.map((item, i) => (
-                                    <tr key={i} className="hover:bg-gray-50/50 transition-all cursor-pointer group">
-                                        <td className="px-8 py-6">
-                                            <div className="flex items-center gap-3">
-                                                <div className={cn(
-                                                    "w-2 h-2 rounded-full",
-                                                    item.stage === 'New' ? 'bg-indigo-400' :
-                                                        item.stage === 'Qualified' ? 'bg-emerald-400' :
-                                                            item.stage === 'Converted' ? 'bg-blue-400' : 'bg-rose-400'
-                                                )} />
-                                                <span className="text-xs font-black text-[#111827] uppercase tracking-tight">{item.stage}</span>
-                                            </div>
-                                        </td>
-                                        <td className="px-8 py-6">
-                                            <span className="text-[11px] font-black text-gray-600">{item.total.toLocaleString()}</span>
-                                        </td>
-                                        <td className="px-8 py-6 text-right">
-                                            <div className="flex flex-col items-end">
-                                                <span className="text-xs font-black text-indigo-600">{item.conversion}</span>
-                                                <span className="text-[8px] font-bold text-gray-400 uppercase mt-0.5">Drop: {item.dropoff}</span>
-                                            </div>
-                                        </td>
+                    <div className="glass-card bg-white/85 backdrop-blur-xl rounded-3xl border border-[#DDE8E0] shadow-sm overflow-hidden flex flex-col">
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left border-collapse min-w-[340px]">
+                                <thead>
+                                    <tr className="bg-[#EDF8F0]/70 border-b border-[#DDE8E0]">
+                                        <th className="px-6 py-3.5 font-black text-[#26382E] uppercase tracking-wider text-[10px]">Stage</th>
+                                        <th className="px-6 py-3.5 font-black text-[#26382E] uppercase tracking-wider text-[10px]">Count</th>
+                                        <th className="px-6 py-3.5 font-black text-[#26382E] uppercase tracking-wider text-[10px] text-right">Conv. Rate</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody className="divide-y divide-[#DDE8E0]/60">
+                                    {funnelSummary?.map((item, i) => (
+                                        <tr key={i} className="hover:bg-[#F4FBF6] transition-colors cursor-pointer group">
+                                            <td className="px-6 py-4">
+                                                <div className="flex items-center gap-2.5">
+                                                    <div className={cn(
+                                                        "w-2 h-2 rounded-full",
+                                                        item.stage === 'New' ? 'bg-[#86D9A9]' :
+                                                            item.stage === 'Qualified' ? 'bg-[#2E8456]' :
+                                                                item.stage === 'Converted' ? 'bg-[#3B82F6]' : 'bg-rose-400'
+                                                    )} />
+                                                    <span className="text-xs font-bold text-[#26382E]">{item.stage}</span>
+                                                </div>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <span className="text-xs font-semibold text-[#64748B]">{item.total.toLocaleString()}</span>
+                                            </td>
+                                            <td className="px-6 py-4 text-right">
+                                                <div className="flex flex-col items-end">
+                                                    <span className="text-xs font-bold text-[#2E8456]">{item.conversion}</span>
+                                                    <span className="text-[10px] font-medium text-[#94A3B8]">Drop: {item.dropoff}</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                         <button 
                             onClick={() => navigate('/manager/funnel')}
-                            className="w-full py-4 bg-gray-50/50 text-[9px] font-black text-gray-400 hover:text-indigo-600 uppercase tracking-[0.2em] transition-all border-t border-gray-100"
+                            className="w-full py-3 bg-[#EDF8F0]/50 hover:bg-[#DDF7E8] text-[10px] font-bold text-[#26382E] uppercase tracking-wider transition-all border-t border-[#DDE8E0]"
                         >
                             Drill Down Into Funnel Logistics
                         </button>
@@ -169,75 +170,77 @@ const ManagerDashboard = () => {
                 </section>
 
                 {/* Country Performance Table */}
-                <section className="lg:col-span-7 space-y-6">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <section className="lg:col-span-7 space-y-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div>
-                            <h2 className="text-sm font-black text-[#111827] uppercase tracking-widest flex items-center gap-2">
-                                <Globe className="text-indigo-600" size={18} />
+                            <h2 className="text-sm font-black text-[#26382E] uppercase tracking-wider flex items-center gap-2">
+                                <Globe className="text-[#2E8456]" size={16} />
                                 Regional Performance
                             </h2>
-                            <p className="text-[10px] font-bold text-gray-400 uppercase mt-1">Leads and conversion metrics by territory</p>
+                            <p className="text-[11px] font-medium text-[#64748B] mt-0.5">Leads and conversion metrics by territory</p>
                         </div>
-                        <div className="relative group">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-500 transition-colors" size={14} />
+                        <div className="relative">
+                            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#64748B]" size={14} />
                             <input
                                 type="text"
-                                placeholder="IDENTIFY TERRITORY..."
+                                placeholder="Search territory..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="bg-[#F3F4F6] border-none rounded-xl py-2.5 pl-11 pr-4 text-[10px] font-black uppercase tracking-widest w-full sm:w-64 focus:ring-2 focus:ring-indigo-500/10 outline-none"
+                                className="bg-white border border-[#DDE8E0] rounded-xl py-2 pl-9 pr-4 text-xs font-semibold text-[#26382E] w-full sm:w-56 focus:outline-none focus:ring-2 focus:ring-[#86D9A9]"
                             />
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-[2.5rem] border border-[#E5E7EB] shadow-sm overflow-hidden overflow-x-auto no-scrollbar">
-                        <table className="w-full text-left border-collapse min-w-[800px]">
-                            <thead>
-                                <tr className="bg-[#F9FAFB]/50">
-                                    <th className="px-8 py-5 font-black text-gray-400 uppercase tracking-widest text-[9px]">Country</th>
-                                    <th className="px-8 py-5 font-black text-gray-400 uppercase tracking-widest text-[9px]">Leads</th>
-                                    <th className="px-8 py-5 font-black text-gray-400 uppercase tracking-widest text-[9px]">Converted</th>
-                                    <th className="px-8 py-5 font-black text-gray-400 uppercase tracking-widest text-[9px]">Enrolled</th>
-                                    <th className="px-8 py-5 font-black text-gray-400 uppercase tracking-widest text-[9px]">Response</th>
-                                    <th className="px-8 py-5 font-black text-gray-400 uppercase tracking-widest text-[9px] text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-[#E5E7EB]/50">
-                                {filteredCountries?.map((c, i) => (
-                                    <tr key={i} className="hover:bg-gray-50/50 transition-all group">
-                                        <td className="px-8 py-6">
-                                            <span className="text-xs font-black text-[#111827] uppercase tracking-tight">{c.country}</span>
-                                            <div className="text-[8px] font-bold text-gray-400 uppercase mt-1">{c.teams} Active Teams</div>
-                                        </td>
-                                        <td className="px-8 py-6">
-                                            <span className="text-[11px] font-black text-gray-600">{c.leads}</span>
-                                        </td>
-                                        <td className="px-8 py-6">
-                                            <span className="text-[11px] font-black text-indigo-600">{c.converted}</span>
-                                        </td>
-                                        <td className="px-8 py-6">
-                                            <span className="text-[11px] font-black text-emerald-600">{c.enrolled}</span>
-                                        </td>
-                                        <td className="px-8 py-6">
-                                            <div className="flex items-center gap-2">
-                                                <div className="h-1 w-12 bg-gray-100 rounded-full overflow-hidden">
-                                                    <div className="bg-indigo-500 h-full w-2/3" />
-                                                </div>
-                                                <span className="text-[9px] font-black text-gray-500">{c.responseTime}</span>
-                                            </div>
-                                        </td>
-                                        <td className="px-8 py-6 text-right">
-                                            <button 
-                                                onClick={() => navigate('/manager/country')}
-                                                className="w-8 h-8 shrink-0 rounded-full bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 shadow-sm transition-all hover:bg-indigo-100 hover:scale-110"
-                                            >
-                                                <ChevronRight size={14} />
-                                            </button>
-                                        </td>
+                    <div className="glass-card bg-white/85 backdrop-blur-xl rounded-3xl border border-[#DDE8E0] shadow-sm overflow-hidden">
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left border-collapse min-w-[650px]">
+                                <thead>
+                                    <tr className="bg-[#EDF8F0]/70 border-b border-[#DDE8E0]">
+                                        <th className="px-6 py-3.5 font-black text-[#26382E] uppercase tracking-wider text-[10px]">Country</th>
+                                        <th className="px-6 py-3.5 font-black text-[#26382E] uppercase tracking-wider text-[10px]">Leads</th>
+                                        <th className="px-6 py-3.5 font-black text-[#26382E] uppercase tracking-wider text-[10px]">Converted</th>
+                                        <th className="px-6 py-3.5 font-black text-[#26382E] uppercase tracking-wider text-[10px]">Enrolled</th>
+                                        <th className="px-6 py-3.5 font-black text-[#26382E] uppercase tracking-wider text-[10px]">Response</th>
+                                        <th className="px-6 py-3.5 font-black text-[#26382E] uppercase tracking-wider text-[10px] text-right">View</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody className="divide-y divide-[#DDE8E0]/60">
+                                    {filteredCountries?.map((c, i) => (
+                                        <tr key={i} className="hover:bg-[#F4FBF6] transition-colors group">
+                                            <td className="px-6 py-4">
+                                                <span className="text-xs font-bold text-[#26382E]">{c.country}</span>
+                                                <div className="text-[10px] text-[#64748B]">{c.teams} Active Teams</div>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <span className="text-xs font-semibold text-[#64748B]">{c.leads}</span>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <span className="text-xs font-bold text-[#26382E]">{c.converted}</span>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <span className="text-xs font-bold text-[#2E8456]">{c.enrolled}</span>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="h-1.5 w-12 bg-[#EDF8F0] rounded-full overflow-hidden">
+                                                        <div className="bg-[#86D9A9] h-full w-2/3" />
+                                                    </div>
+                                                    <span className="text-[10px] font-semibold text-[#64748B]">{c.responseTime}</span>
+                                                </div>
+                                            </td>
+                                            <td className="px-6 py-4 text-right">
+                                                <button 
+                                                    onClick={() => navigate('/manager/country')}
+                                                    className="w-7 h-7 rounded-xl bg-[#DDF7E8] border border-[#A7E8C2]/60 flex items-center justify-center text-[#26382E] shadow-2xs transition-all hover:bg-[#86D9A9]"
+                                                >
+                                                    <ChevronRight size={13} />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -246,5 +249,3 @@ const ManagerDashboard = () => {
 }
 
 export default ManagerDashboard
-
-

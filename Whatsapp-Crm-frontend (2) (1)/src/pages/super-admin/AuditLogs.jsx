@@ -10,87 +10,94 @@ const AuditDetailModal = ({ log, isOpen, onClose }) => {
     if (!isOpen || !log) return null;
 
     return (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-            <motion.div initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 20 }} className="bg-white rounded-[2.5rem] w-full max-w-2xl overflow-hidden shadow-2xl mx-2 sm:mx-auto max-h-[85vh] overflow-y-auto no-scrollbar">
-                <div className="p-8 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-                    <div className="flex items-center gap-4">
-                        <div className="p-3 bg-[#0a3d62]/10 text-[#0a3d62] rounded-2xl">
-                            <Shield size={24} />
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#26382E]/40 backdrop-blur-md">
+            <motion.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }} className="glass-card bg-white/95 border border-[#DDE8E0] rounded-[2rem] w-full max-w-2xl overflow-hidden shadow-glass-lg mx-2 sm:mx-auto max-h-[85vh] overflow-y-auto">
+                <div className="p-6 md:p-8 border-b border-[#DDE8E0] flex justify-between items-center bg-[#EDF8F0]/60">
+                    <div className="flex items-center gap-3.5">
+                        <div className="p-3 bg-[#DDF7E8] text-[#26382E] rounded-2xl border border-[#A7E8C2]/60 shadow-sm">
+                            <Shield size={22} className="stroke-[2.2]" />
                         </div>
                         <div>
-                            <h3 className="text-xl font-black text-[#111827] uppercase tracking-tight">Audit Log Detail</h3>
-                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mt-1">LOG ID: #LOG-{Math.floor(Math.random() * 900000)}</p>
+                            <h3 className="text-lg font-black text-[#26382E] tracking-tight">Audit Log Detail</h3>
+                            <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider mt-0.5">Event Trace #{log.id || 'EVT-VERIFIED'}</p>
                         </div>
                     </div>
-                    <button onClick={onClose} className="p-2 hover:bg-white rounded-xl transition-colors shadow-sm"><X size={20} className="text-gray-400" /></button>
+                    <button onClick={onClose} className="p-2 hover:bg-white text-[#64748B] hover:text-[#26382E] rounded-xl transition-colors border border-transparent hover:border-[#DDE8E0]">
+                        <X size={18} />
+                    </button>
                 </div>
-                <div className="p-8 space-y-8">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+
+                <div className="p-6 md:p-8 space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div className="space-y-4">
                             <div>
-                                <label className="text-[9px] font-black text-gray-400 uppercase tracking-widest block mb-2">Subject Identity</label>
+                                <label className="text-[10px] font-black text-[#64748B] uppercase tracking-wider block mb-2">Subject Identity</label>
                                 <div className="flex items-center gap-3">
-                                    <div className="h-10 w-10 bg-[#111827] text-white rounded-xl flex items-center justify-center font-black text-xs uppercase tracking-tighter">
+                                    <div className="h-10 w-10 bg-gradient-to-tr from-[#86D9A9] to-[#A7E8C2] text-[#26382E] rounded-xl flex items-center justify-center font-black text-sm uppercase shadow-sm">
                                         {log.user?.charAt(0) || 'S'}
                                     </div>
-                                    <div>
-                                        <div className="font-black text-xs text-[#111827] uppercase">{log.user}</div>
-                                        <div className="text-[9px] text-[#0a3d62] font-bold uppercase tracking-widest">{log.role}</div>
+                                    <div className="min-w-0">
+                                        <div className="font-black text-xs text-[#26382E] uppercase truncate">{log.user}</div>
+                                        <div className="text-[10px] text-[#2E8456] font-bold uppercase tracking-wider mt-0.5">{log.role}</div>
                                     </div>
                                 </div>
                             </div>
                             <div>
-                                <label className="text-[9px] font-black text-gray-400 uppercase tracking-widest block mb-1">Module Cluster</label>
-                                <div className="font-black text-xs text-[#111827] uppercase">{log.module} Protocol</div>
+                                <label className="text-[10px] font-black text-[#64748B] uppercase tracking-wider block mb-1">Module Cluster</label>
+                                <div className="font-bold text-xs text-[#26382E] uppercase">{log.module} Protocol</div>
                             </div>
                         </div>
+
                         <div className="space-y-4">
                             <div>
-                                <label className="text-[9px] font-black text-gray-400 uppercase tracking-widest block mb-1">Execution Sync</label>
-                                <div className="flex items-center gap-2 text-xs font-black text-gray-600">
-                                    <Calendar size={14} className="text-gray-400" /> {log.time.split(' ')[0]}
+                                <label className="text-[10px] font-black text-[#64748B] uppercase tracking-wider block mb-1">Execution Sync</label>
+                                <div className="flex items-center gap-2 text-xs font-semibold text-[#26382E]">
+                                    <Calendar size={14} className="text-[#86D9A9]" /> {log.time.split(' ')[0]}
                                 </div>
-                                <div className="flex items-center gap-2 text-xs font-black text-gray-600 mt-1">
-                                    <Clock size={14} className="text-gray-400" /> {log.time.split(' ')[1]}
+                                <div className="flex items-center gap-2 text-xs font-semibold text-[#64748B] mt-1">
+                                    <Clock size={14} className="text-[#86D9A9]" /> {log.time.split(' ')[1] || ''}
                                 </div>
                             </div>
                             <div>
-                                <label className="text-[9px] font-black text-gray-400 uppercase tracking-widest block mb-1">Execution Status</label>
+                                <label className="text-[10px] font-black text-[#64748B] uppercase tracking-wider block mb-1">Execution Status</label>
                                 <span className={cn(
-                                    "px-3 py-1 rounded-xl text-[9px] font-black uppercase tracking-widest border",
-                                    log.status === 'Success' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-rose-50 text-rose-600 border-rose-100'
+                                    "inline-flex px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border",
+                                    log.status === 'Success' 
+                                        ? 'bg-[#DDF7E8] text-[#26382E] border-[#A7E8C2]' 
+                                        : 'bg-rose-50 text-rose-600 border-rose-200'
                                 )}>
-                                    {log.status}
+                                    {log.status || 'Success'}
                                 </span>
                             </div>
                         </div>
                     </div>
 
                     <div>
-                        <label className="text-[9px] font-black text-gray-400 uppercase tracking-widest block mb-3">Operation Details</label>
-                        <div className="p-6 bg-gray-50 border border-gray-100 rounded-[1.5rem] font-bold text-sm text-gray-700 leading-relaxed shadow-inner">
+                        <label className="text-[10px] font-black text-[#64748B] uppercase tracking-wider block mb-2">Operation Details</label>
+                        <div className="p-4 bg-[#F4FBF6] border border-[#DDE8E0] rounded-2xl font-medium text-xs text-[#26382E] leading-relaxed">
                             {log.action}
                         </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="p-4 bg-gray-50/50 rounded-2xl border border-gray-100">
-                            <label className="text-[8px] font-black text-gray-400 uppercase tracking-[0.2em] block mb-1">Network Entry</label>
-                            <div className="flex items-center gap-2 text-xs font-black text-[#0a3d62]">
-                                <Globe size={12} /> {log.ip}
+                        <div className="p-4 bg-[#EDF8F0]/50 rounded-2xl border border-[#DDE8E0]">
+                            <label className="text-[9px] font-black text-[#64748B] uppercase tracking-wider block mb-1">Network Entry</label>
+                            <div className="flex items-center gap-2 text-xs font-bold text-[#26382E]">
+                                <Globe size={13} className="text-[#86D9A9]" /> {log.ip}
                             </div>
                         </div>
-                        <div className="p-4 bg-gray-50/50 rounded-2xl border border-gray-100">
-                            <label className="text-[8px] font-black text-gray-400 uppercase tracking-[0.2em] block mb-1">Device Blueprint</label>
-                            <div className="flex items-center gap-2 text-xs font-black text-gray-600 truncate">
-                                <Monitor size={12} /> {log.device}
+                        <div className="p-4 bg-[#EDF8F0]/50 rounded-2xl border border-[#DDE8E0]">
+                            <label className="text-[9px] font-black text-[#64748B] uppercase tracking-wider block mb-1">Device Blueprint</label>
+                            <div className="flex items-center gap-2 text-xs font-medium text-[#64748B] truncate">
+                                <Monitor size={13} className="text-[#86D9A9]" /> {log.device}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="p-8 bg-gray-50/50 border-t border-gray-100 text-center">
-                    <p className="text-[9px] font-black text-gray-400 uppercase tracking-[0.3em] flex items-center justify-center gap-2">
-                        <Shield size={10} /> Tamper-proof architectural log verified
+
+                <div className="p-5 bg-[#EDF8F0]/60 border-t border-[#DDE8E0] text-center">
+                    <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider flex items-center justify-center gap-2">
+                        <Shield size={12} className="text-[#2E8456]" /> Immutable cryptographic audit log verified
                     </p>
                 </div>
             </motion.div>
@@ -137,75 +144,78 @@ const AuditLogs = () => {
         return matchesSearch && matchesModule && matchesUser && matchesDate;
     });
 
-    const itemsPerPage = 5;
+    const itemsPerPage = 6;
     const paginatedLogs = filteredLogs.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
     const totalPages = Math.ceil(filteredLogs.length / itemsPerPage);
 
     return (
-        <div className="space-y-10 pb-16">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <div className="space-y-8 pb-16">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-black text-[#0a3d62] uppercase tracking-tight">System Audit Logs</h1>
-                    <p className="text-sm font-medium text-[#6B7280]">Real-time synchronization of system actions and events.</p>
+                    <h1 className="text-2xl sm:text-3xl font-black text-[#26382E] tracking-tight">System Audit Logs</h1>
+                    <p className="text-xs sm:text-sm font-medium text-[#64748B] mt-1">Real-time security telemetry and immutable event traces.</p>
                 </div>
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+                <div className="flex flex-wrap items-center gap-3">
                     <button
                         onClick={() => exportLogs.mutate({ moduleFilter, userFilter, searchTerm })}
                         disabled={exportLogs.isPending}
-                        className="flex-1 sm:flex-none justify-center bg-[#0a3d62] text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:opacity-90 flex items-center gap-3 shadow-[0_4px_12px_rgba(10,61,98,0.3)] transition-all active:scale-95 disabled:opacity-50"
+                        className="bg-[#86D9A9] text-[#26382E] px-6 py-2.5 rounded-xl font-bold text-xs hover:bg-[#A7E8C2] flex items-center gap-2 shadow-sm transition-all active:scale-95 disabled:opacity-50"
                     >
-                        <Download size={18} className={exportLogs.isPending ? "animate-bounce" : ""} />
-                        Extract CSV Archive
+                        <Download size={15} className={exportLogs.isPending ? "animate-bounce" : ""} />
+                        Extract CSV
                     </button>
-                    <div className="flex-1 sm:flex-none justify-center px-5 py-4 bg-rose-50 border border-rose-100 rounded-2xl flex items-center gap-3 shadow-sm">
-                        <div className="p-2 bg-rose-100 text-rose-600 rounded-xl">
-                            <Shield size={16} />
+                    <div className="px-4 py-2 bg-rose-50 border border-rose-100 rounded-xl flex items-center gap-2.5">
+                        <div className="p-1 bg-rose-100 text-rose-600 rounded-lg">
+                            <Shield size={14} />
                         </div>
                         <div>
-                            <span className="text-sm font-black text-rose-600 tracking-tighter uppercase">3 Blocked</span>
-                            <span className="text-[9px] font-black text-rose-400 uppercase block tracking-widest -mt-1 whitespace-nowrap">Incidents Today</span>
+                            <span className="text-xs font-black text-rose-600">3 Blocked</span>
+                            <span className="text-[9px] font-bold text-rose-400 block -mt-0.5">Today</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="crm-card min-h-[600px]">
-                <div className="p-4 md:p-8 border-b border-[#E5E7EB] flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-gray-50/50">
-                    <div className="flex flex-wrap items-center gap-4 flex-1">
+            {/* Main Glass Table Card */}
+            <div className="glass-card bg-white/85 backdrop-blur-xl border border-[#DDE8E0] rounded-3xl overflow-hidden shadow-glass min-h-[550px] flex flex-col">
+                {/* Filter Toolbar */}
+                <div className="p-4 md:p-6 border-b border-[#DDE8E0] flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-[#EDF8F0]/40">
+                    <div className="flex flex-wrap items-center gap-3 flex-1">
                         <div className="relative w-full max-w-sm">
-                            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300" />
+                            <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#64748B]" />
                             <input
                                 type="text"
-                                placeholder="Locate trace trace..."
+                                placeholder="Search action, user, or IP..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="pl-12 pr-6 py-4 bg-white border border-gray-100 rounded-2xl text-xs font-black uppercase tracking-widest focus:ring-4 focus:ring-[#0a3d62]/10 outline-none w-full transition-all"
+                                className="pl-10 pr-4 py-2.5 bg-white border border-[#DDE8E0] rounded-xl text-xs font-semibold text-[#26382E] placeholder-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[#86D9A9] w-full transition-all"
                             />
                         </div>
-                        <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+                        <div className="flex flex-wrap items-center gap-2.5 w-full lg:w-auto">
                             <input
                                 type="date"
                                 value={dateFilter}
                                 onChange={(e) => setDateFilter(e.target.value)}
-                                className="flex-1 lg:flex-none px-6 py-4 bg-white border border-gray-100 rounded-2xl text-[10px] font-black uppercase tracking-widest focus:outline-none focus:ring-4 focus:ring-[#0a3d62]/10 cursor-pointer min-w-[140px] text-gray-600 shadow-sm"
+                                className="px-3.5 py-2.5 bg-white border border-[#DDE8E0] rounded-xl text-xs font-semibold text-[#26382E] focus:outline-none focus:ring-2 focus:ring-[#86D9A9] cursor-pointer"
                             />
-                            <div className="flex-1 lg:flex-none relative">
+                            <div className="relative">
                                 <select
                                     value={userFilter}
                                     onChange={(e) => setUserFilter(e.target.value)}
-                                    className="w-full px-6 py-4 bg-white border border-gray-100 rounded-2xl text-[10px] font-black uppercase tracking-widest focus:outline-none focus:ring-4 focus:ring-[#0a3d62]/10 cursor-pointer appearance-none min-w-[140px] shadow-sm"
+                                    className="px-4 py-2.5 pr-8 bg-white border border-[#DDE8E0] rounded-xl text-xs font-bold text-[#26382E] focus:outline-none focus:ring-2 focus:ring-[#86D9A9] cursor-pointer appearance-none"
                                 >
                                     <option>All Users</option>
                                     <option>System</option>
                                     <option>Super_Admin</option>
                                 </select>
-                                <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none" />
+                                <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#64748B] pointer-events-none" />
                             </div>
-                            <div className="flex-1 lg:flex-none relative">
+                            <div className="relative">
                                 <select
                                     value={moduleFilter}
                                     onChange={(e) => setModuleFilter(e.target.value)}
-                                    className="w-full px-6 py-4 bg-white border border-gray-100 rounded-2xl text-[10px] font-black uppercase tracking-widest focus:outline-none focus:ring-4 focus:ring-[#0a3d62]/10 cursor-pointer appearance-none min-w-[130px] shadow-sm"
+                                    className="px-4 py-2.5 pr-8 bg-white border border-[#DDE8E0] rounded-xl text-xs font-bold text-[#26382E] focus:outline-none focus:ring-2 focus:ring-[#86D9A9] cursor-pointer appearance-none"
                                 >
                                     <option>All Modules</option>
                                     <option>Inbox</option>
@@ -213,124 +223,129 @@ const AuditLogs = () => {
                                     <option>Auth</option>
                                     <option>Channels</option>
                                 </select>
-                                <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none" />
+                                <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#64748B] pointer-events-none" />
                             </div>
                         </div>
                     </div>
-                    <div className="hidden lg:flex items-center gap-4 border-l border-gray-100 pl-6 h-full">
+
+                    <div className="hidden lg:flex items-center gap-3 border-l border-[#DDE8E0] pl-5">
                         <div className="text-right">
-                            <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest block">Signal Strength</span>
-                            <div className="flex items-center gap-1.5 mt-1">
-                                <span className="text-xs font-black text-[#0a3d62] uppercase">Secure</span>
-                                <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-lg shadow-emerald-500/50" />
+                            <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">Telemetry</span>
+                            <div className="flex items-center gap-1.5 mt-0.5">
+                                <span className="text-xs font-black text-[#26382E]">Active</span>
+                                <div className="h-2 w-2 rounded-full bg-[#86D9A9] animate-pulse" />
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="crm-table-container">
-                    <table className="w-full text-left border-collapse min-w-[1100px]">
+                {/* Table */}
+                <div className="overflow-x-auto flex-1">
+                    <table className="w-full text-left border-collapse min-w-[900px]">
                         <thead>
-                            <tr className="bg-[#F9FAFB]/50">
-                                <th className="px-4 sm:px-10 py-6 font-black text-gray-400 uppercase tracking-widest text-[9px]">Timestamp</th>
-                                <th className="px-4 sm:px-10 py-6 font-black text-gray-400 uppercase tracking-widest text-[9px]">Identity</th>
-                                <th className="px-4 sm:px-10 py-6 font-black text-gray-400 uppercase tracking-widest text-[9px]">Action</th>
-                                <th className="px-4 sm:px-10 py-6 font-black text-gray-400 uppercase tracking-widest text-[9px]">Scope</th>
-                                <th className="px-4 sm:px-10 py-6 font-black text-gray-400 uppercase tracking-widest text-[9px]">Network</th>
-                                <th className="px-4 sm:px-10 py-6 font-black text-gray-400 uppercase tracking-widest text-[9px] text-right">Trace</th>
+                            <tr className="bg-[#EDF8F0]/70 border-b border-[#DDE8E0]">
+                                <th className="px-6 py-4 font-black text-[#26382E] uppercase tracking-wider text-[10px]">Timestamp</th>
+                                <th className="px-6 py-4 font-black text-[#26382E] uppercase tracking-wider text-[10px]">Identity</th>
+                                <th className="px-6 py-4 font-black text-[#26382E] uppercase tracking-wider text-[10px]">Action Detail</th>
+                                <th className="px-6 py-4 font-black text-[#26382E] uppercase tracking-wider text-[10px]">Module</th>
+                                <th className="px-6 py-4 font-black text-[#26382E] uppercase tracking-wider text-[10px]">Network IP</th>
+                                <th className="px-6 py-4 font-black text-[#26382E] uppercase tracking-wider text-[10px] text-right">Inspect</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-[#E5E7EB]/50">
+                        <tbody className="divide-y divide-[#DDE8E0]/60">
                             <AnimatePresence mode='popLayout'>
-                                {paginatedLogs.map((log, i) => (
-                                    <motion.tr
-                                        layout
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        exit={{ opacity: 0, scale: 0.98 }}
-                                        key={i}
-                                        onClick={() => setSelectedLog(log)}
-                                        className="group hover:bg-gray-50/50 transition-all cursor-pointer"
-                                    >
-                                        <td className="px-4 sm:px-10 py-6">
-                                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 whitespace-nowrap">
-                                                <Calendar size={14} className="text-gray-400 hidden sm:block" />
-                                                <div className="font-black text-[10px] sm:text-[11px] text-[#111827] uppercase tracking-tighter">{log.time.split(' ')[0]}</div>
-                                                <div className="text-[8px] sm:text-[9px] text-gray-400 font-black uppercase tracking-widest opacity-70">{log.time.split(' ')[1] || ''}</div>
-                                            </div>
-                                        </td>
-                                        <td className="px-4 sm:px-10 py-6">
-                                            <div className="flex items-center gap-3">
-                                                <div className="h-8 w-8 bg-[#111827] text-white rounded-xl flex items-center justify-center font-black text-[10px] shadow-sm shrink-0">
-                                                    {log.user?.charAt(0) || 'S'}
+                                {paginatedLogs.length > 0 ? (
+                                    paginatedLogs.map((log, i) => (
+                                        <motion.tr
+                                            layout
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0, scale: 0.98 }}
+                                            key={log.id || i}
+                                            onClick={() => setSelectedLog(log)}
+                                            className="group hover:bg-[#F4FBF6] transition-colors cursor-pointer"
+                                        >
+                                            <td className="px-6 py-4">
+                                                <div className="flex items-center gap-2 whitespace-nowrap">
+                                                    <Calendar size={13} className="text-[#86D9A9]" />
+                                                    <span className="font-bold text-xs text-[#26382E]">{log.time.split(' ')[0]}</span>
+                                                    <span className="text-[10px] text-[#64748B] font-medium">{log.time.split(' ')[1] || ''}</span>
                                                 </div>
-                                                <div className="min-w-0">
-                                                    <div className="font-black text-xs text-[#111827] uppercase tracking-tighter truncate">{log.user}</div>
-                                                    <div className="text-[9px] text-[#0a3d62] font-black tracking-widest uppercase truncate">{log.role}</div>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <div className="flex items-center gap-2.5">
+                                                    <div className="h-8 w-8 bg-[#DDF7E8] text-[#26382E] border border-[#A7E8C2]/60 rounded-xl flex items-center justify-center font-black text-xs shrink-0">
+                                                        {log.user?.charAt(0) || 'S'}
+                                                    </div>
+                                                    <div className="min-w-0">
+                                                        <div className="font-bold text-xs text-[#26382E] truncate">{log.user}</div>
+                                                        <div className="text-[10px] text-[#2E8456] font-bold uppercase tracking-wider">{log.role}</div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <div className="font-medium text-[#26382E] text-xs max-w-sm truncate bg-white/70 border border-[#DDE8E0] px-3 py-1.5 rounded-xl">
+                                                    {log.action}
+                                                </div>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#DDF7E8]/70 border border-[#A7E8C2]/50 text-[#26382E] rounded-lg text-[10px] font-bold uppercase tracking-wide">
+                                                    <Hash size={10} className="text-[#2E8456]" />
+                                                    {log.module}
+                                                </span>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <span className="text-xs font-mono font-bold text-[#64748B]">
+                                                    {log.ip}
+                                                </span>
+                                            </td>
+                                            <td className="px-6 py-4 text-right">
+                                                <button 
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        setSelectedLog(log);
+                                                    }}
+                                                    className="p-1.5 hover:bg-[#DDF7E8] text-[#64748B] hover:text-[#26382E] rounded-xl transition-colors"
+                                                >
+                                                    <Monitor size={15} />
+                                                </button>
+                                            </td>
+                                        </motion.tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan={6} className="py-12 text-center text-xs font-medium text-[#64748B]">
+                                            No audit logs matched your search or filters.
                                         </td>
-                                        <td className="px-4 sm:px-10 py-6">
-                                            <div className="font-bold text-gray-800 text-[10px] sm:text-xs leading-relaxed max-w-[200px] sm:max-w-sm border border-gray-100 bg-white p-2 sm:p-3 rounded-xl shadow-sm italic">
-                                                {log.action}
-                                            </div>
-                                        </td>
-                                        <td className="px-4 sm:px-10 py-6">
-                                            <div className="inline-flex items-center gap-1.5 px-2 py-1 bg-gray-50 rounded-lg border border-gray-100 whitespace-nowrap">
-                                                <Hash size={10} className="text-indigo-400" />
-                                                <span className="text-[9px] font-black text-gray-600 uppercase tracking-tight">{log.module}</span>
-                                            </div>
-                                        </td>
-                                        <td className="px-4 sm:px-10 py-6">
-                                            <div className="flex justify-end items-center gap-1.5 px-2 py-1 bg-gray-50 rounded-lg border border-gray-100 whitespace-nowrap">
-                                                <Globe size={10} className="text-gray-400 hidden sm:block" />
-                                                <span className="text-[9px] font-black text-[#0a3d62] tracking-tighter">{log.ip}</span>
-                                            </div>
-                                        </td>
-                                        <td className="px-4 sm:px-10 py-6 text-right">
-                                            <button 
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    setSelectedLog(log);
-                                                }}
-                                                className="p-1.5 sm:p-2 hover:bg-white rounded-xl transition-all shadow-sm group/btn"
-                                            >
-                                                <Monitor size={16} className="text-gray-400 group-hover/btn:text-indigo-600 transition-colors" />
-                                            </button>
-                                        </td>
-                                    </motion.tr>
-                                ))}
+                                    </tr>
+                                )}
                             </AnimatePresence>
                         </tbody>
                     </table>
                 </div>
 
-                {/* Pagination Operational Plane */}
-                <div className="p-8 border-t border-gray-100 bg-gray-50/50 flex flex-col md:flex-row items-center justify-between mt-auto gap-4">
-                    <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest text-center md:text-left">
-                        Tracing <span className="text-[#0a3d62]">{filteredLogs.length}</span> security events in cluster
+                {/* Pagination */}
+                <div className="p-4 md:p-6 border-t border-[#DDE8E0] bg-[#EDF8F0]/40 flex flex-col sm:flex-row items-center justify-between gap-4 mt-auto">
+                    <div className="text-xs font-medium text-[#64748B]">
+                        Showing <span className="font-bold text-[#26382E]">{filteredLogs.length}</span> security events
                     </div>
-                    <div className="flex items-center gap-4 w-full md:w-auto">
+                    <div className="flex items-center gap-2">
                         <button
                             disabled={currentPage === 1}
                             onClick={() => setCurrentPage(p => p - 1)}
-                            className="w-12 h-12 flex items-center justify-center bg-white border border-gray-100 rounded-2xl text-gray-400 hover:text-[#0a3d62] disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow-[#0a3d62]/10 shrink-0"
+                            className="p-2 bg-white border border-[#DDE8E0] rounded-xl text-[#26382E] hover:bg-[#DDF7E8] disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm"
                         >
-                            <ChevronLeft size={20} />
+                            <ChevronLeft size={16} />
                         </button>
-                        
-                        <div className="h-12 px-6 bg-white border border-gray-100 rounded-[2rem] shadow-sm flex items-center justify-center min-w-[80px]">
-                            <span className="text-[11px] font-black text-[#111827] uppercase tracking-widest whitespace-nowrap">
-                                {currentPage} <span className="text-gray-300 mx-1">/</span> {totalPages || 1}
-                            </span>
+                        <div className="px-3.5 py-1.5 bg-white border border-[#DDE8E0] rounded-xl text-xs font-bold text-[#26382E] shadow-sm">
+                            {currentPage} / {totalPages || 1}
                         </div>
-
                         <button
                             disabled={currentPage === totalPages || totalPages === 0}
                             onClick={() => setCurrentPage(p => p + 1)}
-                            className="w-12 h-12 flex items-center justify-center bg-white border border-gray-100 rounded-2xl text-gray-400 hover:text-[#0a3d62] disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow-[#0a3d62]/10 shrink-0"
+                            className="p-2 bg-white border border-[#DDE8E0] rounded-xl text-[#26382E] hover:bg-[#DDF7E8] disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm"
                         >
-                            <ChevronRight size={20} />
+                            <ChevronRight size={16} />
                         </button>
                     </div>
                 </div>
@@ -346,6 +361,3 @@ const AuditLogs = () => {
 };
 
 export default AuditLogs;
-
-
-

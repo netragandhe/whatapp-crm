@@ -63,21 +63,21 @@ const LeadAssignment = () => {
         <div className="space-y-6 max-w-7xl w-full min-w-0 mx-auto px-4 sm:px-0 py-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 flex-wrap">
                 <div className="min-w-0">
-                    <h1 className="text-2xl font-black text-[#111827] uppercase tracking-tight flex-wrap">Manual Assignment Panel</h1>
-                    <p className="text-sm font-medium text-[#6B7280] mt-1">Override routing rules and manually dispatch high-value leads.</p>
+                    <h1 className="text-2xl font-black text-[#26382E] uppercase tracking-tight flex-wrap">Manual Assignment Panel</h1>
+                    <p className="text-sm font-medium text-[#64748B] mt-1">Override routing rules and manually dispatch high-value leads.</p>
                 </div>
             </div>
 
-            <div className="bg-white rounded-3xl border border-[#E5E7EB] shadow-sm flex flex-col overflow-hidden w-full min-w-0">
-                <div className="px-4 sm:px-6 py-5 border-b border-[#E5E7EB] flex items-center justify-between gap-4 bg-gray-50/30 flex-wrap">
+            <div className="glass-card rounded-3xl border border-[#DDE8E0] shadow-sm flex flex-col overflow-hidden w-full min-w-0">
+                <div className="px-4 sm:px-6 py-5 border-b border-[#DDE8E0] flex items-center justify-between gap-4 bg-[#EDF8F0]/50 flex-wrap">
                     <div className="relative flex-1 w-full sm:max-w-md">
-                        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748B]" />
                         <input
                             type="text"
                             placeholder="Find leads requiring manual intervention..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-shadow shadow-sm"
+                            className="w-full pl-9 pr-4 py-2 border border-[#DDE8E0] rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#86D9A9] bg-white text-[#26382E] transition-shadow shadow-sm"
                         />
                     </div>
                 </div>
@@ -85,16 +85,16 @@ const LeadAssignment = () => {
                 <div className="overflow-x-auto no-scrollbar min-h-[400px] w-full max-w-full">
                     <table className="w-full text-left border-collapse min-w-[900px]">
                         <thead>
-                            <tr className="bg-[#F9FAFB]">
-                                <th className="px-6 py-4 font-black text-gray-400 uppercase tracking-widest text-[9px]">Lead Profile</th>
-                                <th className="px-4 py-4 font-black text-gray-400 uppercase tracking-widest text-[9px]">Current Status</th>
-                                <th className="px-4 py-4 font-black text-gray-400 uppercase tracking-widest text-[9px]">Origin Source</th>
-                                <th className="px-4 py-4 font-black text-gray-400 uppercase tracking-widest text-[9px]">AI Confidence</th>
-                                <th className="px-4 py-4 font-black text-gray-400 uppercase tracking-widest text-[9px]">Target Deployment</th>
+                            <tr className="bg-[#EDF8F0]/30 border-b border-[#DDE8E0]">
+                                <th className="px-6 py-4 font-black text-[#64748B] uppercase tracking-widest text-[9px]">Lead Profile</th>
+                                <th className="px-4 py-4 font-black text-[#64748B] uppercase tracking-widest text-[9px]">Current Status</th>
+                                <th className="px-4 py-4 font-black text-[#64748B] uppercase tracking-widest text-[9px]">Origin Source</th>
+                                <th className="px-4 py-4 font-black text-[#64748B] uppercase tracking-widest text-[9px]">AI Confidence</th>
+                                <th className="px-4 py-4 font-black text-[#64748B] uppercase tracking-widest text-[9px]">Target Deployment</th>
                                 <th className="px-6 py-4 text-right"></th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-[#E5E7EB]">
+                        <tbody className="divide-y divide-[#DDE8E0]">
                             <AnimatePresence>
                                 {filteredLeads.map((lead) => (
                                     <motion.tr
@@ -102,57 +102,57 @@ const LeadAssignment = () => {
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0 }}
                                         key={lead.id}
-                                        className="group hover:bg-gray-50/50 transition-colors"
+                                        className="group hover:bg-[#EDF8F0]/40 transition-colors"
                                     >
                                         <td className="px-6 py-5">
                                             <div className="flex items-center gap-3">
-                                                <div className="h-9 w-9 bg-gray-100 text-gray-600 rounded-xl flex items-center justify-center font-black text-xs border border-gray-200">
+                                                <div className="h-9 w-9 bg-[#DDF7E8] text-[#26382E] rounded-xl flex items-center justify-center font-black text-xs border border-[#86D9A9]/40 shadow-sm shrink-0">
                                                     {lead.name.charAt(0)}
                                                 </div>
                                                 <div>
-                                                    <div className="font-black text-[#111827] uppercase tracking-tight text-xs flex items-center gap-1.5 group-hover:text-indigo-600 transition-colors cursor-pointer">
+                                                    <div className="font-black text-[#26382E] uppercase tracking-tight text-xs flex items-center gap-1.5">
                                                         {lead.name}
                                                     </div>
-                                                    <div className="text-[9px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">{lead.country}</div>
+                                                    <div className="text-[9px] text-[#64748B] font-bold uppercase tracking-widest mt-0.5">{lead.country}</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="px-4 py-5">
                                             <span className={cn(
                                                 "text-[9px] font-black uppercase tracking-widest px-2.5 py-1.5 rounded-lg border",
-                                                lead.stage === 'Qualified' ? "bg-emerald-50 text-emerald-600 border-emerald-100" :
-                                                lead.stage === 'New' ? "bg-blue-50 text-blue-600 border-blue-100" :
+                                                lead.stage === 'Qualified' ? "bg-[#DDF7E8] text-[#26382E] border-[#86D9A9]/30" :
+                                                lead.stage === 'New' ? "bg-[#EDF8F0] text-[#26382E] border-[#DDE8E0]" :
                                                 lead.stage === 'Pending' ? "bg-amber-50 text-amber-600 border-amber-100" :
-                                                "bg-slate-50 text-slate-600 border-slate-200"
+                                                "bg-[#EDF8F0] text-[#26382E] border-[#DDE8E0]"
                                             )}>
                                                 {lead.stage || 'Unknown'}
                                             </span>
                                         </td>
                                         <td className="px-4 py-5">
-                                            <span className="text-[10px] font-bold text-gray-500">{lead.source}</span>
+                                            <span className="text-[10px] font-bold text-[#64748B]">{lead.source}</span>
                                         </td>
                                         <td className="px-4 py-5">
                                             {lead.score ? (
                                                 <div className="flex items-center gap-2">
-                                                    <div className="font-black text-xs text-[#111827]">{lead.score}%</div>
+                                                    <div className="font-black text-xs text-[#26382E]">{lead.score}%</div>
                                                     <div className="flex-1 bg-gray-100 h-1.5 rounded-full overflow-hidden w-16">
-                                                        <div className={cn("h-full", lead.score > 80 ? 'bg-emerald-500' : 'bg-amber-500')} style={{ width: `${lead.score}%` }} />
+                                                        <div className={cn("h-full", lead.score > 80 ? 'bg-[#86D9A9]' : 'bg-amber-400')} style={{ width: `${lead.score}%` }} />
                                                     </div>
                                                 </div>
                                             ) : (
-                                                <span className="text-[10px] text-gray-400 italic">Processing</span>
+                                                <span className="text-[10px] text-[#64748B] italic">Processing</span>
                                             )}
                                         </td>
                                         <td className="px-4 py-5">
                                             <span className={cn(
                                                 "text-[9px] font-black uppercase tracking-widest",
-                                                lead.assignedTo === 'Pending' ? "text-amber-500 animate-pulse" : "text-[#111827]"
+                                                lead.assignedTo === 'Pending' ? "text-amber-500 animate-pulse" : "text-[#26382E]"
                                             )}>
                                                 {lead.assignedTo}
                                             </span>
                                         </td>
                                         <td className="px-6 py-5 text-right">
-                                            <button onClick={() => handleAssignClick(lead)} className="px-4 py-2 bg-white border border-[#111827] text-[#111827] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#111827] hover:text-white transition-all shadow-sm flex items-center gap-2 ml-auto">
+                                            <button onClick={() => handleAssignClick(lead)} className="px-4 py-2 bg-[#86D9A9] text-[#26382E] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#A7E8C2] transition-all shadow-sm flex items-center gap-2 ml-auto">
                                                 <UserCheck size={14} /> Dispatch
                                             </button>
                                         </td>
@@ -164,7 +164,7 @@ const LeadAssignment = () => {
                                     <td colSpan={6} className="px-6 py-24 text-center">
                                         <div className="flex flex-col items-center justify-center opacity-40">
                                             <SearchSlash size={48} className="text-gray-400 mb-4" />
-                                            <p className="text-gray-500 uppercase tracking-widest font-black text-xs">No leads requiring assignment.</p>
+                                            <p className="text-[#64748B] uppercase tracking-widest font-black text-xs">No leads requiring assignment.</p>
                                         </div>
                                     </td>
                                 </tr>
@@ -182,38 +182,38 @@ const LeadAssignment = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+                            className="absolute inset-0 bg-black/30 backdrop-blur-sm"
                             onClick={() => setSelectedLead(null)}
                         />
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-gray-100 flex flex-col max-h-[90vh] overflow-hidden"
+                            className="relative w-full max-w-md bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-[#DDE8E0] flex flex-col max-h-[90vh] overflow-hidden"
                         >
-                            <div className="p-6 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center shrink-0">
-                                <h2 className="text-lg font-black text-[#111827] uppercase tracking-tight flex items-center gap-2">
-                                    <AlertCircle size={18} className="text-indigo-600" /> Force Direct Assignment
+                            <div className="p-6 border-b border-[#DDE8E0] bg-[#EDF8F0]/70 flex justify-between items-center shrink-0">
+                                <h2 className="text-lg font-black text-[#26382E] uppercase tracking-tight flex items-center gap-2">
+                                    <AlertCircle size={18} className="text-[#86D9A9]" /> Force Direct Assignment
                                 </h2>
                             </div>
                             <div className="p-6 space-y-5 overflow-y-auto custom-scrollbar">
-                                <div className="p-4 bg-indigo-50/50 border border-indigo-100 rounded-2xl flex items-center justify-between">
+                                <div className="p-4 bg-[#DDF7E8]/50 border border-[#86D9A9]/30 rounded-2xl flex items-center justify-between">
                                     <div>
-                                        <p className="text-[10px] font-black text-indigo-600 uppercase tracking-widest mb-1">Target Identity</p>
-                                        <p className="font-bold text-sm text-[#111827]">{selectedLead.name}</p>
+                                        <p className="text-[10px] font-black text-[#26382E] uppercase tracking-widest mb-1">Target Identity</p>
+                                        <p className="font-bold text-sm text-[#26382E]">{selectedLead.name}</p>
                                     </div>
                                     <div className="text-right">
-                                        <p className="text-[10px] font-black text-indigo-600 uppercase tracking-widest mb-1">Confidence</p>
-                                        <p className="font-bold text-sm text-[#111827]">{selectedLead.score || 0}%</p>
+                                        <p className="text-[10px] font-black text-[#26382E] uppercase tracking-widest mb-1">Confidence</p>
+                                        <p className="font-bold text-sm text-[#26382E]">{selectedLead.score || 0}%</p>
                                     </div>
                                 </div>
                                 <div className="space-y-4">
                                     <div>
-                                        <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Operational Division</label>
+                                        <label className="block text-[10px] font-black text-[#64748B] uppercase tracking-widest mb-1.5">Operational Division</label>
                                         <select
                                             value={assignmentData.team}
                                             onChange={(e) => setAssignmentData({ ...assignmentData, team: e.target.value })}
-                                            className="w-full p-3 border border-gray-200 rounded-xl text-xs font-black uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm appearance-none bg-white"
+                                            className="w-full p-3 border border-[#DDE8E0] rounded-xl text-xs font-black uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-[#86D9A9] shadow-sm appearance-none bg-white text-[#26382E]"
                                         >
                                             <option>Global Operations</option>
                                             <option>Admissions South</option>
@@ -221,11 +221,11 @@ const LeadAssignment = () => {
                                         </select>
                                     </div>
                                     <div>
-                                        <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Counselor Designation</label>
+                                        <label className="block text-[10px] font-black text-[#64748B] uppercase tracking-widest mb-1.5">Counselor Designation</label>
                                         <select
                                             value={assignmentData.counselorId}
                                             onChange={(e) => setAssignmentData({ ...assignmentData, counselorId: e.target.value })}
-                                            className="w-full p-3 border border-gray-200 rounded-xl text-xs font-black uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm appearance-none bg-white"
+                                            className="w-full p-3 border border-[#DDE8E0] rounded-xl text-xs font-black uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-[#86D9A9] shadow-sm appearance-none bg-white text-[#26382E]"
                                         >
                                             <option value="">Select Counselor</option>
                                             {counselors.map(c => (
@@ -234,7 +234,7 @@ const LeadAssignment = () => {
                                         </select>
                                     </div>
                                     <div>
-                                        <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Escalation Priority</label>
+                                        <label className="block text-[10px] font-black text-[#64748B] uppercase tracking-widest mb-1.5">Escalation Priority</label>
                                         <div className="flex gap-2">
                                             {['High', 'Medium', 'Low'].map(p => (
                                                 <button
@@ -242,7 +242,7 @@ const LeadAssignment = () => {
                                                     onClick={() => setAssignmentData({ ...assignmentData, priority: p })}
                                                     className={cn(
                                                         "flex-1 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all",
-                                                        assignmentData.priority === p ? priorityColors[p] : "bg-white border-gray-200 text-gray-400 hover:border-gray-300"
+                                                        assignmentData.priority === p ? priorityColors[p] : "bg-white border-[#DDE8E0] text-[#64748B] hover:bg-[#EDF8F0]"
                                                     )}
                                                 >
                                                     {p}
@@ -254,14 +254,14 @@ const LeadAssignment = () => {
                                 <div className="flex gap-3 justify-end pt-4">
                                     <button
                                         onClick={() => setSelectedLead(null)}
-                                        className="px-5 py-2.5 text-[10px] font-bold text-gray-500 uppercase tracking-widest hover:bg-gray-100 rounded-xl transition-colors"
+                                        className="px-5 py-2.5 text-[10px] font-bold text-[#64748B] uppercase tracking-widest hover:bg-[#EDF8F0] rounded-xl transition-colors"
                                     >
                                         Abort
                                     </button>
                                     <button
                                         onClick={handleConfirmAssign}
                                         disabled={assignLead.isPending}
-                                        className="px-5 py-2.5 bg-[#111827] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-black transition-all shadow-xl shadow-indigo-100 flex items-center gap-2 disabled:opacity-50"
+                                        className="px-5 py-2.5 bg-[#86D9A9] text-[#26382E] text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-[#A7E8C2] transition-all shadow-sm flex items-center gap-2 disabled:opacity-50"
                                     >
                                         Execute Transfer
                                     </button>

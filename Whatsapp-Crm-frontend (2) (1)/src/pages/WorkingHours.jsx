@@ -10,20 +10,20 @@ const DayRow = React.forwardRef(({ day, active, start, end, onToggle, onStartCha
     <motion.div
         ref={ref}
         layout
-        className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 bg-white border border-[#E5E7EB] rounded-[1.5rem] shadow-sm hover:shadow-md transition-all group gap-4 sm:gap-0"
+        className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 glass-card bg-white/80 border border-[#DDE8E0] rounded-[1.5rem] shadow-sm hover:shadow-md transition-all group gap-4 sm:gap-0"
     >
         <div className="flex items-center gap-4 w-48">
             <div className={cn(
                 "h-3 w-3 rounded-full transition-all duration-500",
-                active ? "bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.5)] scale-110" : "bg-gray-200"
+                active ? "bg-[#86D9A9] shadow-[0_0_12px_rgba(134,217,169,0.6)] scale-110" : "bg-gray-200"
             )}></div>
-            <span className={cn("font-black uppercase tracking-widest text-xs transition-colors", active ? "text-[#111827]" : "text-gray-300")}>{day}</span>
+            <span className={cn("font-black uppercase tracking-widest text-xs transition-colors", active ? "text-[#26382E]" : "text-gray-400")}>{day}</span>
         </div>
 
         <div className="flex items-center gap-4 sm:gap-8 w-full sm:w-auto">
             <div className={cn(
                 "flex items-center gap-3 border px-4 py-2.5 rounded-xl transition-all flex-1 sm:flex-none",
-                active ? "bg-gray-50 border-gray-100 focus-within:ring-2 focus-within:ring-indigo-500/10 focus-within:bg-white focus-within:border-indigo-200" : "bg-gray-50/50 border-gray-50 opacity-40"
+                active ? "bg-[#F4FBF6] border-[#DDE8E0] focus-within:ring-2 focus-within:ring-[#86D9A9]/30 focus-within:bg-white" : "bg-[#F4FBF6]/50 border-gray-100 opacity-40"
             )}>
                 <Sun size={14} className={active ? "text-amber-500" : "text-gray-300"} />
                 <input
@@ -31,31 +31,31 @@ const DayRow = React.forwardRef(({ day, active, start, end, onToggle, onStartCha
                     value={start}
                     onChange={(e) => onStartChange(e.target.value)}
                     disabled={!active}
-                    className="bg-transparent text-xs font-black uppercase tracking-tighter focus:outline-none disabled:cursor-not-allowed w-full"
+                    className="bg-transparent text-xs font-black uppercase tracking-tighter focus:outline-none disabled:cursor-not-allowed w-full text-[#26382E]"
                 />
             </div>
-            <span className="text-gray-200 font-bold hidden sm:block">—</span>
+            <span className="text-[#64748B] font-bold hidden sm:block">—</span>
             <div className={cn(
                 "flex items-center gap-3 border px-4 py-2.5 rounded-xl transition-all flex-1 sm:flex-none",
-                active ? "bg-gray-50 border-gray-100 focus-within:ring-2 focus-within:ring-indigo-500/10 focus-within:bg-white focus-within:border-indigo-200" : "bg-gray-50/50 border-gray-50 opacity-40"
+                active ? "bg-[#F4FBF6] border-[#DDE8E0] focus-within:ring-2 focus-within:ring-[#86D9A9]/30 focus-within:bg-white" : "bg-[#F4FBF6]/50 border-gray-100 opacity-40"
             )}>
-                <Moon size={14} className={active ? "text-indigo-500" : "text-gray-300"} />
+                <Moon size={14} className={active ? "text-[#86D9A9]" : "text-gray-300"} />
                 <input
                     type="time"
                     value={end}
                     onChange={(e) => onEndChange(e.target.value)}
                     disabled={!active}
-                    className="bg-transparent text-xs font-black uppercase tracking-tighter focus:outline-none disabled:cursor-not-allowed w-full"
+                    className="bg-transparent text-xs font-black uppercase tracking-tighter focus:outline-none disabled:cursor-not-allowed w-full text-[#26382E]"
                 />
             </div>
         </div>
 
-        <div className="flex items-center gap-4 w-full sm:w-auto justify-end border-t sm:border-t-0 pt-4 sm:pt-0">
-            <div className="flex items-center gap-4 px-4 py-2 bg-gray-50/50 border border-gray-100 rounded-2xl group-hover:border-indigo-100 transition-colors">
-                <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest whitespace-nowrap">Service Active</span>
+        <div className="flex items-center gap-4 w-full sm:w-auto justify-end border-t border-[#DDE8E0] sm:border-t-0 pt-4 sm:pt-0">
+            <div className="flex items-center gap-4 px-4 py-2 bg-[#F4FBF6] border border-[#DDE8E0] rounded-2xl group-hover:border-[#86D9A9] transition-colors">
+                <span className="text-[9px] font-black text-[#64748B] uppercase tracking-widest whitespace-nowrap">Service Active</span>
                 <button
                     onClick={onToggle}
-                    className={cn("transition-all active:scale-90", active ? "text-emerald-500" : "text-gray-300")}
+                    className={cn("transition-all active:scale-90", active ? "text-[#86D9A9]" : "text-gray-300")}
                 >
                     {active ? <ToggleRight size={32} strokeWidth={1.5} /> : <ToggleLeft size={32} strokeWidth={1.5} />}
                 </button>
@@ -102,15 +102,15 @@ const WorkingHours = () => {
         <div className="space-y-8 pb-12">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-2xl font-black text-[#111827] uppercase tracking-tight flex items-center gap-3">
-                        <Clock className="text-indigo-600" size={28} />
+                    <h1 className="text-2xl font-black text-[#26382E] uppercase tracking-tight flex items-center gap-3">
+                        <Clock className="text-[#86D9A9]" size={28} />
                         Operational Windows
                     </h1>
-                    <p className="text-sm font-medium text-[#6B7280]">Establish global service availability and automated lead redistribution parameters.</p>
+                    <p className="text-sm font-medium text-[#64748B]">Establish global service availability and automated lead redistribution parameters.</p>
                 </div>
                 <button
                     onClick={() => saveHours.mutate(days)}
-                    className="flex items-center gap-3 bg-[#111827] text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-black transition-all shadow-2xl shadow-indigo-200 active:scale-95"
+                    className="flex items-center gap-3 bg-[#86D9A9] text-[#26382E] px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#A7E8C2] transition-all shadow-sm active:scale-95"
                 >
                     <Save size={18} strokeWidth={2.5} />
                     <span>Sync Configuration</span>
@@ -120,8 +120,8 @@ const WorkingHours = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 <div className="lg:col-span-8 space-y-4">
                     <div className="flex items-center gap-3 mb-2 px-2">
-                        <Sparkles size={16} className="text-amber-500" />
-                        <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest">Active Shift Architecture</h3>
+                        <Sparkles size={16} className="text-[#86D9A9]" />
+                        <h3 className="text-xs font-black text-[#64748B] uppercase tracking-widest">Active Shift Architecture</h3>
                     </div>
                     <AnimatePresence mode='popLayout'>
                         {days.map((d) => (
@@ -137,48 +137,48 @@ const WorkingHours = () => {
                 </div>
 
                 <div className="lg:col-span-4 space-y-8">
-                    <div className="bg-[#111827] p-8 rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden group border border-white/5">
+                    <div className="glass-card bg-gradient-to-br from-[#EDF8F0] to-[#DDF7E8] p-8 rounded-[2.5rem] text-[#26382E] shadow-sm relative overflow-hidden group border border-[#DDE8E0]">
                         <div className="relative z-10">
-                            <ShieldCheck className="text-emerald-400 mb-6 group-hover:scale-110 transition-transform" size={40} />
-                            <h3 className="font-black text-lg mb-3 uppercase tracking-tight">Overflow Intelligence</h3>
-                            <p className="text-[10px] text-gray-400 mb-8 leading-relaxed font-bold uppercase tracking-widest opacity-80">Leads received outside active windows are automatically staged for the next operational cycle.</p>
+                            <ShieldCheck className="text-[#86D9A9] mb-6 group-hover:scale-110 transition-transform" size={40} />
+                            <h3 className="font-black text-lg mb-3 uppercase tracking-tight text-[#26382E]">Overflow Intelligence</h3>
+                            <p className="text-[10px] text-[#64748B] mb-8 leading-relaxed font-bold uppercase tracking-widest">Leads received outside active windows are automatically staged for the next operational cycle.</p>
                             <button 
                                 onClick={() => executeAction.mutate('CONFIGURE_GLOBAL_QUEUE')}
-                                className="w-full bg-white/5 hover:bg-white/10 border border-white/10 py-4 rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all hover:border-indigo-500/50"
+                                className="w-full bg-white/80 hover:bg-white border border-[#DDE8E0] text-[#26382E] py-4 rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all shadow-sm"
                             >
                                 Configure Global Queue
                             </button>
                         </div>
-                        <div className="absolute -bottom-10 -right-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000">
+                        <div className="absolute -bottom-10 -right-10 opacity-10 text-[#86D9A9] group-hover:rotate-12 transition-transform duration-1000">
                             <Calendar size={180} />
                         </div>
                     </div>
 
-                    <div className="bg-white p-8 rounded-[2.5rem] border border-[#E5E7EB] shadow-sm hover:shadow-xl transition-all group">
+                    <div className="glass-card bg-white/80 p-8 rounded-[2.5rem] border border-[#DDE8E0] shadow-sm hover:shadow-md transition-all group">
                         <div className="flex items-center gap-3 mb-6">
                             <Coffee className="text-amber-500" size={20} />
-                            <h3 className="font-black text-[#111827] text-xs uppercase tracking-widest">Holiday Mode</h3>
+                            <h3 className="font-black text-[#26382E] text-xs uppercase tracking-widest">Holiday Mode</h3>
                         </div>
-                        <p className="text-[10px] text-[#6B7280] mb-6 font-bold uppercase tracking-widest opacity-70">Instantly suspend all autonomous assignments across global territories.</p>
+                        <p className="text-[10px] text-[#64748B] mb-6 font-bold uppercase tracking-widest opacity-70">Instantly suspend all autonomous assignments across global territories.</p>
                         <button 
                             onClick={() => executeAction.mutate('DEPLOY_HOLIDAY_PROTOCOL')}
-                            className="w-full border border-gray-100 bg-gray-50/50 hover:bg-white py-4 rounded-2xl text-[9px] font-black text-[#111827] uppercase tracking-widest transition-all hover:border-rose-100 hover:text-rose-600"
+                            className="w-full border border-[#DDE8E0] bg-[#F4FBF6] hover:bg-white py-4 rounded-2xl text-[9px] font-black text-[#26382E] uppercase tracking-widest transition-all shadow-sm"
                         >
                             Deploy Holiday Protocol
                         </button>
                     </div>
 
-                    <div className="bg-indigo-50/50 p-8 rounded-[2.5rem] border border-indigo-100 flex flex-col gap-4">
+                    <div className="bg-[#EDF8F0] p-8 rounded-[2.5rem] border border-[#DDE8E0] flex flex-col gap-4">
                         <div className="flex justify-between items-center">
-                            <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">System Timezone</span>
-                            <span className="text-[10px] font-black text-[#111827] uppercase tracking-widest">UTC +5:30</span>
+                            <span className="text-[10px] font-black text-[#26382E] uppercase tracking-widest">System Timezone</span>
+                            <span className="text-[10px] font-black text-[#26382E] uppercase tracking-widest">UTC +5:30</span>
                         </div>
-                        <div className="h-px bg-indigo-100 w-full" />
+                        <div className="h-px bg-[#DDE8E0] w-full" />
                         <div className="flex justify-between items-center">
-                            <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">Server Status</span>
+                            <span className="text-[10px] font-black text-[#26382E] uppercase tracking-widest">Server Status</span>
                             <div className="flex items-center gap-2">
-                                <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                <span className="text-[10px] font-black text-[#111827] uppercase tracking-widest">Operational</span>
+                                <div className="h-1.5 w-1.5 rounded-full bg-[#86D9A9] animate-pulse" />
+                                <span className="text-[10px] font-black text-[#26382E] uppercase tracking-widest">Operational</span>
                             </div>
                         </div>
                     </div>

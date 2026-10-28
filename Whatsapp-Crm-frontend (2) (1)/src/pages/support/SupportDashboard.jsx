@@ -10,10 +10,10 @@ import { toast } from '../../components/ui/Toast'
 
 const QuickStat = ({ title, value, icon: Icon, color, onClick }) => (
     <motion.div
-        whileHover={{ y: -4, shadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)' }}
-        className="bg-white p-6 rounded-2xl border border-[#E5E7EB] shadow-sm flex items-center justify-between group relative overflow-hidden"
+        whileHover={{ y: -4, shadow: '0 10px 25px -5px rgba(134, 217, 169, 0.2)' }}
+        className="glass-card p-6 rounded-2xl border border-[#DDE8E0] shadow-sm flex items-center justify-between group relative overflow-hidden"
     >
-        <div className="absolute -right-6 -top-6 text-gray-50 opacity-50 pointer-events-none transition-transform group-hover:scale-110 group-hover:rotate-12">
+        <div className="absolute -right-6 -top-6 text-[#86D9A9]/10 pointer-events-none transition-transform group-hover:scale-110 group-hover:rotate-12">
             <Icon size={120} />
         </div>
         <div className="flex items-center gap-4 relative z-10">
@@ -21,13 +21,13 @@ const QuickStat = ({ title, value, icon: Icon, color, onClick }) => (
                 <Icon className="h-6 w-6" />
             </div>
             <div>
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{title}</p>
-                <h3 className="text-3xl font-black text-[#111827] mt-1">{value}</h3>
+                <p className="text-[10px] font-black text-[#64748B] uppercase tracking-widest">{title}</p>
+                <h3 className="text-3xl font-black text-[#26382E] mt-1">{value}</h3>
             </div>
         </div>
         <button
             onClick={onClick}
-            className="p-1.5 text-gray-300 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors relative z-10 h-max self-start"
+            className="p-1.5 text-gray-400 hover:text-[#26382E] hover:bg-[#DDF7E8] rounded-lg transition-colors relative z-10 h-max self-start"
             title="Refresh Data"
         >
             <RefreshCcw size={14} />
@@ -139,30 +139,30 @@ const SupportDashboard = () => {
         <div className="space-y-8 max-w-7xl w-full min-w-0 mx-auto px-4 sm:px-0 py-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 flex-wrap">
                 <div className="min-w-0">
-                    <h1 className="text-2xl font-black text-[#111827] uppercase tracking-tight">New Leads Queue</h1>
-                    <p className="text-sm font-medium text-[#6B7280] mt-1">Manage unassigned leads and orchestrate routing protocols.</p>
+                    <h1 className="text-2xl font-black text-[#26382E] uppercase tracking-tight">New Leads Queue</h1>
+                    <p className="text-sm font-medium text-[#64748B] mt-1">Manage unassigned leads and orchestrate routing protocols.</p>
                 </div>
                 <div className="flex flex-wrap items-center gap-3">
                     <button 
                         onClick={() => setIsManualModalOpen(true)}
-                        className="bg-white border border-[#E5E7EB] px-5 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest text-indigo-600 shadow-sm hover:bg-indigo-50 transition-all flex items-center gap-2"
+                        className="bg-[#86D9A9] text-[#26382E] px-5 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-[#A7E8C2] shadow-sm active:scale-95 transition-all flex items-center gap-2"
                     >
                         <UserPlus size={16} /> Provision Manual Node
                     </button>
                     <button 
                         onClick={() => navigate('/analytics')}
-                        className="bg-white border border-[#E5E7EB] px-5 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest text-[#111827] shadow-sm hover:border-indigo-100 hover:text-indigo-600 transition-all flex items-center gap-2"
+                        className="glass-card bg-white/80 border border-[#DDE8E0] px-5 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest text-[#26382E] shadow-sm hover:bg-[#DDF7E8] transition-all flex items-center gap-2"
                     >
-                        <Filter size={16} className="text-indigo-400" /> Filter Queue
+                        <Filter size={16} className="text-[#26382E]" /> Filter Queue
                     </button>
                     {selectedLeads.length > 0 && (
                         <motion.button
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             onClick={() => setAssignmentModalOpen(true)}
-                            className="bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-indigo-700 shadow-xl shadow-indigo-100 transition-all flex items-center gap-2"
+                            className="bg-[#26382E] text-white px-5 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-[#1b2720] shadow-md transition-all flex items-center gap-2"
                         >
-                            <UserCheck size={16} /> Bulk Assign ({selectedLeads.length})
+                            <UserCheck size={16} className="text-[#86D9A9]" /> Bulk Assign ({selectedLeads.length})
                         </motion.button>
                     )}
                 </div>
@@ -173,46 +173,46 @@ const SupportDashboard = () => {
                     title="New Messages"
                     value={kpis.newMessages}
                     icon={MessageSquare}
-                    color="bg-indigo-50 text-indigo-600"
+                    color="bg-[#DDF7E8] text-[#26382E]"
                     onClick={() => refetchDash()}
                 />
                 <QuickStat
                     title="Unassigned Leads"
                     value={kpis.unassignedLeads}
                     icon={UserPlus}
-                    color="bg-rose-50 text-rose-600"
+                    color="bg-amber-50 text-amber-600"
                     onClick={() => refetchDash()}
                 />
                 <QuickStat
                     title="AI Active Chats"
                     value={kpis.aiActiveChats}
                     icon={Zap}
-                    color="bg-emerald-50 text-emerald-600"
+                    color="bg-[#EDF8F0] text-[#26382E]"
                     onClick={() => refetchDash()}
                 />
             </div>
 
-            <div className="bg-white rounded-3xl border border-[#E5E7EB] shadow-sm flex flex-col overflow-hidden w-full min-w-0">
-                <div className="px-4 sm:px-6 py-5 border-b border-[#E5E7EB] flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gray-50/30 flex-wrap">
+            <div className="glass-card rounded-3xl border border-[#DDE8E0] shadow-sm flex flex-col overflow-hidden w-full min-w-0">
+                <div className="px-4 sm:px-6 py-5 border-b border-[#DDE8E0] flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#EDF8F0]/50 flex-wrap">
                     <div className="flex items-center gap-4 flex-wrap">
-                        <h3 className="font-black text-[#111827] text-xs uppercase tracking-widest">Inbound Triage</h3>
-                        <div className="h-5 w-px bg-gray-200 hidden sm:block" />
-                        <span className="bg-rose-50 text-rose-600 px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest border border-rose-100 animate-pulse flex items-center gap-1.5">
-                            <span className="h-1.5 w-1.5 rounded-full bg-rose-500" /> Live Polling
+                        <h3 className="font-black text-[#26382E] text-xs uppercase tracking-widest">Inbound Triage</h3>
+                        <div className="h-5 w-px bg-[#DDE8E0] hidden sm:block" />
+                        <span className="bg-[#DDF7E8] text-[#26382E] px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest border border-[#86D9A9]/30 flex items-center gap-1.5">
+                            <span className="h-1.5 w-1.5 rounded-full bg-[#86D9A9] animate-ping" /> Live Polling
                         </span>
                     </div>
                     <div className="flex items-center gap-3">
                         <div className="relative flex-1 sm:w-72">
-                            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748B]" />
                             <input
                                 type="text"
                                 placeholder="Search by name, source or country..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm"
+                                className="w-full pl-9 pr-4 py-2 border border-[#DDE8E0] rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#86D9A9] bg-white/90 text-[#26382E] transition-all shadow-sm"
                             />
                         </div>
-                        <button onClick={() => refetchQueue()} className="p-2 border border-gray-200 rounded-xl hover:bg-gray-50 transition-all text-gray-400 hover:text-indigo-600 shadow-sm shrink-0">
+                        <button onClick={() => refetchQueue()} className="p-2 border border-[#DDE8E0] rounded-xl hover:bg-[#DDF7E8] transition-all text-[#64748B] hover:text-[#26382E] shadow-sm shrink-0">
                             <RefreshCcw size={16} className={isLoading ? "animate-spin" : ""} />
                         </button>
                     </div>
@@ -221,20 +221,20 @@ const SupportDashboard = () => {
                 <div className="overflow-x-auto no-scrollbar min-h-[300px] w-full max-w-full">
                     <table className="w-full text-left border-collapse min-w-[900px]">
                         <thead>
-                            <tr className="bg-[#F9FAFB]">
+                            <tr className="bg-[#EDF8F0]/30 border-b border-[#DDE8E0]">
                                 <th className="pl-6 pr-2 py-4 w-10">
-                                    <button onClick={toggleSelectAll} className="p-1 rounded text-gray-400 hover:text-indigo-600 transition-colors">
-                                        <CheckSquare size={16} className={selectedLeads.length === filteredQueue.length && filteredQueue.length > 0 ? "text-indigo-600" : ""} />
+                                    <button onClick={toggleSelectAll} className="p-1 rounded text-[#64748B] hover:text-[#26382E] transition-colors">
+                                        <CheckSquare size={16} className={selectedLeads.length === filteredQueue.length && filteredQueue.length > 0 ? "text-[#26382E]" : ""} />
                                     </button>
                                 </th>
-                                <th className="px-4 py-4 font-black text-gray-400 uppercase tracking-widest text-[9px]">Lead Profile</th>
-                                <th className="px-4 py-4 font-black text-gray-400 uppercase tracking-widest text-[9px]">Source</th>
-                                <th className="px-4 py-4 font-black text-gray-400 uppercase tracking-widest text-[9px]">Received Time</th>
-                                <th className="px-4 py-4 font-black text-gray-400 uppercase tracking-widest text-[9px]">AI Score</th>
+                                <th className="px-4 py-4 font-black text-[#64748B] uppercase tracking-widest text-[9px]">Lead Profile</th>
+                                <th className="px-4 py-4 font-black text-[#64748B] uppercase tracking-widest text-[9px]">Source</th>
+                                <th className="px-4 py-4 font-black text-[#64748B] uppercase tracking-widest text-[9px]">Received Time</th>
+                                <th className="px-4 py-4 font-black text-[#64748B] uppercase tracking-widest text-[9px]">AI Score</th>
                                 <th className="px-4 py-4 text-right"></th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-[#E5E7EB]">
+                        <tbody className="divide-y divide-[#DDE8E0]">
                             <AnimatePresence>
                                 {filteredQueue.map((lead) => (
                                     <motion.tr
@@ -245,34 +245,34 @@ const SupportDashboard = () => {
                                         key={lead.id}
                                         className={cn(
                                             "group transition-colors",
-                                            selectedLeads.includes(lead.id) ? "bg-indigo-50/50" : "hover:bg-gray-50/50"
+                                            selectedLeads.includes(lead.id) ? "bg-[#DDF7E8]/40" : "hover:bg-[#EDF8F0]/40"
                                         )}
                                     >
                                         <td className="pl-6 pr-2 py-5">
-                                            <button onClick={() => toggleSelect(lead.id)} className="p-1 rounded text-gray-400 hover:text-indigo-600 transition-colors">
-                                                <CheckSquare size={16} className={selectedLeads.includes(lead.id) ? "text-indigo-600" : ""} />
+                                            <button onClick={() => toggleSelect(lead.id)} className="p-1 rounded text-[#64748B] hover:text-[#26382E] transition-colors">
+                                                <CheckSquare size={16} className={selectedLeads.includes(lead.id) ? "text-[#26382E]" : ""} />
                                             </button>
                                         </td>
                                         <td className="px-4 py-5">
                                             <div className="flex items-center gap-3">
-                                                <div className="h-9 w-9 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center font-black text-xs border border-indigo-100 shadow-sm shrink-0">
+                                                <div className="h-9 w-9 bg-[#DDF7E8] text-[#26382E] rounded-xl flex items-center justify-center font-black text-xs border border-[#86D9A9]/40 shadow-sm shrink-0">
                                                     {lead.name.charAt(0)}
                                                 </div>
                                                 <div>
-                                                    <div className="font-black text-[#111827] uppercase tracking-tight text-xs flex items-center gap-1.5 group-hover:text-indigo-600 transition-colors cursor-pointer">
+                                                    <div className="font-black text-[#26382E] uppercase tracking-tight text-xs flex items-center gap-1.5 group-hover:text-[#26382E] transition-colors cursor-pointer">
                                                         {lead.name}
                                                     </div>
-                                                    <div className="text-[9px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">{lead.country}</div>
+                                                    <div className="text-[9px] text-[#64748B] font-bold uppercase tracking-widest mt-0.5">{lead.country}</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="px-4 py-5">
-                                            <span className="text-[9px] font-bold text-gray-500 uppercase tracking-widest bg-gray-100 px-2 py-1 rounded inline-block">
+                                            <span className="text-[9px] font-bold text-[#26382E] uppercase tracking-widest bg-[#EDF8F0] border border-[#DDE8E0] px-2.5 py-1 rounded-md inline-block">
                                                 {lead.source}
                                             </span>
                                         </td>
                                         <td className="px-4 py-5">
-                                            <span className="text-[10px] font-black text-[#111827] uppercase tracking-tight">{lead.receivedTime}</span>
+                                            <span className="text-[10px] font-black text-[#26382E] uppercase tracking-tight">{lead.receivedTime}</span>
                                         </td>
                                         <td className="px-4 py-5">
                                             {lead.score ? (
@@ -281,21 +281,21 @@ const SupportDashboard = () => {
                                                         <motion.div
                                                             initial={{ width: 0 }}
                                                             animate={{ width: `${lead.score}%` }}
-                                                            className={cn("h-full", lead.score > 80 ? 'bg-emerald-500' : 'bg-amber-500')}
+                                                            className={cn("h-full", lead.score > 80 ? 'bg-[#86D9A9]' : 'bg-amber-400')}
                                                         />
                                                     </div>
-                                                    <span className="text-[9px] font-black text-gray-600">{lead.score}</span>
+                                                    <span className="text-[9px] font-black text-[#26382E]">{lead.score}</span>
                                                 </div>
                                             ) : (
-                                                <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest italic animate-pulse flex items-center gap-1"><Sparkles size={10} /> Active</span>
+                                                <span className="text-[9px] text-[#64748B] font-bold uppercase tracking-widest italic flex items-center gap-1"><Sparkles size={10} className="text-[#86D9A9]" /> Active</span>
                                             )}
                                         </td>
                                         <td className="px-4 py-5 text-right">
                                             <div className="flex items-center justify-end gap-2 transition-opacity">
-                                                <button onClick={() => handleSingleAssign(lead)} className="px-3 py-1.5 bg-[#111827] text-white rounded-lg text-[9px] font-black uppercase tracking-widest hover:bg-black transition-all shadow-md shadow-indigo-100 flex items-center gap-1.5">
+                                                <button onClick={() => handleSingleAssign(lead)} className="px-3 py-1.5 bg-[#86D9A9] text-[#26382E] rounded-lg text-[9px] font-black uppercase tracking-widest hover:bg-[#A7E8C2] transition-all shadow-sm flex items-center gap-1.5">
                                                     <UserCheck size={12} /> Assign
                                                 </button>
-                                                <button onClick={() => convertToCrm(lead)} className="px-4 py-2 border border-indigo-100 bg-indigo-50 rounded-xl text-indigo-600 hover:bg-indigo-100 transition-all shadow-sm uppercase text-[10px] font-black tracking-widest inline-flex items-center gap-1">
+                                                <button onClick={() => convertToCrm(lead)} className="px-3 py-1.5 border border-[#86D9A9] bg-[#DDF7E8] rounded-lg text-[#26382E] hover:bg-[#86D9A9]/50 transition-all shadow-sm uppercase text-[9px] font-black tracking-widest inline-flex items-center gap-1">
                                                     Convert
                                                 </button>
                                             </div>
@@ -308,7 +308,7 @@ const SupportDashboard = () => {
                                     <td colSpan={6} className="px-6 py-20 text-center">
                                         <div className="flex flex-col items-center justify-center opacity-50">
                                             <LayoutGrid size={48} className="text-gray-300 mb-4" />
-                                            <p className="text-gray-400 uppercase tracking-widest font-black text-xs">Queue is clear.</p>
+                                            <p className="text-[#64748B] uppercase tracking-widest font-black text-xs">Queue is clear.</p>
                                         </div>
                                     </td>
                                 </tr>
@@ -326,32 +326,32 @@ const SupportDashboard = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+                            className="absolute inset-0 bg-black/30 backdrop-blur-sm"
                             onClick={() => setAssignmentModalOpen(false)}
                         />
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-gray-100 flex flex-col max-h-[90vh] overflow-hidden"
+                            className="relative w-full max-w-md bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-[#DDE8E0] flex flex-col max-h-[90vh] overflow-hidden"
                         >
-                            <div className="p-6 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center shrink-0">
-                                <h2 className="text-lg font-black text-[#111827] uppercase tracking-tight flex items-center gap-2">
-                                    <UserCheck size={18} className="text-indigo-600" /> Lead Redistribution
+                            <div className="p-6 border-b border-[#DDE8E0] bg-[#EDF8F0]/70 flex justify-between items-center shrink-0">
+                                <h2 className="text-lg font-black text-[#26382E] uppercase tracking-tight flex items-center gap-2">
+                                    <UserCheck size={18} className="text-[#86D9A9]" /> Lead Redistribution
                                 </h2>
                             </div>
                             <div className="p-6 space-y-5 overflow-y-auto custom-scrollbar">
-                                <div className="p-4 bg-indigo-50/50 border border-indigo-100 rounded-2xl">
-                                    <p className="text-[10px] font-black text-indigo-600 uppercase tracking-widest mb-1">Target Selection</p>
-                                    <p className="font-bold text-sm text-[#111827]">{selectedLeads.length} Lead(s) Selected for Assignment</p>
+                                <div className="p-4 bg-[#DDF7E8]/50 border border-[#86D9A9]/30 rounded-2xl">
+                                    <p className="text-[10px] font-black text-[#26382E] uppercase tracking-widest mb-1">Target Selection</p>
+                                    <p className="font-bold text-sm text-[#26382E]">{selectedLeads.length} Lead(s) Selected for Assignment</p>
                                 </div>
                                 <div className="space-y-4">
                                     <div>
-                                        <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Target Division</label>
+                                        <label className="block text-[10px] font-black text-[#64748B] uppercase tracking-widest mb-1.5">Target Division</label>
                                         <select
                                             value={assignmentData.team}
                                             onChange={(e) => setAssignmentData({ ...assignmentData, team: e.target.value })}
-                                            className="w-full p-3 border border-gray-200 rounded-xl text-xs font-black uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm appearance-none bg-white"
+                                            className="w-full p-3 border border-[#DDE8E0] rounded-xl text-xs font-black uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-[#86D9A9] shadow-sm appearance-none bg-white text-[#26382E]"
                                         >
                                             <option>Global Direct Team</option>
                                             <option>South East Asia Division</option>
@@ -359,11 +359,11 @@ const SupportDashboard = () => {
                                         </select>
                                     </div>
                                     <div>
-                                        <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Active Counselor</label>
+                                        <label className="block text-[10px] font-black text-[#64748B] uppercase tracking-widest mb-1.5">Active Counselor</label>
                                         <select
                                             value={assignmentData.counselorId}
                                             onChange={(e) => setAssignmentData({ ...assignmentData, counselorId: e.target.value })}
-                                            className="w-full p-3 border border-gray-200 rounded-xl text-xs font-black uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm appearance-none bg-white"
+                                            className="w-full p-3 border border-[#DDE8E0] rounded-xl text-xs font-black uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-[#86D9A9] shadow-sm appearance-none bg-white text-[#26382E]"
                                         >
                                             <option value="">Select Counselor...</option>
                                             {counselors.map(c => (
@@ -375,14 +375,14 @@ const SupportDashboard = () => {
                                 <div className="flex gap-3 justify-end pt-4">
                                     <button
                                         onClick={() => setAssignmentModalOpen(false)}
-                                        className="px-5 py-2.5 text-[10px] font-bold text-gray-500 uppercase tracking-widest hover:bg-gray-100 rounded-xl transition-colors"
+                                        className="px-5 py-2.5 text-[10px] font-bold text-[#64748B] uppercase tracking-widest hover:bg-[#EDF8F0] rounded-xl transition-colors"
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         onClick={handleConfirmAssignment}
                                         disabled={bulkAssign.isPending}
-                                        className="px-5 py-2.5 bg-[#111827] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-black transition-all shadow-xl shadow-indigo-100 disabled:opacity-50 flex items-center gap-2"
+                                        className="px-5 py-2.5 bg-[#86D9A9] text-[#26382E] text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-[#A7E8C2] transition-all shadow-sm disabled:opacity-50 flex items-center gap-2"
                                     >
                                         Confirm Transfer
                                     </button>
@@ -401,47 +401,47 @@ const SupportDashboard = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+                            className="absolute inset-0 bg-black/30 backdrop-blur-sm"
                             onClick={() => setIsManualModalOpen(false)}
                         />
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-gray-100 flex flex-col mx-2 sm:mx-auto max-h-[85vh] overflow-y-auto no-scrollbar"
+                            className="relative w-full max-w-md bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-[#DDE8E0] flex flex-col mx-2 sm:mx-auto max-h-[85vh] overflow-y-auto no-scrollbar"
                         >
-                            <div className="p-6 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center">
-                                <h2 className="text-lg font-black text-[#111827] uppercase tracking-tight flex items-center gap-2">
-                                    <UserPlus size={18} className="text-indigo-600" /> Provision Manual Lead
+                            <div className="p-6 border-b border-[#DDE8E0] bg-[#EDF8F0]/70 flex justify-between items-center">
+                                <h2 className="text-lg font-black text-[#26382E] uppercase tracking-tight flex items-center gap-2">
+                                    <UserPlus size={18} className="text-[#86D9A9]" /> Provision Manual Lead
                                 </h2>
                             </div>
                             <div className="p-6 space-y-4">
                                 <div>
-                                    <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Lead Full Name</label>
+                                    <label className="block text-[10px] font-black text-[#64748B] uppercase tracking-widest mb-1.5">Lead Full Name</label>
                                     <input
                                         type="text"
                                         value={newLeadData.name}
                                         onChange={(e) => setNewLeadData({ ...newLeadData, name: e.target.value })}
-                                        className="w-full p-3 border border-gray-200 rounded-xl text-xs font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                                        className="w-full p-3 border border-[#DDE8E0] rounded-xl text-xs font-medium focus:ring-2 focus:ring-[#86D9A9] outline-none text-[#26382E]"
                                         placeholder="Enter lead name..."
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Phone Number</label>
+                                    <label className="block text-[10px] font-black text-[#64748B] uppercase tracking-widest mb-1.5">Phone Number</label>
                                     <input
                                         type="text"
                                         value={newLeadData.phone}
                                         onChange={(e) => setNewLeadData({ ...newLeadData, phone: e.target.value })}
-                                        className="w-full p-3 border border-gray-200 rounded-xl text-xs font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                                        className="w-full p-3 border border-[#DDE8E0] rounded-xl text-xs font-medium focus:ring-2 focus:ring-[#86D9A9] outline-none text-[#26382E]"
                                         placeholder="+91 XXXXX XXXXX"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Program Stream</label>
+                                    <label className="block text-[10px] font-black text-[#64748B] uppercase tracking-widest mb-1.5">Program Stream</label>
                                     <select
                                         value={newLeadData.type}
                                         onChange={(e) => setNewLeadData({ ...newLeadData, type: e.target.value })}
-                                        className="w-full p-3 border border-gray-200 rounded-xl text-xs font-black uppercase tracking-widest appearance-none bg-white outline-none"
+                                        className="w-full p-3 border border-[#DDE8E0] rounded-xl text-xs font-black uppercase tracking-widest appearance-none bg-white outline-none text-[#26382E]"
                                     >
                                         <option>MBA</option>
                                         <option>B.Tech</option>
@@ -452,14 +452,14 @@ const SupportDashboard = () => {
                                 <div className="flex gap-3 justify-end pt-4">
                                     <button
                                         onClick={() => setIsManualModalOpen(false)}
-                                        className="px-5 py-2.5 text-[10px] font-bold text-gray-500 uppercase tracking-widest hover:bg-gray-100 rounded-xl transition-colors"
+                                        className="px-5 py-2.5 text-[10px] font-bold text-[#64748B] uppercase tracking-widest hover:bg-[#EDF8F0] rounded-xl transition-colors"
                                     >
                                         Discard
                                     </button>
                                     <button
                                         onClick={handleCreateLead}
                                         disabled={createLead.isPending}
-                                        className="px-5 py-2.5 bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-indigo-700 shadow-xl shadow-indigo-100 disabled:opacity-50 flex items-center gap-2"
+                                        className="px-5 py-2.5 bg-[#86D9A9] text-[#26382E] text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-[#A7E8C2] shadow-sm disabled:opacity-50 flex items-center gap-2"
                                     >
                                         {createLead.isPending ? 'Processing...' : 'Provision Node'}
                                     </button>

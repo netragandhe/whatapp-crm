@@ -22,8 +22,8 @@ const AISummaryView = () => {
                 score: l.score,
                 category: l.score > 80 ? 'Hot' : l.score > 50 ? 'Warm' : 'Cold',
                 program: l.program,
-                budget: '$50k - $100k', // Mock field for now as not in schema
-                intake: 'Sept 2024'     // Mock field for now as not in schema
+                budget: '$50k - $100k',
+                intake: 'Sept 2024'
             }));
         }
     })
@@ -36,14 +36,15 @@ const AISummaryView = () => {
     )
 
     return (
-        <div className="space-y-8">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div className="space-y-8 pb-16">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-black text-[#111827] uppercase tracking-tighter flex items-center gap-3">
+                    <h1 className="text-2xl sm:text-3xl font-black text-[#26382E] tracking-tight flex items-center gap-2.5">
                         Machine Intelligence
-                        <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 text-[9px] rounded-full uppercase tracking-widest shadow-sm">Beta</span>
+                        <span className="px-2.5 py-0.5 bg-[#DDF7E8] text-[#2E8456] border border-[#A7E8C2] text-[10px] font-bold rounded-full uppercase tracking-wider">Verified AI</span>
                     </h1>
-                    <p className="text-sm font-medium text-[#6B7280] mt-1">Review conversational AI qualification summaries and lead propensities.</p>
+                    <p className="text-xs sm:text-sm font-medium text-[#64748B] mt-1">Review conversational AI qualification summaries and lead propensities.</p>
                 </div>
                 <div className="flex items-center gap-3">
                     <div className="flex flex-col items-end gap-1">
@@ -51,151 +52,172 @@ const AISummaryView = () => {
                             onClick={async () => {
                                 setRefineMsg('')
                                 await refetch()
-                                setRefineMsg('Algorithm refined successfully!')
+                                setRefineMsg('Algorithm refined!')
                                 setTimeout(() => setRefineMsg(''), 3000)
                             }}
                             disabled={isFetching}
-                            className="bg-[#111827] text-white px-5 py-2.5 rounded-xl font-black text-[11px] uppercase tracking-widest hover:bg-black transition-all shadow-xl shadow-indigo-100 flex items-center gap-2 disabled:opacity-75 active:scale-95"
+                            className="bg-[#86D9A9] text-[#26382E] px-5 py-2.5 rounded-xl font-bold text-xs hover:bg-[#A7E8C2] transition-all shadow-xs flex items-center gap-2 disabled:opacity-75 active:scale-95"
                         >
                             {isFetching ? <Loader size={14} className="animate-spin" /> : <Sparkles size={14} />} 
                             Refine Algorithm
                         </button>
-                        {refineMsg && <span className="text-[9px] font-black text-emerald-600 uppercase tracking-widest animate-pulse">{refineMsg}</span>}
+                        {refineMsg && <span className="text-[10px] font-bold text-[#2E8456] animate-pulse">{refineMsg}</span>}
                     </div>
                 </div>
             </div>
 
-            <div className="bg-white rounded-3xl border border-[#E5E7EB] shadow-sm overflow-hidden flex flex-col">
-                <div className="p-6 border-b border-[#E5E7EB] flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-gray-50/50 to-indigo-50/20">
-                    <div className="flex items-center gap-4">
-                        <h3 className="font-black text-[#111827] uppercase tracking-widest text-xs flex items-center gap-2">
-                            <Bot size={14} className="text-indigo-500" /> Automated Extraction
-                        </h3>
+            {/* Main Glass Container */}
+            <div className="glass-card bg-white/85 backdrop-blur-xl rounded-3xl border border-[#DDE8E0] shadow-glass overflow-hidden flex flex-col">
+                <div className="p-4 sm:p-6 border-b border-[#DDE8E0] flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#EDF8F0]/40">
+                    <div className="flex items-center gap-2.5">
+                        <Bot size={16} className="text-[#2E8456]" />
+                        <h3 className="font-black text-[#26382E] uppercase tracking-wider text-xs">Automated Lead Intelligence</h3>
                     </div>
-                    <div className="relative flex-1 sm:w-80 sm:flex-none">
-                        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                    <div className="relative flex-1 sm:w-72 sm:flex-none">
+                        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748B]" />
                         <input
                             type="text"
-                            placeholder="Search summaries..."
+                            placeholder="Search intelligence profiles..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm"
+                            className="w-full pl-9 pr-4 py-2 border border-[#DDE8E0] rounded-xl text-xs font-semibold text-[#26382E] focus:outline-none focus:ring-2 focus:ring-[#86D9A9] transition-all bg-white shadow-2xs"
                         />
                     </div>
                 </div>
 
-                <div className="overflow-x-auto min-h-[400px] bg-slate-50/30">
-                    <div className="p-6">
-                        {isLoading ? (
-                            <div className="h-64 flex flex-col items-center justify-center text-indigo-600 opacity-50">
-                                <Loader className="animate-spin mb-4" size={32} />
-                                <p className="text-[10px] font-black uppercase tracking-widest">Parsing Intelligence Graphs...</p>
-                            </div>
-                        ) : filteredData.length === 0 ? (
-                            <div className="h-64 flex flex-col items-center justify-center text-gray-400 opacity-50">
-                                <Bot size={48} className="mb-4" />
-                                <p className="text-[11px] font-black uppercase tracking-widest">No Intelligence Profiles Found.</p>
-                            </div>
-                        ) : (
-                            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-                                <AnimatePresence>
-                                    {filteredData.map((data) => (
-                                        <motion.div
-                                            layout
-                                            initial={{ opacity: 0, scale: 0.95 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            exit={{ opacity: 0, scale: 0.95 }}
-                                            key={data.id}
-                                            className="bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all group overflow-hidden"
-                                        >
-                                            <div className="p-5 border-b border-gray-100 flex items-start justify-between bg-gradient-to-br from-white to-gray-50/50">
-                                                <div className="flex items-center gap-3">
-                                                    <div className="h-12 w-12 bg-gray-100 text-gray-700 rounded-2xl flex items-center justify-center font-black text-lg border border-gray-200 shadow-inner shrink-0">
-                                                        {data.leadName.charAt(0)}
-                                                    </div>
-                                                    <div>
-                                                        <h4 className="text-sm font-black text-[#111827] uppercase tracking-tight flex items-center gap-1.5">
-                                                            {data.leadName}
-                                                            {data.score > 80 && <ShieldCheck size={14} className="text-emerald-500" />}
-                                                        </h4>
-                                                        <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">{data.country}</div>
-                                                    </div>
+                <div className="min-h-[400px] p-6">
+                    {isLoading ? (
+                        <div className="h-64 flex flex-col items-center justify-center text-[#86D9A9]">
+                            <Loader className="animate-spin mb-3" size={28} />
+                            <p className="text-xs font-bold text-[#64748B] uppercase tracking-wider">Parsing Intelligence Graphs...</p>
+                        </div>
+                    ) : filteredData.length === 0 ? (
+                        <div className="h-64 flex flex-col items-center justify-center text-[#94A3B8]">
+                            <Bot size={40} className="mb-3 opacity-60" />
+                            <p className="text-xs font-semibold text-[#64748B]">No Intelligence Profiles Found.</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
+                            <AnimatePresence>
+                                {filteredData.map((data) => (
+                                    <motion.div
+                                        layout
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.95 }}
+                                        key={data.id}
+                                        className="glass-card bg-white/90 border border-[#DDE8E0] rounded-2xl shadow-2xs hover:shadow-sm transition-all group overflow-hidden"
+                                    >
+                                        <div className="p-4 sm:p-5 border-b border-[#DDE8E0]/70 flex items-start justify-between bg-[#EDF8F0]/30">
+                                            <div className="flex items-center gap-3">
+                                                <div className="h-10 w-10 bg-[#DDF7E8] text-[#26382E] border border-[#A7E8C2]/60 rounded-xl flex items-center justify-center font-bold text-sm shrink-0">
+                                                    {data.leadName?.charAt(0) || 'L'}
                                                 </div>
-                                                <div className="text-right">
-                                                    <div className="inline-flex items-center gap-2">
-                                                        <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Confidence Score</span>
-                                                        <span className={cn(
-                                                            "text-xl font-black bg-clip-text text-transparent",
-                                                            data.score > 80 ? 'bg-gradient-to-r from-emerald-500 to-emerald-600' :
-                                                                data.score > 50 ? 'bg-gradient-to-r from-amber-500 to-amber-600' :
-                                                                    'bg-gradient-to-r from-indigo-500 to-indigo-600'
-                                                        )}>
-                                                            {data.score || '--'}
-                                                        </span>
-                                                    </div>
-                                                    <div className="mt-1">
-                                                        <span className={cn(
-                                                            "text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest border",
-                                                            data.category === 'Hot' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' :
-                                                                data.category === 'Warm' ? 'bg-amber-50 text-amber-600 border-amber-100' :
-                                                                    'bg-indigo-50 text-indigo-600 border-indigo-100'
-                                                        )}>Propensity: {data.category}</span>
-                                                    </div>
+                                                <div>
+                                                    <h4 className="text-xs sm:text-sm font-bold text-[#26382E] flex items-center gap-1.5">
+                                                        {data.leadName}
+                                                        {data.score > 80 && <ShieldCheck size={14} className="text-[#2E8456]" />}
+                                                    </h4>
+                                                    <div className="text-[10px] text-[#64748B] font-semibold mt-0.5">{data.country}</div>
                                                 </div>
                                             </div>
+                                            <div className="text-right">
+                                                <div className="inline-flex items-center gap-1.5">
+                                                    <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Propensity Score</span>
+                                                    <span className="text-base font-black text-[#2E8456]">
+                                                        {data.score || '--'}
+                                                    </span>
+                                                </div>
+                                                <div className="mt-0.5">
+                                                    <span className={cn(
+                                                        "text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider border",
+                                                        data.category === 'Hot' ? 'bg-[#DDF7E8] text-[#26382E] border-[#A7E8C2]' :
+                                                            data.category === 'Warm' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                                                                'bg-slate-50 text-slate-700 border-slate-200'
+                                                    )}>Propensity: {data.category}</span>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                            <div className="p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                <div className="space-y-1">
-                                                    <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-1"><Zap size={10} className="text-indigo-400" /> Target Context</span>
-                                                    <p className="text-xs font-black text-[#111827]">{data.program}</p>
-                                                </div>
-                                                <div className="space-y-1">
-                                                    <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Financial Bandwidth</span>
-                                                    <p className="text-xs font-black text-[#111827]">{data.budget}</p>
-                                                </div>
-                                                <div className="space-y-1">
-                                                    <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Enrollment Timeline</span>
-                                                    <p className="text-xs font-black text-[#111827]">{data.intake}</p>
-                                                </div>
-                                                <div className="space-y-1">
-                                                    <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Qualification Log</span>
-                                                     <button 
-                                                         onClick={() => setTranscript(data)}
-                                                         className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest hover:underline hover:text-indigo-800 transition-all text-left"
-                                                     >View full transcript →</button>
-                                                </div>
+                                        <div className="p-4 sm:p-5 grid grid-cols-2 gap-3.5">
+                                            <div className="space-y-0.5">
+                                                <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider flex items-center gap-1">
+                                                    <Zap size={10} className="text-[#86D9A9]" /> Target Course
+                                                </span>
+                                                <p className="text-xs font-bold text-[#26382E] truncate">{data.program || 'General Counseling'}</p>
                                             </div>
-                                        </motion.div>
-                                    ))}
-                                </AnimatePresence>
-                            </div>
-                        )}
-                    </div>
+                                            <div className="space-y-0.5">
+                                                <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Financial Bandwidth</span>
+                                                <p className="text-xs font-semibold text-[#26382E]">{data.budget}</p>
+                                            </div>
+                                            <div className="space-y-0.5">
+                                                <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Intake Timeline</span>
+                                                <p className="text-xs font-semibold text-[#26382E]">{data.intake}</p>
+                                            </div>
+                                            <div className="space-y-0.5">
+                                                <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Qualification Log</span>
+                                                <button 
+                                                    onClick={() => setTranscript(data)}
+                                                    className="text-xs font-bold text-[#2E8456] hover:underline block"
+                                                >
+                                                    View transcript →
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </AnimatePresence>
+                        </div>
+                    )}
                 </div>
             </div>
+
             {/* Transcript Modal */}
             <AnimatePresence>
                 {transcript && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#26382E]/40 backdrop-blur-md"
                         onClick={() => setTranscript(null)}
                     >
                         <motion.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }}
                             onClick={e => e.stopPropagation()}
-                            className="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8 space-y-4"
+                            className="glass-card bg-white/95 backdrop-blur-2xl border border-[#DDE8E0] rounded-3xl shadow-glass-lg w-full max-w-md p-6 space-y-4"
                         >
-                            <div className="flex justify-between items-center">
-                                <h3 className="font-black text-[#111827] uppercase tracking-tighter">Qualification Log</h3>
-                                <button onClick={() => setTranscript(null)} className="p-2 hover:bg-gray-100 rounded-xl transition-colors"><X size={16} /></button>
+                            <div className="flex justify-between items-center border-b border-[#DDE8E0] pb-3">
+                                <h3 className="font-black text-[#26382E] text-base tracking-tight">AI Qualification Log</h3>
+                                <button onClick={() => setTranscript(null)} className="p-1.5 text-[#64748B] hover:text-[#26382E] hover:bg-[#EDF8F0] rounded-xl transition-colors">
+                                    <X size={15} />
+                                </button>
                             </div>
-                            <div className="space-y-2 text-xs text-gray-600">
-                                <p><span className="font-black uppercase text-gray-400 text-[9px] tracking-widest">Lead:</span> {transcript.leadName}</p>
-                                <p><span className="font-black uppercase text-gray-400 text-[9px] tracking-widest">Program:</span> {transcript.program || 'N/A'}</p>
-                                <p><span className="font-black uppercase text-gray-400 text-[9px] tracking-widest">Country:</span> {transcript.country || 'N/A'}</p>
-                                <p><span className="font-black uppercase text-gray-400 text-[9px] tracking-widest">Confidence Score:</span> {transcript.score || '--'}</p>
-                                <p><span className="font-black uppercase text-gray-400 text-[9px] tracking-widest">Propensity:</span> {transcript.category}</p>
-                                <p><span className="font-black uppercase text-gray-400 text-[9px] tracking-widest">Budget:</span> {transcript.budget}</p>
-                                <p><span className="font-black uppercase text-gray-400 text-[9px] tracking-widest">Intake:</span> {transcript.intake}</p>
+                            <div className="space-y-2 text-xs text-[#26382E]">
+                                <div className="flex justify-between py-1 border-b border-[#DDE8E0]/50">
+                                    <span className="font-bold text-[#64748B]">Lead:</span>
+                                    <span className="font-semibold">{transcript.leadName}</span>
+                                </div>
+                                <div className="flex justify-between py-1 border-b border-[#DDE8E0]/50">
+                                    <span className="font-bold text-[#64748B]">Program:</span>
+                                    <span className="font-semibold">{transcript.program || 'N/A'}</span>
+                                </div>
+                                <div className="flex justify-between py-1 border-b border-[#DDE8E0]/50">
+                                    <span className="font-bold text-[#64748B]">Country:</span>
+                                    <span className="font-semibold">{transcript.country || 'N/A'}</span>
+                                </div>
+                                <div className="flex justify-between py-1 border-b border-[#DDE8E0]/50">
+                                    <span className="font-bold text-[#64748B]">Confidence Score:</span>
+                                    <span className="font-black text-[#2E8456]">{transcript.score || '--'}</span>
+                                </div>
+                                <div className="flex justify-between py-1 border-b border-[#DDE8E0]/50">
+                                    <span className="font-bold text-[#64748B]">Propensity Category:</span>
+                                    <span className="font-semibold">{transcript.category}</span>
+                                </div>
+                                <div className="flex justify-between py-1 border-b border-[#DDE8E0]/50">
+                                    <span className="font-bold text-[#64748B]">Budget:</span>
+                                    <span className="font-semibold">{transcript.budget}</span>
+                                </div>
+                                <div className="flex justify-between py-1">
+                                    <span className="font-bold text-[#64748B]">Intake Timeline:</span>
+                                    <span className="font-semibold">{transcript.intake}</span>
+                                </div>
                             </div>
                         </motion.div>
                     </motion.div>
@@ -206,6 +228,3 @@ const AISummaryView = () => {
 }
 
 export default AISummaryView
-
-
-

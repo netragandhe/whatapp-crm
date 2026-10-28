@@ -40,56 +40,56 @@ const UserModal = ({ isOpen, onClose, user = null, onSuccessRedirect }) => {
 
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-            <motion.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }} className="bg-white rounded-[2rem] w-full max-w-lg overflow-hidden shadow-2xl mx-2 sm:mx-auto max-h-[85vh] overflow-y-auto no-scrollbar">
-                <div className="p-8 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+            <motion.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }} className="glass-card bg-white/95 rounded-[2rem] w-full max-w-lg overflow-hidden shadow-2xl mx-2 sm:mx-auto max-h-[85vh] overflow-y-auto no-scrollbar border border-[#DDE8E0]">
+                <div className="p-8 border-b border-[#DDE8E0] flex justify-between items-center bg-[#EDF8F0]/80">
                     <div className="flex items-center gap-4">
-                        <div className="p-3 bg-[#111827] text-white rounded-2xl shadow">
+                        <div className="p-3 bg-[#DDF7E8] text-[#26382E] border border-[#A7E8C2] rounded-2xl shadow-sm">
                             <Users size={20} />
                         </div>
                         <div>
-                            <h3 className="text-xl font-black text-[#111827] uppercase tracking-tight">{user ? 'Refine Identity' : 'Provision User'}</h3>
-                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mt-1">Global Directory Protocol v2.4</p>
+                            <h3 className="text-xl font-black text-[#26382E] uppercase tracking-tight">{user ? 'Refine Identity' : 'Provision User'}</h3>
+                            <p className="text-[10px] font-black text-[#64748B] uppercase tracking-widest mt-1">Global Directory Protocol v2.4</p>
                         </div>
                     </div>
-                    <button onClick={onClose} className="p-2 hover:bg-white rounded-xl transition-colors shadow-sm"><X size={20} className="text-gray-400" /></button>
+                    <button onClick={onClose} className="p-2 hover:bg-[#DDF7E8] rounded-xl transition-colors shadow-sm text-[#64748B]"><X size={20} /></button>
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-8 space-y-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-1 col-span-1 sm:col-span-2">
-                            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 mb-1">
-                                <UserCheck size={12} /> Full Name
+                            <label className="text-[10px] font-black text-[#64748B] uppercase tracking-widest flex items-center gap-2 mb-1">
+                                <UserCheck size={12} className="text-[#86D9A9]" /> Full Name
                             </label>
                             <input
                                 required
                                 type="text"
                                 value={formData.name}
                                 onChange={e => setFormData({ ...formData, name: e.target.value })}
-                                className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-xs font-bold focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all placeholder:text-gray-300"
+                                className="w-full px-5 py-4 bg-white/80 border border-[#DDE8E0] rounded-2xl text-xs font-bold focus:ring-2 focus:ring-[#86D9A9]/30 outline-none transition-all placeholder:text-[#64748B]/50 text-[#26382E]"
                                 placeholder="e.g. Alexander Pierce"
                             />
                         </div>
                         <div className="space-y-1 col-span-1 sm:col-span-2">
-                            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 mb-1">
-                                <Mail size={12} /> Email Address
+                            <label className="text-[10px] font-black text-[#64748B] uppercase tracking-widest flex items-center gap-2 mb-1">
+                                <Mail size={12} className="text-[#86D9A9]" /> Email Address
                             </label>
                             <input
                                 required
                                 type="email"
                                 value={formData.email}
                                 onChange={e => setFormData({ ...formData, email: e.target.value })}
-                                className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-xs font-bold focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all placeholder:text-gray-300"
+                                className="w-full px-5 py-4 bg-white/80 border border-[#DDE8E0] rounded-2xl text-xs font-bold focus:ring-2 focus:ring-[#86D9A9]/30 outline-none transition-all placeholder:text-[#64748B]/50 text-[#26382E]"
                                 placeholder="alex@nexus.com"
                             />
                         </div>
                         <div className="space-y-1">
-                            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 mb-1">
-                                <Shield size={12} /> Global Role
+                            <label className="text-[10px] font-black text-[#64748B] uppercase tracking-widest flex items-center gap-2 mb-1">
+                                <Shield size={12} className="text-[#86D9A9]" /> Global Role
                             </label>
                             <select
                                 value={formData.role}
                                 onChange={e => setFormData({ ...formData, role: e.target.value })}
-                                className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-xs font-bold focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all appearance-none cursor-pointer"
+                                className="w-full px-5 py-4 bg-white/80 border border-[#DDE8E0] rounded-2xl text-xs font-bold focus:ring-2 focus:ring-[#86D9A9]/30 outline-none transition-all appearance-none cursor-pointer text-[#26382E]"
                             >
                                 <option>Admin</option>
                                 <option>Manager</option>
@@ -99,13 +99,13 @@ const UserModal = ({ isOpen, onClose, user = null, onSuccessRedirect }) => {
                             </select>
                         </div>
                         <div className="space-y-1">
-                            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 mb-1">
-                                <Database size={12} /> Primary Client
+                            <label className="text-[10px] font-black text-[#64748B] uppercase tracking-widest flex items-center gap-2 mb-1">
+                                <Database size={12} className="text-[#86D9A9]" /> Primary Client
                             </label>
                             <select
                                 value={formData.client}
                                 onChange={e => setFormData({ ...formData, client: e.target.value })}
-                                className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-xs font-bold focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all appearance-none cursor-pointer"
+                                className="w-full px-5 py-4 bg-white/80 border border-[#DDE8E0] rounded-2xl text-xs font-bold focus:ring-2 focus:ring-[#86D9A9]/30 outline-none transition-all appearance-none cursor-pointer text-[#26382E]"
                             >
                                 <option>EduCorp Inc.</option>
                                 <option>HealthLine</option>
@@ -114,13 +114,13 @@ const UserModal = ({ isOpen, onClose, user = null, onSuccessRedirect }) => {
                             </select>
                         </div>
                         <div className="space-y-1">
-                            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 mb-1">
-                                <MapPin size={12} /> Operational Country
+                            <label className="text-[10px] font-black text-[#64748B] uppercase tracking-widest flex items-center gap-2 mb-1">
+                                <MapPin size={12} className="text-[#86D9A9]" /> Operational Country
                             </label>
                             <select
                                 value={formData.country}
                                 onChange={e => setFormData({ ...formData, country: e.target.value })}
-                                className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-xs font-bold focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all appearance-none cursor-pointer"
+                                className="w-full px-5 py-4 bg-white/80 border border-[#DDE8E0] rounded-2xl text-xs font-bold focus:ring-2 focus:ring-[#86D9A9]/30 outline-none transition-all appearance-none cursor-pointer text-[#26382E]"
                             >
                                 <option>India</option>
                                 <option>USA</option>
@@ -130,21 +130,21 @@ const UserModal = ({ isOpen, onClose, user = null, onSuccessRedirect }) => {
                             </select>
                         </div>
                         <div className="space-y-1">
-                            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 mb-1">
-                                <Briefcase size={12} /> Department / Team
+                            <label className="text-[10px] font-black text-[#64748B] uppercase tracking-widest flex items-center gap-2 mb-1">
+                                <Briefcase size={12} className="text-[#86D9A9]" /> Department / Team
                             </label>
                             <input
                                 required
                                 type="text"
                                 value={formData.team}
                                 onChange={e => setFormData({ ...formData, team: e.target.value })}
-                                className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-xs font-bold focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all placeholder:text-gray-300"
+                                className="w-full px-5 py-4 bg-white/80 border border-[#DDE8E0] rounded-2xl text-xs font-bold focus:ring-2 focus:ring-[#86D9A9]/30 outline-none transition-all placeholder:text-[#64748B]/50 text-[#26382E]"
                                 placeholder="Operations"
                             />
                         </div>
                         <div className="space-y-1 col-span-1 sm:col-span-2">
-                            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 mb-1">
-                                <Globe size={12} /> Assigned Integrations (Nodes)
+                            <label className="text-[10px] font-black text-[#64748B] uppercase tracking-widest flex items-center gap-2 mb-1">
+                                <Globe size={12} className="text-[#86D9A9]" /> Assigned Integrations (Nodes)
                             </label>
                             <input
                                 required
@@ -152,7 +152,7 @@ const UserModal = ({ isOpen, onClose, user = null, onSuccessRedirect }) => {
                                 min="0"
                                 value={formData.assignedChannels}
                                 onChange={e => setFormData({ ...formData, assignedChannels: e.target.value })}
-                                className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-xs font-bold focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all placeholder:text-gray-300"
+                                className="w-full px-5 py-4 bg-white/80 border border-[#DDE8E0] rounded-2xl text-xs font-bold focus:ring-2 focus:ring-[#86D9A9]/30 outline-none transition-all placeholder:text-[#64748B]/50 text-[#26382E]"
                                 placeholder="0"
                             />
                         </div>
@@ -162,14 +162,14 @@ const UserModal = ({ isOpen, onClose, user = null, onSuccessRedirect }) => {
                         <button
                             type="button"
                             onClick={onClose}
-                            className="flex-1 py-4 border border-gray-100 rounded-2xl text-[10px] sm:text-xs font-black uppercase tracking-widest text-gray-400 hover:bg-gray-50 transition-all whitespace-nowrap truncate px-2"
+                            className="flex-1 py-4 border border-[#DDE8E0] rounded-2xl text-[10px] sm:text-xs font-black uppercase tracking-widest text-[#64748B] hover:bg-[#EDF8F0] transition-all whitespace-nowrap truncate px-2"
                         >
                             Cancel
                         </button>
                         <button
                             disabled={isPending}
                             type="submit"
-                            className="flex-1 py-4 bg-[#111827] text-white rounded-2xl text-[10px] sm:text-xs font-black uppercase tracking-widest hover:bg-black transition-all shadow disabled:opacity-50 whitespace-nowrap truncate px-2"
+                            className="flex-1 py-4 bg-[#86D9A9] text-[#26382E] rounded-2xl text-[10px] sm:text-xs font-black uppercase tracking-widest hover:bg-[#A7E8C2] transition-all shadow-sm disabled:opacity-50 whitespace-nowrap truncate px-2"
                         >
                             {isPending ? 'Deploying...' : user ? 'Sync Identity' : 'Authorize User'}
                         </button>
@@ -234,30 +234,30 @@ const GlobalUsers = () => {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-8">
                 <div>
                     <div className="flex items-center gap-3 mb-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
-                        <span className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em]">Master Directory</span>
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#86D9A9]" />
+                        <span className="text-[10px] font-black text-[#86D9A9] uppercase tracking-[0.3em]">Master Directory</span>
                     </div>
-                    <h1 className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-none">Identity Registry</h1>
-                    <p className="text-sm font-medium text-slate-500 mt-2 max-w-xl">Comprehensive management of global credentials across all territorial zones.</p>
+                    <h1 className="text-3xl font-black text-[#26382E] tracking-tighter uppercase leading-none">Identity Registry</h1>
+                    <p className="text-sm font-medium text-[#64748B] mt-2 max-w-xl">Comprehensive management of global credentials across all territorial zones.</p>
                 </div>
                 <button
                     onClick={openAddModal}
-                    className="w-full sm:w-auto h-14 px-10 bg-[#020617] text-white rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] hover:bg-black transition-all shadow-2xl shadow-slate-900/20 flex items-center justify-center gap-4 active:scale-95 ring-1 ring-slate-800"
+                    className="w-full sm:w-auto h-14 px-10 bg-[#86D9A9] text-[#26382E] rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] hover:bg-[#A7E8C2] transition-all shadow-sm flex items-center justify-center gap-4 active:scale-95"
                 >
                     <Plus size={18} />
                     <span>Provision Node</span>
                 </button>
             </div>
 
-            <div className="crm-card !p-6 flex flex-col lg:flex-row gap-6 items-center border-none shadow-2xl shadow-slate-200/50">
+            <div className="glass-card bg-white/80 border border-[#DDE8E0] !p-6 flex flex-col lg:flex-row gap-6 items-center shadow-sm rounded-3xl">
                 <div className="relative flex-1 w-full group">
-                    <Search size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-indigo-500 transition-colors" />
+                    <Search size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-[#64748B] group-focus-within:text-[#86D9A9] transition-colors" />
                     <input
                         type="text"
                         placeholder="Identify node..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-14 pr-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-[10px] font-black uppercase tracking-widest focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:bg-white focus:border-indigo-200 transition-all placeholder:text-slate-300 shadow-inner"
+                        className="w-full pl-14 pr-6 py-4 bg-white/80 border border-[#DDE8E0] rounded-2xl text-[10px] font-black uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-[#86D9A9]/30 transition-all placeholder:text-[#64748B]/50 text-[#26382E]"
                     />
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
@@ -265,46 +265,44 @@ const GlobalUsers = () => {
                         <select
                             value={roleFilter}
                             onChange={(e) => setRoleFilter(e.target.value)}
-                            className="w-full pl-6 pr-12 py-4 bg-white border border-slate-100 rounded-2xl text-[10px] font-black text-slate-400 uppercase tracking-widest appearance-none focus:outline-none focus:ring-4 focus:ring-indigo-500/10 cursor-pointer shadow-sm"
+                            className="w-full pl-6 pr-12 py-4 bg-white/80 border border-[#DDE8E0] rounded-2xl text-[10px] font-black text-[#26382E] uppercase tracking-widest appearance-none focus:outline-none focus:ring-2 focus:ring-[#86D9A9]/30 cursor-pointer shadow-sm"
                         >
                             <option>All Roles</option>
                             <option>Admin</option>
                             <option>Manager</option>
                             <option>Counselor</option>
                         </select>
-                        <ChevronDown size={14} className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none" />
+                        <ChevronDown size={14} className="absolute right-5 top-1/2 -translate-y-1/2 text-[#64748B] pointer-events-none" />
                     </div>
                     <div className="relative flex-1 sm:min-w-[180px]">
                         <select
                             value={countryFilter}
                             onChange={(e) => setCountryFilter(e.target.value)}
-                            className="w-full pl-6 pr-12 py-4 bg-white border border-slate-100 rounded-2xl text-[10px] font-black text-slate-400 uppercase tracking-widest appearance-none focus:outline-none focus:ring-4 focus:ring-indigo-500/10 cursor-pointer shadow-sm"
+                            className="w-full pl-6 pr-12 py-4 bg-white/80 border border-[#DDE8E0] rounded-2xl text-[10px] font-black text-[#26382E] uppercase tracking-widest appearance-none focus:outline-none focus:ring-2 focus:ring-[#86D9A9]/30 cursor-pointer shadow-sm"
                         >
                             <option>All Countries</option>
                             <option>India</option>
                             <option>USA</option>
                             <option>UK</option>
                         </select>
-                        <ChevronDown size={14} className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none" />
+                        <ChevronDown size={14} className="absolute right-5 top-1/2 -translate-y-1/2 text-[#64748B] pointer-events-none" />
                     </div>
                 </div>
             </div>
 
-            <div className="crm-card !p-0 overflow-hidden flex flex-col min-h-[500px] border-none shadow-2xl shadow-slate-200/50 w-full overflow-x-auto">
+            <div className="glass-card bg-white/80 border border-[#DDE8E0] !p-0 overflow-hidden flex flex-col min-h-[500px] shadow-sm rounded-3xl w-full overflow-x-auto">
                 <div className="overflow-x-auto w-full no-scrollbar">
                     <table className="w-full text-left border-collapse min-w-[1000px]">
                         <thead>
-                            <tr className="bg-[#F9FAFB]/50">
-                            <tr className="bg-[#F9FAFB]/50">
-                                <th className="px-4 sm:px-10 py-6 font-black text-gray-400 uppercase text-[9px] tracking-[0.2em]">User Identity</th>
-                                <th className="px-4 sm:px-10 py-6 font-black text-gray-400 uppercase text-[9px] tracking-[0.2em]">Protocol / State</th>
-                                <th className="px-4 sm:px-10 py-6 font-black text-gray-400 uppercase text-[9px] tracking-[0.2em]">Client Cluster</th>
-                                <th className="px-4 sm:px-10 py-6 font-black text-gray-400 uppercase text-[9px] tracking-[0.2em]">Infrastructure</th>
-                                <th className="px-4 sm:px-10 py-6 text-right font-black text-gray-400 uppercase text-[9px] tracking-[0.2em]">Actions</th>
-                            </tr>
+                            <tr className="bg-[#EDF8F0]/80 border-b border-[#DDE8E0]">
+                                <th className="px-4 sm:px-10 py-6 font-black text-[#64748B] uppercase text-[9px] tracking-[0.2em]">User Identity</th>
+                                <th className="px-4 sm:px-10 py-6 font-black text-[#64748B] uppercase text-[9px] tracking-[0.2em]">Protocol / State</th>
+                                <th className="px-4 sm:px-10 py-6 font-black text-[#64748B] uppercase text-[9px] tracking-[0.2em]">Client Cluster</th>
+                                <th className="px-4 sm:px-10 py-6 font-black text-[#64748B] uppercase text-[9px] tracking-[0.2em]">Infrastructure</th>
+                                <th className="px-4 sm:px-10 py-6 text-right font-black text-[#64748B] uppercase text-[9px] tracking-[0.2em]">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-[#E5E7EB]/50 text-xs">
+                        <tbody className="divide-y divide-[#DDE8E0] text-xs">
                             <AnimatePresence mode='popLayout'>
                                 {filteredUsers.map((user) => (
                                     <motion.tr
@@ -313,47 +311,47 @@ const GlobalUsers = () => {
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0, scale: 0.98 }}
                                         key={user.id}
-                                        className="group hover:bg-gray-50/50 transition-all cursor-pointer"
+                                        className="group hover:bg-[#F4FBF6] transition-all cursor-pointer"
                                     >
                                         <td className="px-4 sm:px-10 py-6 sm:py-8 whitespace-nowrap">
                                             <div className="flex items-center gap-3 sm:gap-5">
-                                                <div className="h-9 w-9 sm:h-12 sm:w-12 bg-indigo-50 text-indigo-600 rounded-[1rem] sm:rounded-[1.2rem] flex items-center justify-center font-black text-[10px] sm:text-xs shadow-sm border border-indigo-100 uppercase shrink-0">
+                                                <div className="h-9 w-9 sm:h-12 sm:w-12 bg-[#DDF7E8] text-[#26382E] rounded-[1rem] sm:rounded-[1.2rem] flex items-center justify-center font-black text-[10px] sm:text-xs shadow-sm border border-[#A7E8C2] uppercase shrink-0">
                                                     {user.name.split(' ').map(n => n[0]).join('')}
                                                 </div>
                                                 <div className="min-w-0">
-                                                    <div className="font-black text-sm text-[#111827] uppercase tracking-tighter truncate">{user.name}</div>
-                                                    <div className="text-[10px] text-gray-400 flex items-center gap-2 font-black uppercase tracking-widest mt-1 truncate">
-                                                        <Mail size={12} className="text-gray-300 shrink-0" /> {user.email}
+                                                    <div className="font-black text-sm text-[#26382E] uppercase tracking-tighter truncate">{user.name}</div>
+                                                    <div className="text-[10px] text-[#64748B] flex items-center gap-2 font-black uppercase tracking-widest mt-1 truncate">
+                                                        <Mail size={12} className="text-[#86D9A9] shrink-0" /> {user.email}
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="px-4 sm:px-10 py-6 sm:py-8 whitespace-nowrap">
                                             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
-                                                <span className="font-black text-[11px] text-[#111827] uppercase tracking-tighter">{String(typeof user.role === 'object' ? (user.role?.name || 'N/A') : (user.role || 'N/A'))}</span>
-                                                <div className="flex items-center gap-1.5 bg-gray-50 px-2 py-1 rounded-lg border border-gray-100 w-fit">
+                                                <span className="font-black text-[11px] text-[#26382E] uppercase tracking-tighter">{String(typeof user.role === 'object' ? (user.role?.name || 'N/A') : (user.role || 'N/A'))}</span>
+                                                <div className="flex items-center gap-1.5 bg-[#EDF8F0] px-2 py-1 rounded-lg border border-[#DDE8E0] w-fit">
                                                     <div className={cn(
                                                         "h-1.5 w-1.5 rounded-full",
-                                                        user.status === 'Active' ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]' :
+                                                        user.status === 'Active' ? 'bg-[#86D9A9]' :
                                                             user.status === 'Away' ? 'bg-amber-400' : 'bg-rose-500'
                                                     )} />
-                                                    <span className="font-black text-gray-600 tracking-widest uppercase text-[8px] sm:text-[9px]">{user.status}</span>
+                                                    <span className="font-black text-[#26382E] tracking-widest uppercase text-[8px] sm:text-[9px]">{user.status}</span>
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="px-4 sm:px-10 py-6 sm:py-8">
-                                            <div className="font-black text-xs text-[#111827] uppercase tracking-tighter truncate max-w-[120px]">{user.client}</div>
-                                            <div className="text-[9px] text-indigo-500 mt-1 flex items-center gap-1.5 font-black uppercase tracking-widest truncate">
-                                                <Briefcase size={12} className="text-indigo-300 shrink-0" /> {user.team}
+                                            <div className="font-black text-xs text-[#26382E] uppercase tracking-tighter truncate max-w-[120px]">{user.client}</div>
+                                            <div className="text-[9px] text-[#86D9A9] mt-1 flex items-center gap-1.5 font-black uppercase tracking-widest truncate">
+                                                <Briefcase size={12} className="text-[#86D9A9] shrink-0" /> {user.team}
                                             </div>
                                         </td>
                                         <td className="px-4 sm:px-10 py-6 sm:py-8 text-right">
                                             <button
                                                 onClick={(e) => { e.stopPropagation(); openEditModal(user); }}
-                                                className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-50 text-indigo-600 border border-indigo-100 rounded-xl font-black text-[10px] sm:text-xs shadow-sm cursor-pointer hover:bg-indigo-100 transition-all whitespace-nowrap"
+                                                className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-[#EDF8F0] text-[#26382E] border border-[#DDE8E0] rounded-xl font-black text-[10px] sm:text-xs shadow-sm cursor-pointer hover:bg-[#DDF7E8] transition-all whitespace-nowrap"
                                                 title="Reconfigure Nodes"
                                             >
-                                                <Globe size={14} className="text-indigo-500 hidden sm:block" />
+                                                <Globe size={14} className="text-[#86D9A9] hidden sm:block" />
                                                 {user.assignedChannels} Nodes
                                             </button>
                                         </td>
@@ -361,7 +359,7 @@ const GlobalUsers = () => {
                                             <div className="flex items-center justify-end gap-3">
                                                 <button
                                                     onClick={() => openEditModal(user)}
-                                                    className="p-3 bg-white border border-gray-100 rounded-xl text-gray-400 hover:text-indigo-600 hover:border-indigo-100 transition-all shadow-sm"
+                                                    className="p-3 bg-white/80 border border-[#DDE8E0] rounded-xl text-[#64748B] hover:text-[#26382E] hover:bg-[#EDF8F0] transition-all shadow-sm"
                                                     title="Modify Identity"
                                                 >
                                                     <Edit size={16} strokeWidth={2.5} />
@@ -373,7 +371,7 @@ const GlobalUsers = () => {
                                                         }
                                                     }}
                                                     disabled={toggleStatus.isPending}
-                                                    className="p-3 bg-white border border-gray-100 rounded-xl text-gray-400 hover:text-rose-600 hover:border-rose-100 transition-all shadow-sm disabled:opacity-50 inline-flex items-center gap-2"
+                                                    className="p-3 bg-white/80 border border-[#DDE8E0] rounded-xl text-[#64748B] hover:text-rose-600 hover:border-rose-200 transition-all shadow-sm disabled:opacity-50 inline-flex items-center gap-2"
                                                     title="Decommission User"
                                                 >
                                                     <ShieldOff size={16} strokeWidth={2.5} className={toggleStatus.isPending ? "animate-pulse" : ""} />
@@ -385,9 +383,9 @@ const GlobalUsers = () => {
                             </AnimatePresence>
                             {filteredUsers.length === 0 && (
                                 <tr>
-                                    <td colSpan={5} className="px-10 py-32 text-center text-gray-400 italic">
+                                    <td colSpan={5} className="px-10 py-32 text-center text-[#64748B] italic">
                                         <div className="flex flex-col items-center gap-4">
-                                            <Users size={48} className="text-gray-100" />
+                                            <Users size={48} className="text-[#64748B]/40" />
                                             <span className="text-xs font-black uppercase tracking-[0.3em]">No identities located in current subspace</span>
                                         </div>
                                     </td>
@@ -397,11 +395,11 @@ const GlobalUsers = () => {
                     </table>
                 </div>
 
-                <div className="p-10 border-t border-gray-100 bg-gray-50/50 flex items-center justify-between mt-auto">
-                    <p className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em]">System encrypted user registry</p>
+                <div className="p-10 border-t border-[#DDE8E0] bg-[#EDF8F0]/60 flex items-center justify-between mt-auto">
+                    <p className="text-[10px] font-black text-[#64748B] uppercase tracking-[0.3em]">System encrypted user registry</p>
                     <button 
                         onClick={() => { setSearchTerm(''); setRoleFilter('All Roles'); setCountryFilter('All Countries'); }}
-                        className="px-5 py-2 bg-[#111827] text-white rounded-xl text-[9px] font-black uppercase tracking-widest flex items-center gap-2 hover:bg-black transition-all cursor-pointer shadow-lg active:scale-95"
+                        className="px-5 py-2 bg-[#86D9A9] text-[#26382E] rounded-xl text-[9px] font-black uppercase tracking-widest flex items-center gap-2 hover:bg-[#A7E8C2] transition-all cursor-pointer shadow-sm active:scale-95"
                         title="Reset Filters to View All"
                     >
                         <UserCheck size={12} /> {users.filter(u => u.status === 'Active').length} Active Entities
@@ -424,6 +422,7 @@ const GlobalUsers = () => {
 }
 
 export default GlobalUsers
+
 
 
 

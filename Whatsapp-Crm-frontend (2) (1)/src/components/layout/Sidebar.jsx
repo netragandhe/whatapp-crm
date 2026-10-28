@@ -85,13 +85,6 @@ const IconMap = {
   ScrollText,
 }
 
-// Fallback menus when role doesn't match
-// const FALLBACK_MENUS = [
-//   { icon: 'LayoutDashboard', label: 'Dashboard', path: '/' },
-//   { icon: 'Inbox', label: 'Inbox', path: '/inbox' },
-//   { icon: 'Users', label: 'Leads', path: '/leads' },
-// ]
-
 const SidebarItem = ({ icon: Icon, label, path, collapsed, onClick }) => {
   const location = useLocation()
   const isActive = location.pathname === path
@@ -101,17 +94,17 @@ const SidebarItem = ({ icon: Icon, label, path, collapsed, onClick }) => {
       to={path}
       onClick={onClick}
       className={cn(
-        "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-300 group no-underline relative",
+        "flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all duration-200 group no-underline relative",
         isActive
-          ? "bg-emerald-500/10 text-emerald-400 font-semibold"
-          : "text-gray-400 hover:bg-emerald-950/30 hover:text-emerald-200"
+          ? "bg-[#DDF7E8] text-[#26382E] font-bold shadow-xs border border-[#A7E8C2]/60"
+          : "text-[#64748B] hover:bg-white/80 hover:text-[#26382E]"
       )}
     >
       {isActive && (
-        <span className="absolute left-0 top-1/2 -translate-y-1/2 h-8 w-1 rounded-r-full bg-[#059669] shadow-[0_0_10px_rgba(5,150,105,0.7)]" />
+        <span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-1 rounded-r-full bg-[#86D9A9]" />
       )}
-      <Icon className={cn("h-5 w-5 shrink-0 transition-transform duration-300 group-hover:scale-110", isActive ? "text-[#10b981]" : "text-gray-400 group-hover:text-emerald-200")} />
-      {!collapsed && <span className="text-sm">{label}</span>}
+      <Icon className={cn("h-4 w-4 shrink-0 transition-transform duration-200 group-hover:scale-110", isActive ? "text-[#2E8456]" : "text-[#64748B] group-hover:text-[#26382E]")} />
+      {!collapsed && <span className="text-xs truncate">{label}</span>}
     </Link>
   )
 }
@@ -150,7 +143,7 @@ const Sidebar = () => {
       {/* Mobile Overlay */}
       <div
         className={cn(
-            "fixed inset-0 bg-black/60 z-[60] md:hidden backdrop-blur-sm transition-all duration-500 ease-in-out",
+            "fixed inset-0 bg-[#26382E]/30 z-[60] md:hidden backdrop-blur-xs transition-all duration-500 ease-in-out",
             mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         )}
         onClick={() => setMobileMenuOpen(false)}
@@ -158,51 +151,51 @@ const Sidebar = () => {
 
       <aside
         className={cn(
-          "fixed left-0 top-0 h-screen bg-[#111827] text-white transition-all duration-500 ease-in-out z-[70] flex flex-col shadow-2xl",
+          "fixed left-0 top-0 h-screen bg-[#EDF8F0]/90 backdrop-blur-2xl text-[#26382E] border-r border-[#DDE8E0] transition-all duration-500 ease-in-out z-[70] flex flex-col shadow-glass",
           sidebarCollapsed ? "md:w-20" : "w-64",
           mobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         )}
       >
         <div className={cn(
-          "flex items-center justify-between border-b border-[#1F2937] relative transition-all duration-500",
-          (!sidebarCollapsed || mobileMenuOpen) ? "h-20 px-4" : "h-16 px-3"
+          "flex items-center justify-between border-b border-[#DDE8E0] relative bg-white/40 transition-all duration-500",
+          (!sidebarCollapsed || mobileMenuOpen) ? "h-20 px-4" : "h-20 px-2 justify-center"
         )}>
           {(!sidebarCollapsed || mobileMenuOpen) && (
-            <div className="flex items-center gap-3 min-w-0 w-full justify-start">
-              <div className="h-14 w-24 flex items-center justify-center shrink-0">
-                <img src={ktLogo} alt="Logo" className="h-full w-full object-contain" />
+            <Link to="/" className="flex items-center gap-2.5 min-w-0 w-full justify-start">
+              <div className="h-10 w-14 flex items-center justify-center shrink-0">
+                <img src={ktLogo} alt="Logo" className="h-full w-full object-contain filter drop-shadow-sm" />
               </div>
               <div className="flex flex-col min-w-0">
-                <span className="font-black text-lg text-white tracking-tight leading-none truncate">
-                  Whats<span className="text-[#10b981]">CRM</span>
+                <span className="font-black text-sm text-[#26382E] tracking-tight leading-none truncate">
+                  Whats<span className="text-[#2E8456]">CRM</span>
                 </span>
-                <span className="text-xs font-semibold text-emerald-400 tracking-wider truncate mt-1">
+                <span className="text-[10px] font-semibold text-[#64748B] tracking-wider truncate mt-0.5">
                   Kiaan Tech
                 </span>
               </div>
-            </div>
+            </Link>
           )}
+
           {sidebarCollapsed && !mobileMenuOpen && (
-            <div className="h-12 w-16 flex items-center justify-center mx-auto hover:scale-105 transition-transform cursor-pointer">
-              <img src={ktLogo} alt="Logo" className="h-full w-full object-contain" />
-            </div>
+            <Link to="/" className="h-9 w-12 flex items-center justify-center mx-auto hover:scale-105 transition-transform cursor-pointer">
+              <img src={ktLogo} alt="Logo" className="h-full w-full object-contain filter drop-shadow-sm" />
+            </Link>
           )}
 
           <button
-            className="md:hidden absolute top-3 right-3 p-1.5 text-gray-400 hover:text-white transition-colors"
+            className="md:hidden absolute top-3 right-3 p-1.5 text-[#64748B] hover:text-[#26382E] transition-colors"
             onClick={() => setMobileMenuOpen(false)}
           >
-            <X size={20} />
+            <X size={18} />
           </button>
 
           <button
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className="hidden md:flex absolute -right-3 top-20 h-6 w-6 bg-[#059669] border border-[#111827] rounded-full items-center justify-center text-white hover:bg-[#047857] transition-all hover:scale-110 z-50 shadow-md"
+            className="hidden md:flex absolute -right-3 top-7 h-6 w-6 bg-[#86D9A9] border border-[#DDE8E0] rounded-full items-center justify-center text-[#26382E] hover:bg-[#A7E8C2] transition-all hover:scale-110 z-50 shadow-sm"
           >
-            {sidebarCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+            {sidebarCollapsed ? <ChevronRight size={13} strokeWidth={3} /> : <ChevronLeft size={13} strokeWidth={3} />}
           </button>
         </div>
-
 
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto custom-scrollbar">
           {menuItems.map((item) => (
@@ -216,16 +209,16 @@ const Sidebar = () => {
           ))}
         </nav>
 
-        <div className="p-4 border-t border-[#1F2937] space-y-4">
+        <div className="p-3.5 border-t border-[#DDE8E0] space-y-3 bg-white/30">
           {(!sidebarCollapsed || mobileMenuOpen) && (
-            <div className="bg-[#1F2937]/50 p-3 rounded-xl border border-[#374151]/50 backdrop-blur-sm">
-              <p className="text-[10px] text-gray-400 font-semibold mb-2 uppercase tracking-wider">Quota Usage</p>
-              <div className="w-full bg-[#374151] rounded-full h-1.5 mb-2 overflow-hidden">
-                <div className="bg-[#059669] h-1.5 rounded-full w-3/4 transition-all duration-1000 ease-out shadow-[0_0_8px_rgba(5,150,105,0.7)]"></div>
+            <div className="bg-white/80 p-3 rounded-2xl border border-[#DDE8E0] shadow-glass-sm backdrop-blur-sm">
+              <p className="text-[9px] text-[#64748B] font-black mb-1.5 uppercase tracking-wider">Quota Usage</p>
+              <div className="w-full bg-[#EDF8F0] rounded-full h-1.5 mb-2 overflow-hidden border border-[#DDE8E0]">
+                <div className="bg-[#86D9A9] h-1.5 rounded-full w-3/4 transition-all duration-1000 ease-out shadow-xs"></div>
               </div>
-              <div className="flex justify-between items-center text-[10px]">
-                <span className="text-gray-300">75% Used</span>
-                <span className="text-gray-500">750/1000</span>
+              <div className="flex justify-between items-center text-[10px] font-semibold">
+                <span className="text-[#26382E]">75% Used</span>
+                <span className="text-[#64748B]">750 / 1,000</span>
               </div>
             </div>
           )}
@@ -233,12 +226,12 @@ const Sidebar = () => {
           <button
             onClick={() => useAppStore.getState().logout()}
             className={cn(
-              "w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 group text-rose-400 hover:bg-rose-500/10 hover:text-rose-300",
+              "w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition-all duration-200 group text-rose-600 hover:bg-rose-50/80 font-bold text-xs uppercase tracking-wider",
               sidebarCollapsed && !mobileMenuOpen ? "justify-center" : ""
             )}
           >
-            <Zap className="h-5 w-5 shrink-0" />
-            {(!sidebarCollapsed || mobileMenuOpen) && <span className="text-sm font-bold uppercase tracking-widest">Logout Protocol</span>}
+            <Zap className="h-4 w-4 shrink-0 text-rose-500" />
+            {(!sidebarCollapsed || mobileMenuOpen) && <span>Logout Session</span>}
           </button>
         </div>
       </aside>

@@ -9,39 +9,37 @@ import {
     Target,
     UserCheck
 } from 'lucide-react'
-import { motion } from 'framer-motion'
-import { cn } from '../lib/utils'
 import { useQuery } from '@tanstack/react-query'
 import api from '../services/api'
 
 const QuestionItem = ({ question, index }) => (
-    <div className="crm-card !p-4 flex gap-4 items-start group">
-        <div className="mt-1 flex flex-col items-center gap-1 cursor-grab text-gray-300 group-hover:text-gray-400">
+    <div className="glass-card !p-5 flex gap-4 items-start group rounded-2xl border border-[#DDE8E0] shadow-glass hover:border-[#86D9A9] transition-all">
+        <div className="mt-1 flex flex-col items-center gap-1 cursor-grab text-[#64748B]/60 group-hover:text-[#26382E]">
             <GripVertical size={20} />
         </div>
         <div className="flex-1 space-y-3">
             <div className="flex items-center justify-between gap-2">
-                <span className="text-[10px] font-bold text-[#3B5BDB] uppercase tracking-wider shrink-0">Step {index + 1}</span>
+                <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider shrink-0 bg-[#DDF7E8] px-2.5 py-1 rounded-lg border border-[#86D9A9]/30">Step {index + 1}</span>
                 <div className="flex items-center gap-1 md:gap-2 shrink-0">
-                    <button className="p-1 md:p-1.5 text-[#6B7280] hover:text-[#EF4444] rounded hover:bg-rose-50 transition-colors"><Trash2 size={14} md:size={16} /></button>
-                    <button className="p-1 md:p-1.5 text-[#6B7280] hover:text-[#3B5BDB] rounded hover:bg-indigo-50 transition-colors"><Settings2 size={14} md:size={16} /></button>
+                    <button className="p-1.5 text-[#64748B] hover:text-rose-600 rounded-lg hover:bg-rose-50 transition-colors"><Trash2 size={16} /></button>
+                    <button className="p-1.5 text-[#64748B] hover:text-[#26382E] rounded-lg hover:bg-[#EDF8F0] transition-colors"><Settings2 size={16} /></button>
                 </div>
             </div>
             <input
                 type="text"
                 defaultValue={question}
-                className="w-full font-medium text-[#111827] bg-transparent border-none focus:ring-0 p-0"
+                className="w-full font-bold text-[#26382E] bg-transparent border-none focus:ring-0 p-0 text-sm tracking-tight"
             />
             <div className="flex flex-wrap gap-2">
-                <span className="text-[9px] md:text-[10px] px-2 py-1 bg-gray-100 rounded text-[#111827] font-medium border border-gray-200 whitespace-nowrap">Text Input</span>
-                <span className="text-[9px] md:text-[10px] px-2 py-1 bg-indigo-50 text-[#3B5BDB] rounded font-medium border border-indigo-100 whitespace-nowrap">Extracts: Program</span>
+                <span className="text-[9px] md:text-[10px] px-2.5 py-1 bg-[#EDF8F0] rounded-xl text-[#26382E] font-bold border border-[#DDE8E0] whitespace-nowrap">Text Input</span>
+                <span className="text-[9px] md:text-[10px] px-2.5 py-1 bg-[#DDF7E8] text-emerald-800 rounded-xl font-bold border border-[#86D9A9]/40 whitespace-nowrap">Extracts: Program</span>
             </div>
         </div>
     </div>
 )
 
 const AIQualification = () => {
-    const { data: configResp, isLoading } = useQuery({
+    const { data: configResp } = useQuery({
         queryKey: ['ai-config'],
         queryFn: async () => {
             const res = await api.get('/dashboard/ai-config');
@@ -57,22 +55,20 @@ const AIQualification = () => {
     ]
 
     const threshold = configResp?.threshold || 65
-    const rules = configResp?.rules || []
-    const scoringRules = configResp?.scoringRules || []
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-8 pb-20">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl md:text-3xl font-black text-[#111827] uppercase tracking-tight">AI Qualification Builder</h1>
-                    <p className="text-[10px] md:text-xs font-medium text-[#6B7280] mt-1 uppercase tracking-widest">Design the chat flow and extraction rules for automatic lead qualification.</p>
+                    <h1 className="text-2xl md:text-3xl font-black text-[#26382E] uppercase tracking-tight">AI Qualification Builder</h1>
+                    <p className="text-[10px] md:text-xs font-bold text-[#64748B] mt-1 uppercase tracking-widest">Design the chat flow and extraction rules for automatic lead qualification.</p>
                 </div>
                 <div className="flex items-center gap-2 md:gap-3 w-full sm:w-auto">
-                    <button className="flex-1 sm:flex-none justify-center flex items-center gap-2 bg-white border border-[#E5E7EB] text-[#111827] px-4 py-2.5 rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest hover:bg-gray-50 transition-colors shadow-sm">
+                    <button className="flex-1 sm:flex-none justify-center flex items-center gap-2 bg-white/80 backdrop-blur-md border border-[#DDE8E0] text-[#26382E] px-5 py-2.5 rounded-2xl font-bold text-[10px] md:text-xs uppercase tracking-widest hover:bg-[#F4FBF6] transition-colors shadow-sm">
                         <Save size={14} className="shrink-0" />
                         <span>Save</span>
                     </button>
-                    <button className="flex-1 sm:flex-none justify-center flex items-center gap-2 bg-[#111827] text-white px-4 py-2.5 rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest hover:bg-black transition-colors shadow-xl shadow-indigo-100">
+                    <button className="flex-1 sm:flex-none justify-center flex items-center gap-2 bg-[#86D9A9] text-[#26382E] px-5 py-2.5 rounded-2xl font-bold text-[10px] md:text-xs uppercase tracking-widest hover:bg-[#A7E8C2] transition-colors shadow-sm">
                         <Plus size={14} className="shrink-0" />
                         <span>Question</span>
                     </button>
@@ -82,8 +78,8 @@ const AIQualification = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Left: Flow Builder */}
                 <div className="lg:col-span-2 space-y-4">
-                    <h3 className="text-sm font-bold text-[#111827] flex items-center gap-2">
-                        <BrainCircuit size={18} className="text-[#3B5BDB]" />
+                    <h3 className="text-sm font-bold text-[#26382E] flex items-center gap-2">
+                        <BrainCircuit size={18} className="text-emerald-700" />
                         Qualification Flow
                     </h3>
                     <div className="space-y-3">
@@ -95,46 +91,46 @@ const AIQualification = () => {
 
                 {/* Right: Rules & Preview */}
                 <div className="space-y-6">
-                    <div className="crm-card">
-                        <h3 className="text-sm font-bold text-[#111827] mb-4 flex items-center gap-2">
-                            <Target size={18} className="text-[#3B5BDB]" />
+                    <div className="glass-card p-6 rounded-3xl border border-[#DDE8E0] shadow-glass">
+                        <h3 className="text-sm font-bold text-[#26382E] mb-4 flex items-center gap-2">
+                            <Target size={18} className="text-emerald-700" />
                             Scoring Rules
                         </h3>
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
-                                <span className="text-sm text-[#6B7280]">Minimum Score</span>
-                                <span className="text-sm font-bold text-[#111827]">{threshold}</span>
+                                <span className="text-sm text-[#64748B]">Minimum Score</span>
+                                <span className="text-sm font-bold text-[#26382E]">{threshold}</span>
                             </div>
-                            <input type="range" className="w-full accent-[#3B5BDB]" value={threshold} readOnly />
+                            <input type="range" className="w-full accent-[#86D9A9]" value={threshold} readOnly />
                             <div className="space-y-2 pt-2">
                                 <label className="flex items-center gap-3 cursor-pointer">
-                                    <input type="checkbox" className="rounded text-[#3B5BDB] focus:ring-[#3B5BDB]" defaultChecked />
-                                    <span className="text-sm text-[#111827]">Auto-assign qualified leads</span>
+                                    <input type="checkbox" className="rounded text-emerald-600 focus:ring-[#86D9A9]" defaultChecked />
+                                    <span className="text-sm text-[#26382E]">Auto-assign qualified leads</span>
                                 </label>
                                 <label className="flex items-center gap-3 cursor-pointer">
-                                    <input type="checkbox" className="rounded text-[#3B5BDB] focus:ring-[#3B5BDB]" defaultChecked />
-                                    <span className="text-sm text-[#111827]">Send WhatsApp notification</span>
+                                    <input type="checkbox" className="rounded text-emerald-600 focus:ring-[#86D9A9]" defaultChecked />
+                                    <span className="text-sm text-[#26382E]">Send WhatsApp notification</span>
                                 </label>
                             </div>
                         </div>
                     </div>
 
-                    <div className="bg-[#111827] p-6 rounded-3xl text-white shadow-2xl relative overflow-hidden border border-gray-800">
+                    <div className="glass-card p-6 rounded-3xl text-[#26382E] shadow-glass relative overflow-hidden border border-[#DDE8E0]">
                         <div className="relative z-10">
-                            <h3 className="text-[10px] md:text-xs font-black uppercase tracking-widest mb-4 flex items-center gap-2">
-                                <UserCheck size={16} className="text-[#10B981]" />
+                            <h3 className="text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <UserCheck size={16} className="text-emerald-700" />
                                 Extraction Preview
                             </h3>
                             <div className="space-y-3">
                                 {['Name', 'Email', 'Program', 'Qualification', 'Timeline'].map((field) => (
-                                    <div key={field} className="flex justify-between items-center text-[10px] md:text-xs font-bold uppercase tracking-widest border-b border-[#1F2937] pb-2">
-                                        <span className="text-gray-400">{field}</span>
-                                        <span className="text-indigo-400">Pending</span>
+                                    <div key={field} className="flex justify-between items-center text-[10px] md:text-xs font-bold uppercase tracking-widest border-b border-[#DDE8E0]/40 pb-2">
+                                        <span className="text-[#64748B]">{field}</span>
+                                        <span className="text-emerald-800 bg-[#DDF7E8] px-2 py-0.5 rounded-lg border border-[#86D9A9]/30">Pending</span>
                                     </div>
                                 ))}
                             </div>
                         </div>
-                        <div className="absolute -bottom-6 -right-6 opacity-5 pointer-events-none text-indigo-500">
+                        <div className="absolute -bottom-6 -right-6 opacity-5 pointer-events-none text-[#86D9A9]">
                             <BrainCircuit size={160} />
                         </div>
                     </div>
@@ -145,5 +141,3 @@ const AIQualification = () => {
 }
 
 export default AIQualification
-
-
