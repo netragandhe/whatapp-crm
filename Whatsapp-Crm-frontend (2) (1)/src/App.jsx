@@ -46,6 +46,7 @@ import LeadAssignment from './pages/support/LeadAssignment'
 import AiStatus from './pages/support/AiStatus'
 import TemplatesLibrary from './pages/TemplatesLibrary'
 import LoginPage from './pages/auth/LoginPage'
+import Signup from './pages/auth/Signup'
 import LandingPage from './pages/LandingPage'
 import AnalyticsPage from './pages/AnalyticsPage'
 
@@ -91,7 +92,7 @@ function AppRoutes() {
 
   // Session hydration is now handled internally by useAppStore initialization
   useEffect(() => {
-    if (isAuthenticated && location.pathname === '/login') {
+    if (isAuthenticated && (location.pathname === '/login' || location.pathname === '/signup')) {
       const homePath = roleHomePages[role] || '/super-admin'
       navigate(homePath, { replace: true })
     }
@@ -104,6 +105,7 @@ function AppRoutes() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/landing" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         <ToastContainer />
@@ -117,6 +119,8 @@ function AppRoutes() {
         {/* Redirect bare "/" to role-specific homepage */}
         <Route path="/" element={<Navigate to={roleHomePages[role] || '/super-admin'} replace />} />
         <Route path="/landing" element={<LandingPage />} />
+        <Route path="/login" element={<Navigate to={roleHomePages[role] || '/super-admin'} replace />} />
+        <Route path="/signup" element={<Navigate to={roleHomePages[role] || '/super-admin'} replace />} />
 
         <Route path="/inbox" element={<Inbox />} />
         <Route path="/leads" element={<Leads />} />

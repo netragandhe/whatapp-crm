@@ -234,13 +234,13 @@ const LandingPage = () => {
                 >
                   Sign In
                 </Link>
-                <button
-                  onClick={() => navigate('/login')}
+                <Link
+                  to="/signup"
                   className="px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider bg-emerald-600 text-white hover:bg-emerald-700 transition-all shadow-md shadow-emerald-600/25 flex items-center gap-2 hover:scale-[1.02] active:scale-95"
                 >
-                  Access 6 Dashboards
+                  Sign Up Free
                   <ArrowRight size={14} />
-                </button>
+                </Link>
               </>
             )}
           </div>
