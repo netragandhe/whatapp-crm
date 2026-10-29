@@ -1,4 +1,4 @@
-# Modern Role-Based Enterprise CRM
+# Kiaan CRM — Modern Role-Based Enterprise CRM
 
 A comprehensive, production-ready Customer Relationship Management system built with a React frontend, Node.js + Express backend, Prisma ORM, and MySQL database.
 

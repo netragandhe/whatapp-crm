@@ -63,7 +63,7 @@ const Navbar = () => {
 
       <div className="flex-1 px-2 md:px-4">
         <div className="flex items-center gap-2">
-          <span className="text-sm md:text-base font-black text-[#26382E] tracking-tight">WhatsApp CRM Workspace</span>
+          <span className="text-sm md:text-base font-black text-[#26382E] tracking-tight">Kiaan CRM Workspace</span>
           <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full bg-[#DDF7E8] text-[#26382E] text-[10px] font-black uppercase tracking-wider border border-[#A7E8C2]/60">
             {typeof role === 'object' ? role?.name : role}
           </span>

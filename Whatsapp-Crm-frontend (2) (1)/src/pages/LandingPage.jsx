@@ -66,7 +66,7 @@ const LandingPage = () => {
     }
   }
 
-  // The 6 Exact Dedicated Roles in this WhatsApp CRM
+  // The 6 Exact Dedicated Roles in this Kiaan CRM
   const projectRoles = [
     {
       id: 'super-admin',
@@ -200,10 +200,10 @@ const LandingPage = () => {
             </div>
             <div className="flex flex-col text-left">
               <span className="text-xl font-black tracking-tight text-[#26382E] leading-none">
-                Whats<span className="text-[#2E8456]">CRM</span>
+                Kiaan <span className="text-[#2E8456]">CRM</span>
               </span>
               <span className="text-[10px] font-black tracking-widest text-[#64748B] uppercase mt-1">
-                Kiaan Tech • WhatsCRM
+                Kiaan Tech • Kiaan CRM
               </span>
             </div>
           </Link>
@@ -263,7 +263,7 @@ const LandingPage = () => {
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-[#DDE8E0] text-[#26382E] text-[11px] font-black uppercase tracking-wider shadow-sm"
             >
               <GraduationCap className="w-4 h-4 text-[#26382E]" />
-              STUDY FIRST INFO LTD. • ENTERPRISE WHATSAPP CRM
+              STUDY FIRST INFO LTD. • ENTERPRISE KIAAN CRM
             </motion.div>
 
             {/* Main Headline */}
@@ -337,7 +337,7 @@ const LandingPage = () => {
           </div>
 
           {/* ─────────────────────────────────────────────────────────────
-              HERO LIVE MOCKUP: STUDY FIRST INFO WHATSAPP CRM PREVIEW
+              HERO LIVE MOCKUP: STUDY FIRST INFO KIAAN CRM PREVIEW
           ───────────────────────────────────────────────────────────── */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -777,7 +777,7 @@ const LandingPage = () => {
                 Never Miss a Lead With Automated Round-Robin Routing
               </h2>
               <p className="text-[#64748B] text-sm font-medium leading-relaxed">
-                When a student sends a WhatsApp message or registers via web forms, WhatsCRM instantly analyzes their territory, program of interest, and counselor availability.
+                When a student sends a WhatsApp message or registers via web forms, Kiaan CRM instantly analyzes their territory, program of interest, and counselor availability.
               </p>
 
               <div className="space-y-3 pt-2">
@@ -1022,7 +1022,7 @@ const LandingPage = () => {
                   ))}
                 </div>
                 <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                  "Our admission conversion rate jumped by 34% within 3 weeks of rolling out WhatsCRM at Study First Info. Round-robin assignment ensured no student inquiry was left waiting."
+                  "Our admission conversion rate jumped by 34% within 3 weeks of rolling out Kiaan CRM at Study First Info. Round-robin assignment ensured no student inquiry was left waiting."
                 </p>
               </div>
               <div className="mt-6 pt-6 border-t border-slate-200 flex items-center gap-3">
@@ -1156,7 +1156,7 @@ const LandingPage = () => {
             Ready to Streamline Admissions & Lead Operations?
           </h2>
           <p className="text-[#64748B] text-sm sm:text-base font-medium max-w-xl mx-auto">
-            Experience the power of 6 unified role dashboards, round-robin routing, and automated WhatsApp CRM.
+            Experience the power of 6 unified role dashboards, round-robin routing, and automated Kiaan CRM.
           </p>
 
           <div className="pt-4 flex flex-wrap justify-center gap-4">
@@ -1190,15 +1190,15 @@ const LandingPage = () => {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-lg font-black tracking-tight text-[#26382E] leading-none">
-                    Whats<span className="text-[#2E8456]">CRM</span>
+                    Kiaan <span className="text-[#2E8456]">CRM</span>
                   </span>
                   <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-widest mt-0.5">
-                    Kiaan Tech • WhatsCRM
+                    Kiaan Tech • Kiaan CRM
                   </span>
                 </div>
               </div>
               <p className="text-[#64748B] text-xs leading-relaxed">
-                Enterprise WhatsApp CRM platform engineered for education, course counseling, and student admissions operations worldwide.
+                Enterprise Kiaan CRM platform engineered for education, course counseling, and student admissions operations worldwide.
               </p>
             </div>
 
@@ -1236,7 +1236,7 @@ const LandingPage = () => {
           </div>
 
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[#64748B]">
-            <div>© {new Date().getFullYear()} Study First Info Ltd. • WhatsCRM Platform. All rights reserved.</div>
+            <div>© {new Date().getFullYear()} Study First Info Ltd. • Kiaan CRM Platform. All rights reserved.</div>
             <div className="flex gap-6">
               <a href="#" className="hover:text-[#26382E] transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-[#26382E] transition-colors">Terms of Operations</a>

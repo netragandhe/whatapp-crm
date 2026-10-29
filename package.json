@@ -1,7 +1,7 @@
 {
   "name": "whatsapp-crm-workspace",
   "version": "1.0.0",
-  "description": "WhatsApp CRM Multi-Module Workspace",
+  "description": "Kiaan CRM Multi-Module Workspace",
   "scripts": {
     "dev": "npm --prefix \"Whatsapp-Crm-frontend (2) (1)\" run dev",
     "dev:frontend": "npm --prefix \"Whatsapp-Crm-frontend (2) (1)\" run dev",

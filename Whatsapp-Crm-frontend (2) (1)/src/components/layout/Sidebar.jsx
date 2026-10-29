@@ -167,7 +167,7 @@ const Sidebar = () => {
               </div>
               <div className="flex flex-col min-w-0">
                 <span className="font-black text-base text-[#26382E] tracking-tight leading-none truncate">
-                  Whats<span className="text-[#2E8456]">CRM</span>
+                  Kiaan <span className="text-[#2E8456]">CRM</span>
                 </span>
                 <span className="text-[11px] font-semibold text-[#64748B] tracking-wider truncate mt-0.5">
                   Kiaan Tech

@@ -199,10 +199,10 @@ const LoginPage = () => {
                         </div>
                         <div className="flex flex-col">
                             <span className="text-xl font-black tracking-tight text-[#26382E] leading-none">
-                                Whats<span className="text-[#2E8456]">CRM</span>
+                                Kiaan <span className="text-[#2E8456]">CRM</span>
                             </span>
                             <span className="text-[10px] font-black tracking-widest text-[#64748B] uppercase mt-0.5">
-                                Kiaan Tech • WhatsCRM
+                                Kiaan Tech • Kiaan CRM
                             </span>
                         </div>
                     </Link>
@@ -249,7 +249,7 @@ const LoginPage = () => {
                                 {/* Top Pill Badge */}
                                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EDF8F0] border border-[#DDE8E0] text-[#26382E] text-[10px] font-black uppercase tracking-widest shadow-sm">
                                     <Sparkles className="w-3 h-3 text-[#16A34A]" />
-                                    #1 AI-Powered WhatsApp CRM
+                                    #1 AI-Powered Kiaan CRM
                                 </div>
 
                                 <div className="space-y-3">
@@ -524,7 +524,7 @@ const LoginPage = () => {
             ───────────────────────────────────────────────────────────── */}
             <footer className="bg-white/80 backdrop-blur-xl border-t border-[#DDE8E0] py-6 text-xs text-[#64748B] text-center">
                 <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-                    <div>© {new Date().getFullYear()} WhatsCRM Platform. All rights reserved.</div>
+                    <div>© {new Date().getFullYear()} Kiaan CRM Platform. All rights reserved.</div>
                     <div className="flex items-center gap-6 font-medium">
                         <Link to="/" className="hover:text-[#26382E] transition-colors">Features</Link>
                         <Link to="/" className="hover:text-[#26382E] transition-colors">Pricing</Link>

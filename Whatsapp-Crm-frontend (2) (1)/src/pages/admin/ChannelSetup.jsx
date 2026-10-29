@@ -23,7 +23,7 @@ const TabButton = ({ active, label, icon: Icon, onClick }) => (
 
 const GenerateScriptModal = ({ widget, onClose }) => {
     const [copied, setCopied] = useState(false)
-    const scriptCode = `<!-- WhatsApp CRM Widget -->\n<script src="https://cdn.whatsappcrm.io/widget.js?id=${widget?.id * 734}"></script>\n<script>\n  window.CrmWidget.init({ domain: "${widget?.domain}" });\n</script>`
+    const scriptCode = `<!-- Kiaan CRM Widget -->\n<script src="https://cdn.whatsappcrm.io/widget.js?id=${widget?.id * 734}"></script>\n<script>\n  window.CrmWidget.init({ domain: "${widget?.domain}" });\n</script>`
 
     const handleCopy = () => {
         navigator.clipboard.writeText(scriptCode)

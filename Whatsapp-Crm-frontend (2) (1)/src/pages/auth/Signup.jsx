@@ -94,10 +94,10 @@ const Signup = () => {
                         </div>
                         <div className="flex flex-col">
                             <span className="text-xl font-black tracking-tight text-[#26382E] leading-none">
-                                Whats<span className="text-[#2E8456]">CRM</span>
+                                Kiaan <span className="text-[#2E8456]">CRM</span>
                             </span>
                             <span className="text-[10px] font-black tracking-widest text-[#64748B] uppercase mt-0.5">
-                                Kiaan Tech • WhatsCRM
+                                Kiaan Tech • Kiaan CRM
                             </span>
                         </div>
                     </Link>
@@ -151,7 +151,7 @@ const Signup = () => {
                                     <h1 className="text-3xl xl:text-4xl font-black text-[#26382E] tracking-tight leading-snug">
                                         Scale Your Team With{' '}
                                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#26382E] via-[#16A34A] to-[#26382E]">
-                                            WhatsCRM
+                                            Kiaan CRM
                                         </span>
                                     </h1>
                                     <p className="text-xs xl:text-sm text-[#64748B] font-medium leading-relaxed">
@@ -195,7 +195,7 @@ const Signup = () => {
                                 {/* Testimonial Card */}
                                 <div className="p-4 rounded-2xl bg-white/80 border border-[#DDE8E0] shadow-sm text-[11px]">
                                     <p className="text-[#26382E] italic leading-relaxed">
-                                        "Our admission conversion rate jumped by 34% within 3 weeks of rolling out WhatsCRM."
+                                        "Our admission conversion rate jumped by 34% within 3 weeks of rolling out Kiaan CRM."
                                     </p>
                                     <div className="mt-2.5 pt-2 border-t border-[#DDE8E0] flex items-center justify-between text-[10px]">
                                         <span className="font-bold text-[#26382E]">Ankit Patel</span>
@@ -377,7 +377,7 @@ const Signup = () => {
                                                 className="w-4 h-4 rounded text-[#86D9A9] border-[#DDE8E0] focus:ring-[#86D9A9] mt-0.5"
                                             />
                                             <span>
-                                                I agree to WhatsCRM{' '}
+                                                I agree to Kiaan CRM{' '}
                                                 <Link to="/" className="text-[#26382E] hover:underline font-bold">Terms of Service</Link>{' '}
                                                 and{' '}
                                                 <Link to="/" className="text-[#26382E] hover:underline font-bold">Privacy Policy</Link>.
@@ -426,7 +426,7 @@ const Signup = () => {
             ───────────────────────────────────────────────────────────── */}
             <footer className="bg-white/80 backdrop-blur-xl border-t border-[#DDE8E0] py-6 text-xs text-[#64748B] text-center">
                 <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-                    <div>© {new Date().getFullYear()} WhatsCRM Platform. All rights reserved.</div>
+                    <div>© {new Date().getFullYear()} Kiaan CRM Platform. All rights reserved.</div>
                     <div className="flex items-center gap-6 font-medium">
                         <Link to="/" className="hover:text-[#26382E] transition-colors">Features</Link>
                         <Link to="/" className="hover:text-[#26382E] transition-colors">Pricing</Link>
