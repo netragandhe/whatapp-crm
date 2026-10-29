@@ -10,26 +10,6 @@ dotenv.config();
 
 const app = express();
 
-// ─────────────────────────────────────────────────
-// 🛡️ PRODUCTION SECURITY & LOGGING
-// ─────────────────────────────────────────────────
-
-// 1. Secure Headers
-app.use(helmet());
-
-// 2. Request Logging (Morgan)
-app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
-
-// 3. Global Rate Limiting
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 1000, // Limit each IP to 1000 requests per window
-    standardHeaders: true,
-    legacyHeaders: false,
-    message: { success: false, message: 'Too many requests from this IP, please try again after 15 minutes.' }
-});
-app.use('/api/', limiter);
-
 // Dynamic CORS to support localhost on any port (3000, 3001, 5173, etc.) and production domains
 const allowedOrigins = [
     process.env.FRONTEND_URL,
@@ -51,7 +31,7 @@ const corsOptions = {
         ) {
             return callback(null, true);
         }
-        return callback(new Error('Not allowed by CORS'));
+        return callback(null, false);
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
@@ -59,6 +39,29 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+// ─────────────────────────────────────────────────
+// 🛡️ PRODUCTION SECURITY & LOGGING
+// ─────────────────────────────────────────────────
+
+// 1. Secure Headers
+app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
+
+// 2. Request Logging (Morgan)
+app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
+
+// 3. Global Rate Limiting
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 1000, // Limit each IP to 1000 requests per window
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { success: false, message: 'Too many requests from this IP, please try again after 15 minutes.' }
+});
+app.use('/api/', limiter);
+
 app.use(express.json({ limit: '1mb' })); // Limit body size to prevent DoS
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
