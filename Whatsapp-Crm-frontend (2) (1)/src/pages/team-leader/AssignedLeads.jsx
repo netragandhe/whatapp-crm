@@ -221,7 +221,7 @@ const AssignedLeads = () => {
             {/* Note Modal */}
             <AnimatePresence>
                 {noteModalOpen && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 !m-0 !mt-0">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -292,7 +292,7 @@ const AssignedLeads = () => {
             {/* Lead Detail Drawer (Placeholder) */}
             <AnimatePresence>
                 {selectedLead && (
-                    <div className="fixed inset-0 z-[90] flex items-stretch justify-end">
+                    <div className="fixed inset-0 z-[90] flex items-stretch justify-end !m-0 !mt-0">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -305,7 +305,7 @@ const AssignedLeads = () => {
                             animate={{ x: 0, opacity: 1 }}
                             exit={{ x: '100%', opacity: 0 }}
                             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="glass-card bg-white/95 w-full max-w-sm relative z-10 shadow-2xl border-l border-[#DDE8E0] flex flex-col h-full items-center justify-center p-8 text-center"
+                            className="glass-card bg-white/95 w-full max-w-sm relative z-10 shadow-2xl border-l border-[#DDE8E0] flex flex-col h-full items-center justify-center p-8 text-center rounded-none"
                         >
                             <Users size={48} className="text-[#86D9A9] mb-4" />
                             <h3 className="text-lg font-black text-[#26382E] uppercase tracking-tighter">{selectedLead.leadName}</h3>

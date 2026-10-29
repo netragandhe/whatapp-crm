@@ -200,7 +200,7 @@ const AiStatus = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="fixed inset-0 z-[60] bg-black/20 backdrop-blur-sm"
+                            className="fixed inset-0 z-[60] bg-black/20 backdrop-blur-sm !m-0 !mt-0"
                             onClick={() => setSelectedLead(null)}
                         />
                         <motion.div
@@ -208,7 +208,7 @@ const AiStatus = () => {
                             animate={{ x: 0 }}
                             exit={{ x: '100%' }}
                             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="fixed right-0 top-0 h-full w-full max-w-full sm:max-w-md bg-white/95 backdrop-blur-xl border-l border-[#DDE8E0] shadow-2xl z-[70] flex flex-col"
+                            className="fixed right-0 top-0 h-full w-full max-w-full sm:max-w-md bg-white/95 backdrop-blur-xl border-l border-[#DDE8E0] shadow-2xl z-[70] flex flex-col !m-0 !mt-0"
                         >
                             <div className="p-6 border-b border-[#DDE8E0] flex items-center justify-between bg-[#EDF8F0]/70">
                                 <div>

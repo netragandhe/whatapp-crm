@@ -145,8 +145,8 @@ const InvoiceDrawer = ({ isOpen, onClose, subscription, downloadInvoice, updateP
         <AnimatePresence>
             {isOpen && (
                 <>
-                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px]" />
-                    <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ type: 'spring', damping: 25, stiffness: 200 }} className="fixed inset-y-0 right-0 z-[60] w-full max-w-md glass-card bg-white/95 shadow-2xl overflow-hidden flex flex-col border-l border-[#DDE8E0]">
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px] !m-0 !mt-0" />
+                    <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ type: 'spring', damping: 25, stiffness: 200 }} className="fixed inset-y-0 right-0 z-[60] w-full max-w-md glass-card bg-white/95 shadow-2xl overflow-hidden flex flex-col border-l border-[#DDE8E0] !m-0 !mt-0 rounded-none">
                         <div className="p-8 border-b border-[#DDE8E0] flex justify-between items-center bg-[#EDF8F0]/80">
                             <div>
                                 <h3 className="text-xl font-black text-[#26382E] uppercase tracking-tight">Invoice Archive</h3>

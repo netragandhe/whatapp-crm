@@ -160,7 +160,7 @@ const CounselorPerformance = () => {
             {/* Counselor Detail Drawer */}
             <AnimatePresence>
                 {selectedCounselor && (
-                    <div className="fixed inset-0 z-[100] flex items-stretch justify-end">
+                    <div className="fixed inset-0 z-[100] flex items-stretch justify-end !m-0 !mt-0">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -173,7 +173,7 @@ const CounselorPerformance = () => {
                             animate={{ x: 0, opacity: 1 }}
                             exit={{ x: '100%', opacity: 0 }}
                             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="glass-card bg-white/95 backdrop-blur-2xl w-full max-w-md relative z-10 shadow-glass-lg border-l border-[#DDE8E0] flex flex-col h-full"
+                            className="glass-card bg-white/95 backdrop-blur-2xl w-full max-w-md relative z-10 shadow-glass-lg border-l border-[#DDE8E0] flex flex-col h-full rounded-none"
                         >
                             <div className="p-6 border-b border-[#DDE8E0] flex items-start justify-between bg-[#EDF8F0]/60">
                                 <div className="flex items-center gap-3.5">
